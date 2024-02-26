@@ -17,6 +17,8 @@ function submit() {
         <h1>home page</h1>
         <Link to='/achievements'>achievements page</Link>
         <Link to='/taskpage'>task page</Link>
+        <Link to='/spotify'>Spotify Page</Link>
+        <Link to='/stats'>Stats Page</Link>
       </header>
       <main>
       <div className='form-creation'>
