@@ -1,12 +1,13 @@
-/* body {
-    display: grid;
-    height: 100vh; 
-    place-items: center;
-    background: #243b47;
-  } */
-
-.progressBars {
+.stats-objects {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stats-objects > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
   
 svg {
@@ -32,26 +33,28 @@ svg {
 
 .meter-1 {
     stroke-dasharray: 360;
-    stroke-dashoffset: 100;
+    stroke-dashoffset: 0;
     stroke: #FF7100;
     animation: progress-1 1s ease-out;
 }
 
-.meter-2 {
-    stroke: #8BB52E;
-    stroke-dasharray: 360;
-    stroke-dashoffset: 160;
-    animation: progress-2 .75s ease-out;
-}
-
-.meter-3 {
-    stroke: #3BA9A0;
-    stroke-dasharray: 360;
-    stroke-dashoffset: 250;
-    animation: progress-3 .5s ease-out;
-}
-
 @keyframes progress-1 {
+    from {
+        stroke-dashoffset: 360;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.meter-2 {
+    stroke-dasharray: 360;
+    stroke-dashoffset: 100;
+    stroke: #8BB52E;
+    animation: progress-2 1s ease-out;
+}
+
+@keyframes progress-2 {
     from {
         stroke-dashoffset: 360;
     }
@@ -60,20 +63,24 @@ svg {
     }
 }
 
-@keyframes progress-2 {
-from {
-    stroke-dashoffset: 360;
-}
-to {
-    stroke-dashoffset: 160;
-}
+.stats-daily {
+    margin: 50px 0 50px 0;
 }
 
-@keyframes progress-3 {
-from {
-    stroke-dashoffset: 360;
-}
-to {
-    stroke-dashoffset: 250;
-}
-}
+.line-chart {
+    width: 100%;
+    max-width: 400px; /* Limit chart width */
+    margin: 0 auto; /* Center the chart */
+  }
+  
+  .line {
+    fill: none;
+    stroke: #007bff; /* Line color */
+    stroke-width: 2; /* Line thickness */
+  }
+  
+  .axis {
+    stroke: black; /* Axis color */
+    stroke-width: 1; /* Axis thickness */
+  }
+  
