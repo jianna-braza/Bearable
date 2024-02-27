@@ -9,6 +9,12 @@
     flex-direction: column;
     align-items: center;
 }
+
+.stats-graph > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
   
 svg {
     width: 114px;

@@ -56,32 +56,6 @@ export default function StatsPage(props) {
     );
   };
   
-  // const LineChart = () => {
-  //   const data = [30, 70, 40, 120, 90, 200]; // Example data for the chart
-  //   const viewBoxWidth = 400; // Width of the SVG viewBox
-  //   const viewBoxHeight = 200; // Height of the SVG viewBox
-  //   const maxDataValue = Math.max(...data);
-  //   const points = data.map((value, index) => {
-  //     const x = (index / (data.length - 1)) * viewBoxWidth;
-  //     const y = viewBoxHeight - (value / maxDataValue) * viewBoxHeight;
-  //     return `${x},${y}`;
-  //   });
-  //   const path = `M${points.join(' L')}`;
-  
-  //   return (
-  //     <div className="line-chart">
-  //       <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-  //         {/* Draw the line */}
-  //         <path className="line" d={path} />
-  //         {/* Draw the x-axis */}
-  //         <line x1="0" y1={viewBoxHeight} x2={viewBoxWidth} y2={viewBoxHeight} className="axis" />
-  //         {/* Draw the y-axis */}
-  //         <line x1="0" y1="0" x2="0" y2={viewBoxHeight} className="axis" />
-  //       </svg>
-  //     </div>
-  //   );
-  // };
-  
   return (
     <div>
       <main>
