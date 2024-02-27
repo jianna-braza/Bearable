@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Routes, Route, Navigate, BrowserRouter as Router, Link, useParams, NavLink} from 'react-router-dom'
 import HomePage from './homePage.js';
 import AchievementsPage from './achievementsPage.js';
-import TaskPage from './taskPage.js';
+import TaskPage from './TaskPage.js';
 import SpotifyPage from './spotify.js';
 import StatsPage from './stats.js';
 
