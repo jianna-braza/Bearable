@@ -64,7 +64,7 @@ export default function StatsPage(props) {
         <Link to='/taskpage'>task page</Link>
 
         <div className="stats-objects">
-          <div className="stats-streak">
+          <div className="stats-streak mar">
             <h3>7 Day Streak!</h3>
             <svg>
                 <circle class="bg" cx="57" cy="57" r="52" />
@@ -73,7 +73,7 @@ export default function StatsPage(props) {
             </svg>
           </div>
         
-          <div className="stats-daily">
+          <div className="stats-daily mar">
               <h3>5/7 Tasks Complete!</h3>
               <svg>
                   <circle class="bg" cx="57" cy="57" r="52" />
@@ -81,8 +81,35 @@ export default function StatsPage(props) {
                   <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black">Daily</text>
               </svg>
           </div>
+
+          <div className="stats-achievements mar">
+              <h3>15/30 Badges Unlocked!</h3>
+              <svg>
+                  <circle class="bg" cx="57" cy="57" r="52" />
+                  <circle class="meter-3" cx="57" cy="57" r="52" />
+                  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black">Badges</text>
+              </svg>
+          </div>
+
+          <div className="stats-daily-ques mar">
+            <h3>Daily Quest List</h3>
+            <label class="container">Reflect on a task
+              <input type="checkbox"/>
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container">Finish 3 subtasks within 1 hour
+              <input type="checkbox"/>
+              <span class="checkmark"></span>
+            </label>
+
+            <label class="container">Complete a task
+              <input type="checkbox"/>
+              <span class="checkmark"></span>
+            </label>
+          </div>
         
-          <div className="stats-graph">
+          <div className="stats-graph mar">
             <h3>Weekly Productivity</h3>
             <LineChart />
           </div>

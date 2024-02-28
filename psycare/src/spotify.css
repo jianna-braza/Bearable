@@ -1,3 +1,11 @@
 #spotifyPlayer iframe {
     border-radius: 12px;
 }
+
+.spotify-content {
+    margin: 50px;
+}
+
+.title {
+    margin-bottom: 25px;
+}
