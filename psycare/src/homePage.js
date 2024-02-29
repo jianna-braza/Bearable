@@ -23,14 +23,7 @@ export default function HomePage(props) {
           <ul class="menu">
             <li><a>About</a></li>
             <li><a>Works</a></li>
-            <li>
-              <a>Skills</a>
-              <ul class="submenu">
-                <li><a>React</a></li>
-                <li><a>Svelte</a></li>
-                <li><a>VueJs</a></li>
-              </ul>
-            </li>
+            <li><a>Skills</a></li>
             <li><a>Blogs</a></li>
             <li><a>Contact</a></li>
           </ul>
