@@ -5,6 +5,8 @@ import AchievementsPage from './achievementsPage.js';
 import TaskPage from './taskPage.js';
 import SpotifyPage from './spotify.js';
 import StatsPage from './stats.js';
+import TaskManager from './taskManager.js';
+import Calendar from './calendar.js';
 
 class App extends Component {
   render() {
@@ -16,6 +18,8 @@ class App extends Component {
             <Route path="taskpage" element={<TaskPage />} />
             <Route path="spotify" element={<SpotifyPage />} />
             <Route path="stats" element={<StatsPage />} />
+            <Route path="taskmanager" element={<TaskManager />} />
+            <Route path="calendar" element={<Calendar />} />
             <Route path='*' element={<Navigate to='/homepage' />} />
           </Routes>
       </Router>

@@ -1,22 +1,41 @@
 import { Link } from 'react-router-dom';
-import TaskForm from './taskForm.js';
-import React, { useState} from 'react';
+
 
 export default function HomePage(props) {
-  const [taskList, setTaskList] = useState([]);
 
   return (
     <div>
       <header>
-        <h1>home page</h1>
-        <Link to='/achievements'>achievements page</Link>
-        <Link to='/taskpage'>task page</Link>
-        <Link to='/spotify'>Spotify Page</Link>
-        <Link to='/stats'>Stats Page</Link>
+        <h1>Psycare</h1>
+        <div className='d-flex column'>
+          <button type="button" className="btn btn-outline-primary"><Link to='/achievements'>Achievements page</Link></button>
+          <button type="button" className="btn btn-outline-primary"><Link to='/taskpage'>Task page</Link></button>
+          <button type="button" className="btn btn-outline-primary"><Link to='/spotify'>Spotify Page</Link></button>
+          <button type="button" className="btn btn-outline-primary"><Link to='/stats'>Stats Page</Link></button>
+          <button type="button" className="btn btn-outline-primary"><Link to='/taskmanager'>Task Manager</Link></button>
+        </div>
       </header>
       <main>
-      <TaskForm />
-      <p>{taskList.length}</p>
+
+        <div className="d-flex row">
+          <section className='col-4'>
+            <h2>current task:</h2>
+            <h3>Pay Good to Go bill</h3>
+            <button type="button" className="btn btn-outline-success">Mark as done</button>
+          </section>
+          <section className='col-7'>
+            <div className='d-flex column'>
+              <button type="button" className="btn btn-outline-dark">Pomodoro timer</button>
+              <button type="button" className="btn btn-outline-dark">Short break</button>
+              <button type="button" className="btn btn-outline-dark">Long break</button>
+            </div>
+            <h1>2:45</h1>
+            <div className='d-flex column'>
+              <button type="button" className="btn btn-outline-dark">Pause</button>
+              <button type="button" className="btn btn-outline-dark">Restart</button>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   )
