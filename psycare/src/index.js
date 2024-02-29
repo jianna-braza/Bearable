@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import './splash.css'
 import reportWebVitals from './reportWebVitals';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, set as firebaseSet, onValue, push as firebasePush } from 'firebase/database';
