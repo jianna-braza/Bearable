@@ -4,7 +4,7 @@ function SplashMessage() {
     return (
         <div className="splash-background">
             <h2 className="welcome-to">Welcome to</h2>
-            <h1 className="aquapod-header">Psycare</h1>
+            <h1 className="psycare-header">Psycare</h1>
         </div>
 
     )

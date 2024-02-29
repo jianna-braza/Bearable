@@ -58,7 +58,7 @@
     opacity: 1;
 }
 
-.welcome-to, .the-header, .aquapod-header {
+.welcome-to, .psycare-header {
     color: #024343;
 }
 
@@ -74,20 +74,9 @@
     text-align: center;
 }
 
-/* the */
-.the-header {
-    width: 107px;
-    height: 68px;
-    left: 667px;
-    top: 363px;
-    font-weight: 400;
-    font-size: 60px;
-    line-height: 90px;
-    text-align: center;
-}
 
-/* AquaPod */
-.aquapod-header {
+/* Psycare */
+.psycare-header {
     width: 370px;
     height: 137px;
     left: 535px;
