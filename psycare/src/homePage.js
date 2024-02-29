@@ -1,7 +1,19 @@
 import { Link } from 'react-router-dom';
+import React, { useState} from 'react';
 
 
 export default function HomePage(props) {
+  let [time, setTime] = useState(300);
+
+  const timerFunction = event => {
+    const timer = setInterval(function () {
+      setTime(time--);
+      if (time === 0) {
+        clearInterval(timer);
+        console.log("Time's up!");
+      }
+    }, 1000);
+  }
 
   return (
     <div>
@@ -25,11 +37,11 @@ export default function HomePage(props) {
           </section>
           <section className='col-7'>
             <div className='d-flex column'>
-              <button type="button" className="btn btn-outline-dark">Pomodoro timer</button>
+              <button type="button" className="btn btn-outline-dark" onClick={timerFunction}>Pomodoro timer</button>
               <button type="button" className="btn btn-outline-dark">Short break</button>
               <button type="button" className="btn btn-outline-dark">Long break</button>
             </div>
-            <h1>2:45</h1>
+            <h2>{time}</h2>
             <div className='d-flex column'>
               <button type="button" className="btn btn-outline-dark">Pause</button>
               <button type="button" className="btn btn-outline-dark">Restart</button>
