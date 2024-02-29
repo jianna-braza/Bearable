@@ -21,11 +21,9 @@ export default function HomePage(props) {
         <h1>Psycare Home Page</h1>
         <nav>
           <ul class="menu">
-            <li><a>About</a></li>
-            <li><a>Works</a></li>
-            <li><a>Skills</a></li>
-            <li><a>Blogs</a></li>
-            <li><a>Contact</a></li>
+            <li><Link to='/taskmanager'>Task Manager</Link></li>
+            <li><Link to='/spotify'>Spotify Page</Link></li>
+            <li><Link to='/stats'>Stats Page</Link></li>
           </ul>
         </nav>
       </header>
@@ -45,7 +43,7 @@ export default function HomePage(props) {
             </div>
             <div className='d-flex column justify-content-end'>
               <div className='flex-row'>
-                <h2>{time}</h2>
+                <h2>{'' + Math.trunc(time / 60) + ':' + (time % 60)}</h2>
                 <button type="button" className="myButton">Pause</button>
                 <button type="button" className="myButton">Restart</button>
               </div>
