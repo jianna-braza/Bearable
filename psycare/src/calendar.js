@@ -17,8 +17,10 @@ export default function Calendar(props) {
       <main>
         <div className='d-flex row'>
           <section className='col-3'>
-            <button type="button" className="btn btn-outline-dark"><Link to='/taskmanager'>List view</Link></button>
-            <button type="button" className="btn btn-outline-dark">Calendar view</button>
+            <div className='row'>
+              <button type="button" className="btn btn-outline-dark"><Link to='/taskmanager'>List view</Link></button>
+              <button type="button" className="btn btn-outline-dark">Calendar view</button>
+            </div>
           </section>
           <section className='col-7'>
             <p>hi</p>

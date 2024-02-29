@@ -6,7 +6,7 @@ export default function HomePage(props) {
   return (
     <div>
       <header>
-        <h1>Psycare</h1>
+        <h1>Psycare Home Page</h1>
         <div className='d-flex column'>
           <button type="button" className="btn btn-outline-primary"><Link to='/achievements'>Achievements page</Link></button>
           <button type="button" className="btn btn-outline-primary"><Link to='/taskpage'>Task page</Link></button>
