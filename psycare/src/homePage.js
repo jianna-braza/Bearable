@@ -48,10 +48,6 @@ export default function HomePage(props) {
                   <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
               </ul>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
             </div>
           </div>
         </nav>
@@ -62,19 +58,19 @@ export default function HomePage(props) {
           <section className='col'>
             <h2>current task:</h2>
             <h3>Pay Good to Go bill</h3>
-            <button type="button" className="btn btn-outline-success">Mark as done</button>
+            <button type="button" className="myButton">Mark as done</button>
           </section>
           <section className='col'>
             <div className='d-flex column justify-content-end'>
-              <button type="button" className="btn btn-outline-dark" onClick={timerFunction}>Pomodoro timer</button>
-              <button type="button" className="btn btn-outline-dark">Short break</button>
-              <button type="button" className="btn btn-outline-dark">Long break</button>
+              <button type="button" className="myButton" onClick={timerFunction}>Pomodoro timer</button>
+              <button type="button" className="myButton">Short break</button>
+              <button type="button" className="myButton">Long break</button>
             </div>
             <div className='d-flex column justify-content-end'>
               <div className='flex-row'>
-              <h2>{time}</h2>
-              <button type="button" className="btn btn-outline-dark">Pause</button>
-              <button type="button" className="btn btn-outline-dark">Restart</button>
+                <h2>{time}</h2>
+                <button type="button" className="myButton">Pause</button>
+                <button type="button" className="myButton">Restart</button>
               </div>
             </div>
           </section>
