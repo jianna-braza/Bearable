@@ -20,7 +20,8 @@ export default function HomePage(props) {
       <header>
         <h1>Psycare Home Page</h1>
         <nav>
-          <ul class="menu">
+          <ul className="menu">
+            <li><Link to='/homepage'>Home</Link></li>
             <li><Link to='/taskmanager'>Task Manager</Link></li>
             <li><Link to='/spotify'>Spotify Page</Link></li>
             <li><Link to='/stats'>Stats Page</Link></li>

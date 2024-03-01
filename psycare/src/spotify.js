@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./spotify.css";
 
@@ -9,7 +9,7 @@ export default function SpotifyPage(props) {
         if (!document.getElementById('iframe1')) {
             // Create an iframe element
             const iframe = document.createElement('iframe');
-        
+
             // Set attributes for the iframe
             iframe.setAttribute('src', 'https://open.spotify.com/embed/playlist/1HVP7E8RkpieiGSxvATJbU?utm_source=generator');
             iframe.setAttribute('width', '100%');
@@ -19,10 +19,10 @@ export default function SpotifyPage(props) {
             iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
             iframe.setAttribute('loading', 'lazy');
             iframe.setAttribute('id', 'iframe1');
-        
+
             // Apply styles to the iframe
             iframe.style.borderRadius = '12px';
-        
+
             // Append the iframe to the specified element
             document.getElementById('spotifyPlayer').appendChild(iframe);
         }
@@ -33,7 +33,7 @@ export default function SpotifyPage(props) {
         if (!document.getElementById('iframe2')) {
             // Create an iframe element
             const iframe2 = document.createElement('iframe');
-        
+
             // Set attributes for the iframe
             iframe2.setAttribute('src', 'https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator');
             iframe2.setAttribute('width', '100%');
@@ -43,10 +43,10 @@ export default function SpotifyPage(props) {
             iframe2.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
             iframe2.setAttribute('loading', 'lazy');
             iframe2.setAttribute('id', 'iframe2');
-        
+
             // Apply styles to the iframe
             iframe2.style.borderRadius = '12px';
-        
+
             // Append the iframe to the specified element
             document.getElementById('spotifyPlayer').appendChild(iframe2);
         }
@@ -57,20 +57,21 @@ export default function SpotifyPage(props) {
             <main>
                 <h2>Spotify Page</h2>
                 <nav>
-          <ul class="menu">
-            <li><Link to='/taskmanager'>Task Manager</Link></li>
-            <li><Link to='/spotify'>Spotify Page</Link></li>
-            <li><Link to='/stats'>Stats Page</Link></li>
-          </ul>
-        </nav>
+                    <ul class="menu">
+                        <li><Link to='/homepage'>Home</Link></li>
+                        <li><Link to='/taskmanager'>Task Manager</Link></li>
+                        <li><Link to='/spotify'>Spotify Page</Link></li>
+                        <li><Link to='/stats'>Stats Page</Link></li>
+                    </ul>
+                </nav>
 
-                
+
                 <div className="spotify-content">
-                  <h3 className="title">Recommended Playlists</h3>
-                  <div id="spotifyPlayer"></div>
+                    <h3 className="title">Recommended Playlists</h3>
+                    <div id="spotifyPlayer"></div>
                 </div>
-                
-                
+
+
             </main>
         </div>
     )
@@ -117,7 +118,7 @@ export default function SpotifyPage(props) {
 //     useEffect(() => {
 //         // Create an iframe element
 //         const iframe = document.createElement('iframe');
-    
+
 //         // Set attributes for the iframe
 //         iframe.setAttribute('src', 'https://open.spotify.com/embed/playlist/1HVP7E8RkpieiGSxvATJbU?utm_source=generator');
 //         iframe.setAttribute('width', '100%');
@@ -126,10 +127,10 @@ export default function SpotifyPage(props) {
 //         iframe.setAttribute('allowfullscreen', '');
 //         iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
 //         iframe.setAttribute('loading', 'lazy');
-    
+
 //         // Apply styles to the iframe
 //         iframe.style.borderRadius = '12px';
-    
+
 //         // Append the iframe to the specified element
 //         document.getElementById('spotifyPlayer').appendChild(iframe);
 //       }, []);
@@ -137,7 +138,7 @@ export default function SpotifyPage(props) {
 //     useEffect(() => {
 //       // Create an iframe element
 //       const iframe2 = document.createElement('iframe');
-  
+
 //       // Set attributes for the iframe
 //       iframe2.setAttribute('src', 'https://open.spotify.com/embed/playlist/0vvXsWCC9xrXsKd4FyS8kM?utm_source=generator');
 //       iframe2.setAttribute('width', '100%');
@@ -146,10 +147,10 @@ export default function SpotifyPage(props) {
 //       iframe2.setAttribute('allowfullscreen', '');
 //       iframe2.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
 //       iframe2.setAttribute('loading', 'lazy');
-  
+
 //       // Apply styles to the iframe
 //       iframe2.style.borderRadius = '12px';
-  
+
 //       // Append the iframe to the specified element
 //       document.getElementById('spotifyPlayer').appendChild(iframe2);
 //     }, []);

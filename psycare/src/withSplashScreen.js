@@ -23,7 +23,6 @@ export default function withSplashScreen(WrappedComponent) {
         }
 
         async componentDidMount() {
-            console.log("rendering timeout")
             // await request
             setTimeout(() => {
                 this.setState({
@@ -33,7 +32,6 @@ export default function withSplashScreen(WrappedComponent) {
         }
 
         handleAnimationEnd(event) {
-            console.log("rendering end")
             if (!this.animationEndHandled && event.target.classList.contains('splash')) {
                 this.animationEndHandled = true;
                 this.setState({
@@ -45,7 +43,6 @@ export default function withSplashScreen(WrappedComponent) {
         render() {
             const { loading, fadeOut } = this.state;
 
-            console.log("rendering splash")
             return (
                 <div className={`splash-container ${fadeOut ? 'fade-out' : 'fade-in'}`}>
                     <SplashMessage />

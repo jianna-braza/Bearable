@@ -62,6 +62,7 @@ export default function StatsPage(props) {
         <h2>Stats Page</h2>
         <nav>
           <ul class="menu">
+            <li><Link to='/homepage'>Home</Link></li>
             <li><Link to='/taskmanager'>Task Manager</Link></li>
             <li><Link to='/spotify'>Spotify Page</Link></li>
             <li><Link to='/stats'>Stats Page</Link></li>
