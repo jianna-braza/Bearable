@@ -7,7 +7,7 @@ export default function Calendar(props) {
       <header>
         <h1>Psycare calendar view</h1>
         <nav>
-          <ul class="menu">
+          <ul class="menu mb-3 d-flex justify-content-end">
             <li><Link to='/homepage'>Home</Link></li>
             <li><Link to='/taskmanager'>Task Manager</Link></li>
             <li><Link to='/spotify'>Spotify Page</Link></li>

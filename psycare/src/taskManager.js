@@ -133,7 +133,7 @@ export default function TaskManager(props) {
       <header>
         <h1>Psycare Task Manager</h1>
         <nav>
-          <ul className="menu">
+          <ul className="menu mb-3 d-flex justify-content-end">
             <li><Link to='/homepage'>Home</Link></li>
             <li><Link to='/taskmanager'>Task Manager</Link></li>
             <li><Link to='/spotify'>Spotify Page</Link></li>
@@ -149,7 +149,7 @@ export default function TaskManager(props) {
               <button type="button" className="myButton"><Link to='/calendar'>Calendar view</Link></button>
             </div>
           </section>
-          <section className='col-7'>
+          <section className='col-9'>
 
             <div className="d-flex justify-content-around">
               <h2>February 2024 &lt; &gt;</h2>

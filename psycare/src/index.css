@@ -21,12 +21,17 @@ body {
   bottom:0px;
   left:0%;
   height:35%;
-  width:25%;
+  width:20%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+section {
+  border: 1px solid black;
+  border-bottom: #fff;
 }
 
 .myButton {

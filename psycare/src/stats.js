@@ -61,7 +61,7 @@ export default function StatsPage(props) {
       <main>
         <h2>Stats Page</h2>
         <nav>
-          <ul class="menu">
+          <ul class="menu mb-3 d-flex justify-content-end">
             <li><Link to='/homepage'>Home</Link></li>
             <li><Link to='/taskmanager'>Task Manager</Link></li>
             <li><Link to='/spotify'>Spotify Page</Link></li>
