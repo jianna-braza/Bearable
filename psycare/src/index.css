@@ -9,6 +9,7 @@ body {
   display: flex;
   height: inherit;
   flex-direction: column;
+  background-color: #F2EBE0;
 }
 
 code {
@@ -31,8 +32,8 @@ code {
   z-index: 0;
   background: #fff;
   overflow: hidden;
-  border: 2px solid #57cc99;
-  color: #57cc99;
+  border: 2px solid #235347;
+  color: #235347;
   margin: 2px;
 }
 .myButton:hover {
@@ -50,7 +51,7 @@ code {
   bottom: 0;
   height: 0;
   width: 100%;
-  background: #57cc99;
+  background: #235347;
 }
 
 ul {

@@ -32,9 +32,10 @@ export default function HomePage(props) {
 
         <div className="d-flex row" >
           <section className='col'>
-            <h2>current task:</h2>
+            <h2>Current Task:</h2>
             <h3>Pay Good to Go bill</h3>
             <button type="button" className="myButton">Mark as done</button>
+            <img src="../img/bear.png" />
           </section>
           <section className='col'>
             <div className='d-flex column justify-content-end'>
