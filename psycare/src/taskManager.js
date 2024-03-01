@@ -3,19 +3,11 @@ import { Link } from 'react-router-dom';
 
 export default function TaskManager(props) {
   let testTasks = [ //list of objects with the date and an array of task objects
-    {
-      day: "Mon, 19",
-      tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }]
-    },
-    {
-      day: "Tues, 20",
-      tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }]
-    },
-    {
-      day: "Wed, 21",
-      tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }]
-    }
+    { day: "Mon, 19", tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }] },
+    { day: "Tues, 20", tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
+    { day: "Wed, 21", tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
   ]
+
 
   const cards = testTasks.map(date => {
     let dayTasks = date['tasks'].map(task => {
@@ -69,10 +61,39 @@ export default function TaskManager(props) {
     return (
       <div className='column' key={date.day}>
         <button type="button" className="btn btn-dark">{date.day}</button>
+
+
+        <button type="button" className="btn btn-primary" data-toggle="modal" data-backdrop="false" data-target="#exampleModal">
+          Launch demo modal
+        </button>
+
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>hi</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
         {dayTasks}
       </div>
     )
   })
+
 
 
 
