@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function TaskManager(props) {
-  let testTasks = [ //list of objects with the date and an array of task objects
+  let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
     { day: "Mon, 19", tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }] },
     { day: "Tues, 20", tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
     { day: "Wed, 21", tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
-  ]
+  ])
+  const [dropTag, setDropTag] = useState("What kind of task is this?");
+
+  const handleChange = event => {
+    let tag = event.target.textContent;
+    setDropTag(tag);
+  }
+
+  const addTask = event => {
+    let newName = document.getElementById('task_input').value;
+    let tempTasks = testTasks;
+    for (let i = 0; i < testTasks.length; i++) {
+      if (testTasks[i].day === 'Mon, 19') {
+        tempTasks[i].tasks.push({name: newName, tag: dropTag})
+      }
+    }
+    setTestTasks(tempTasks);
+    setDropTag("What kind of task is this?");
+  }
+
 
 
   const cards = testTasks.map(date => {
@@ -64,24 +83,36 @@ export default function TaskManager(props) {
 
 
         <button type="button" className="btn btn-primary" data-toggle="modal" data-backdrop="false" data-target="#exampleModal">
-          Launch demo modal
+          Add task
         </button>
 
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Create new task</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body">
-                <p>hi</p>
+              <div className="modal-body d-flex row">
+                <label htmlFor="task_input">Task name:</label>
+                <input id="task_input" />
+                <div className="dropdown">
+                  <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    {dropTag}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li key='school work'><button className="dropdown-item" onClick={handleChange} >School</button></li>
+                    <li key='chores'><button className="dropdown-item" onClick={handleChange} >Personal</button></li>
+                    <li key='daily'><button className="dropdown-item" onClick={handleChange} >Work</button></li>
+                  </ul>
+                </div>
+
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Save changes</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={addTask}>Save changes</button>
               </div>
             </div>
           </div>
