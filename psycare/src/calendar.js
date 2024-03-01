@@ -6,13 +6,13 @@ export default function Calendar(props) {
     <div>
       <header>
         <h1>Psycare calendar view</h1>
-        <div className='d-flex column'>
-          <button type="button" className="btn btn-outline-primary"><Link to='/homepage'>Home Page</Link></button>
-          <button type="button" className="btn btn-outline-primary"><Link to='/achievements'>Achievements page</Link></button>
-          <button type="button" className="btn btn-outline-primary"><Link to='/taskpage'>Task page</Link></button>
-          <button type="button" className="btn btn-outline-primary"><Link to='/spotify'>Spotify Page</Link></button>
-          <button type="button" className="btn btn-outline-primary"><Link to='/stats'>Stats Page</Link></button>
-        </div>
+        <nav>
+          <ul class="menu">
+            <li><Link to='/taskmanager'>Task Manager</Link></li>
+            <li><Link to='/spotify'>Spotify Page</Link></li>
+            <li><Link to='/stats'>Stats Page</Link></li>
+          </ul>
+        </nav>
       </header>
       <main>
         <div className='d-flex row'>

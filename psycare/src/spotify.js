@@ -56,8 +56,13 @@ export default function SpotifyPage(props) {
         <div>
             <main>
                 <h2>Spotify Page</h2>
-                <Link to='/homepage'>home page</Link>
-                <Link to='/taskpage'>task page</Link>
+                <nav>
+          <ul class="menu">
+            <li><Link to='/taskmanager'>Task Manager</Link></li>
+            <li><Link to='/spotify'>Spotify Page</Link></li>
+            <li><Link to='/stats'>Stats Page</Link></li>
+          </ul>
+        </nav>
 
                 
                 <div className="spotify-content">
