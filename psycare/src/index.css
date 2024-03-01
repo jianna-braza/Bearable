@@ -12,6 +12,18 @@ body {
   background-color: #F2EBE0;
 }
 
+.timer {
+  text-align: center;
+}
+
+.bear {
+  position:fixed;
+  bottom:0px;
+  left:0%;
+  height:35%;
+  width:25%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
