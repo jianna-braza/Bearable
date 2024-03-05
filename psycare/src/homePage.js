@@ -10,8 +10,9 @@ export default function HomePage(props) {
 
 
 
-  const [timer, setTimer] = useState(300);
+  const [timer, setTimer] = useState(1500);
   const [timeInterval, setTimeInterval] = useState(null);
+  const [initialTime, setInitialTime] = useState();
 
   // Function to start the timer
   const startTimer = () => {
@@ -38,29 +39,27 @@ export default function HomePage(props) {
   // Function to reset the timer
   const resetTimer = () => {
     // Reset the timer value to 0
-    setTimer(300);
+    setTimer(initialTime);
     // Clear the interval to stop the timer
     clearInterval(timeInterval);
   }
 
 
+  const readyTimer = (event) => {
+    if (event.target.textContent === 'Short break') {
+      setInitialTime(300);
+      setTimer(300);
+    } else if (event.target.textContent === 'Long break') {
+      setInitialTime(900)
+      setTimer(900);
+    } else {
+      setInitialTime(1500)
+      setTimer(1500);
+    }
+    startTimer();
+  }
 
 
-
-
-  // const timerFunction = event => {
-  //   timer = setInterval(function () {
-  //     setTime(time--);
-  //     if (time === 0) {
-  //       clearInterval(timer);
-  //     }
-  //   }, 1000);
-  // }
-
-  // function pause() {
-  //   setTime(0);
-  //   clearInterval(timer);
-  // }
 
   function update() {
     setTaskNum(2);
@@ -120,9 +119,9 @@ export default function HomePage(props) {
           </section>
           <section className='col-9'>
             <div className='d-flex column justify-content-around mb-5 mt-3'>
-              <button type="button" className="myButton" onClick={startTimer}>Pomodoro timer</button>
-              <button type="button" className="myButton" >Short break</button>
-              <button type="button" className="myButton">Long break</button>
+              <button type="button" className="myButton" onClick={readyTimer}>Pomodoro timer</button>
+              <button type="button" className="myButton" onClick={readyTimer}>Short break</button>
+              <button type="button" className="myButton" onClick={readyTimer}>Long break</button>
             </div>
             <div className='d-flex justify-content-around align-items-center'>
               <div>
