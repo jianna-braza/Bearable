@@ -3,23 +3,64 @@ import React, { useState } from 'react';
 
 
 export default function HomePage(props) {
-  let [time, setTime] = useState(300);
   let [taskNum, setTaskNum] = useState(1);
   let [taskName, setTaskName] = useState("Pay Good to Go bill");
-  let timer;
+  let [pauseBool, setPauseBool] = useState(true);
 
-  const timerFunction = event => {
-    timer = setInterval(function () {
-      setTime(time--);
-      if (time === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
+
+
+
+  const [timer, setTimer] = useState(300);
+  const [timeInterval, setTimeInterval] = useState(null);
+
+  // Function to start the timer
+  const startTimer = () => {
+    // Use setInterval to update the timer every 1000 milliseconds (1 second)
+    setTimeInterval(setInterval(() => {
+      // Update the timer by incrementing the previous value by 1
+      setTimer((prev) => prev - 1);
+    }, 1000));
   }
 
-  function pause() {
-    clearInterval(timer);
+  // Function to pause the timer
+  const pauseTimer = () => {
+    if (pauseBool) {
+      clearInterval(timeInterval);
+      setPauseBool(false);
+    } else {
+      startTimer();
+      setPauseBool(true);
+    }
+    // Clear the interval to stop the timer from updating
+
   }
+
+  // Function to reset the timer
+  const resetTimer = () => {
+    // Reset the timer value to 0
+    setTimer(300);
+    // Clear the interval to stop the timer
+    clearInterval(timeInterval);
+  }
+
+
+
+
+
+
+  // const timerFunction = event => {
+  //   timer = setInterval(function () {
+  //     setTime(time--);
+  //     if (time === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // }
+
+  // function pause() {
+  //   setTime(0);
+  //   clearInterval(timer);
+  // }
 
   function update() {
     setTaskNum(2);
@@ -79,18 +120,18 @@ export default function HomePage(props) {
           </section>
           <section className='col-9'>
             <div className='d-flex column justify-content-around mb-5 mt-3'>
-              <button type="button" className="myButton" onClick={timerFunction}>Pomodoro timer</button>
-              <button type="button" className="myButton" onClick={timerFunction}>Short break</button>
+              <button type="button" className="myButton" onClick={startTimer}>Pomodoro timer</button>
+              <button type="button" className="myButton" >Short break</button>
               <button type="button" className="myButton">Long break</button>
             </div>
             <div className='d-flex justify-content-around align-items-center'>
               <div>
                 <div className='justify-content-start'>
-                  <h2 className='timer mb-5'>{'' + Math.trunc(time / 60) + ':' + ((time % 60 == 0) ? '00' : time % 60)}</h2>
+                  <h2 className='timer mb-5'>{'' + Math.trunc(timer / 60) + ':' + ((timer % 60 === 0) ? '00' : timer % 60)}</h2>
                 </div>
 
-                <button type="button" className="myButton" onClick={pause}>Pause</button>
-                <button type="button" className="myButton">Restart</button>
+                <button type="button" className="myButton" onClick={pauseTimer}>Pause</button>
+                <button type="button" className="myButton" onClick={resetTimer}>Restart</button>
                 <div className="d-flex justify-content-center mt-5">
                   <img src='https://github.com/jianna-braza/Psycare/blob/main/psycare/img/woolly-barrel%201.png?raw=true' alt='barrel' />
                 </div>
