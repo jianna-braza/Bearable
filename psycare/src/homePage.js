@@ -47,12 +47,15 @@ export default function HomePage(props) {
 
   const readyTimer = (event) => {
     if (event.target.textContent === 'Short break') {
+      clearInterval(timeInterval);
       setInitialTime(300);
       setTimer(300);
     } else if (event.target.textContent === 'Long break') {
+      clearInterval(timeInterval);
       setInitialTime(900)
       setTimer(900);
     } else {
+      clearInterval(timeInterval);
       setInitialTime(1500)
       setTimer(1500);
     }
