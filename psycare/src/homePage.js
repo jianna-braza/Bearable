@@ -6,6 +6,7 @@ export default function HomePage(props) {
   let [taskNum, setTaskNum] = useState(1);
   let [taskName, setTaskName] = useState("Pay Good to Go bill");
   let [pauseBool, setPauseBool] = useState(true);
+  let [pauseText, setPauseText] = useState('Start');
 
 
 
@@ -26,9 +27,11 @@ export default function HomePage(props) {
   // Function to pause the timer
   const pauseTimer = () => {
     if (pauseBool) {
+      setPauseText('Start');
       clearInterval(timeInterval);
       setPauseBool(false);
     } else {
+      setPauseText('Pause');
       startTimer();
       setPauseBool(true);
     }
@@ -129,10 +132,10 @@ export default function HomePage(props) {
             <div className='d-flex justify-content-around align-items-center'>
               <div>
                 <div className='justify-content-start'>
-                  <h2 className='timer mb-5'>{'' + Math.trunc(timer / 60) + ':' + ((timer % 60 === 0) ? '00' : timer % 60)}</h2>
+                  <h2 className='timer mb-5'>{'' + Math.trunc(timer / 60) + ':' + ((timer % 60 <= 9) ? ('0' + (timer % 60)) : timer % 60)}</h2>
                 </div>
 
-                <button type="button" className="myButton" onClick={pauseTimer}>Pause</button>
+                <button type="button" className="myButton" onClick={pauseTimer}>{pauseText}</button>
                 <button type="button" className="myButton" onClick={resetTimer}>Restart</button>
                 <div className="d-flex justify-content-center mt-5">
                   <img src='https://github.com/jianna-braza/Psycare/blob/main/psycare/img/woolly-barrel%201.png?raw=true' alt='barrel' />
