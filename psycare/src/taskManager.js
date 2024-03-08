@@ -18,7 +18,7 @@ export default function TaskManager(props) {
     let newName = document.getElementById('task_input').value;
     let tempTasks = testTasks;
     for (let i = 0; i < testTasks.length; i++) {
-      if (testTasks[i].day === 'Mon, 19') {
+      if (testTasks[i].day === 'Tues, 20') {
         tempTasks[i].tasks.push({name: newName, tag: dropTag})
       }
     }

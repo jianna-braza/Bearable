@@ -13,7 +13,7 @@ export default function HomePage(props) {
 
   const [timer, setTimer] = useState(1500);
   const [timeInterval, setTimeInterval] = useState(null);
-  const [initialTime, setInitialTime] = useState();
+  const [initialTime, setInitialTime] = useState(1500);
 
   // Function to start the timer
   const startTimer = () => {
@@ -26,11 +26,11 @@ export default function HomePage(props) {
 
   // Function to pause the timer
   const pauseTimer = () => {
-    if (pauseBool) {
+    if (pauseBool) { //user is pausing the timer
       setPauseText('Start');
       clearInterval(timeInterval);
       setPauseBool(false);
-    } else {
+    } else { //user is starting the timer
       setPauseText('Pause');
       startTimer();
       setPauseBool(true);
@@ -41,7 +41,6 @@ export default function HomePage(props) {
 
   // Function to reset the timer
   const resetTimer = () => {
-    // Reset the timer value to 0
     setTimer(initialTime);
     // Clear the interval to stop the timer
     clearInterval(timeInterval);
