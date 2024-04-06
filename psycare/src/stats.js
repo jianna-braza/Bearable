@@ -1,125 +1,306 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./stats.css";
+import frog from "./assets/frog.png";
+import streak from "./assets/streak.png";
+import checkmark from "./assets/checkmark.png";
+import timer from "./assets/timer.png";
+import chest from "./assets/chest.png";
+import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush } from 'firebase/database';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
+function AddUserID(props) {
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "userID");
+
+  firebasePush(idRef, {userID: props} )
+}
+
+function UpdateCheckIn(props) {
+
+}
+
+function AddLifetimeTasks(props) {
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "userID");
+  const lifetimeRef = ref(idRef, "lifetime");
+
+  const lifetimeValue = 0;
+
+  onValue(lifetimeRef, (snapshot) => {
+    lifetimeValue = snapshot.val();
+  });
+
+  const newLifetime = lifetimeValue + 1;
+  firebaseSet(lifetimeRef, newLifetime);
+}
+
+function AddDate(props) {
+  
+}
+
+function AddDailyNumComplete(props) {
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "uniqueID");
+  const dateRef = ref(idRef, "date");
+  const taskRef = ref(dateRef, "tasks");
+  const dailyNumCompleteRef = ref(dateRef, "dailyNumTasksComplete");
+
+  const dailyNumCompleteValue = 0;
+
+  onValue(dailyNumCompleteRef, (snapshot) => {
+    dailyNumCompleteValue = snapshot.val();
+  });
+
+  const newDailyNumCompleteValue = dailyNumCompleteValue + 1;
+  firebaseSet(dailyNumCompleteRef, newDailyNumCompleteValue);
+}
+
+function UpdateAllDone(props) {
+
+}
+
+function AddTaskDailyNum(props) {
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "uniqueID");
+  const dateRef = ref(idRef, "date");
+  const taskRef = ref(dateRef, "tasks");
+  const dailyNumRef = ref(dateRef, "dailyNumTasks");
+
+  const dailyNumValue = 0;
+
+  firebasePush(taskRef, {name: props.taskName} );
+
+  onValue(dailyNumRef, (snapshot) => {
+    dailyNumValue = snapshot.val();
+  });
+
+  const newDailyNumValue = dailyNumValue + 1;
+  firebaseSet(dailyNumRef, newDailyNumValue);
+}
+
+
+
+
+
+
 
 export default function StatsPage(props) {
 
-  const LineChart = () => {
-    const data = [10, 40, 30, 60, 50, 90]; // Example data for the chart
-    const viewBoxWidth = 600; // Width of the SVG viewBox
-    const viewBoxHeight = 300; // Height of the SVG viewBox
-    const maxDataValue = Math.max(...data);
-    const tickCount = 5; // Number of tick marks on each axis
+  // get user unique id
+  // if it doesn't exist in db, create a new key
+  // if date doesn't exist, create date key
+    // new task added
+      // increment daily # tasks
+    // task completed
+      // increment daily # tasks completed
+      // incremement lifetime tasks
+  
+  // userid
+    // lifetime tasks completed
+    // date
+      // daily # tasks
+      // daily # tasks completed
+      // all tasks completed boolean
+      // tasks
+        // task 1
+        // task 2
 
-    // Calculate the tick values for the y-axis
-    const yTickValues = Array.from({ length: tickCount }).map((_, index) =>
-      Math.round((index / (tickCount - 1)) * maxDataValue)
-    );
+  // states
+  /*
+  const [lifetime, setLifetime] = useState(0);
+  const [dailyNum, setDailyNum] = useState(0);
+  const [dailyNumComplete, setDailyNumComplete] = useState(0);
+  */
 
-    // Generate the y-axis tick mark line segments
-    const yTickMarks = yTickValues.map((value, index) => (
-      <g key={index}>
-        <line
-          x1="0"
-          y1={(viewBoxHeight / (tickCount - 1)) * index}
-          x2="-5"
-          y2={(viewBoxHeight / (tickCount - 1)) * index}
-          className="tick"
-        />
-        <text x="-10" y={(viewBoxHeight / (tickCount - 1)) * index} dominantBaseline="middle" textAnchor="end">
-          {value}
-        </text>
-      </g>
-    ));
+  // get user unique id / add id to realtime database
+  /*
+  const uniqueID;
 
-    // Generate the path string for the line
-    const points = data.map((value, index) => {
-      const x = (index / (data.length - 1)) * viewBoxWidth;
-      const y = viewBoxHeight - (value / maxDataValue) * viewBoxHeight;
-      return `${x},${y}`;
-    });
-    const path = `M${points.join(' L')}`;
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "uniqueID");
 
-    return (
-      <div className="line-chart">
-        <svg viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
-          {/* Draw the line */}
-          <path className="line" d={path} />
-          {/* Draw the x-axis */}
-          <line x1="0" y1={viewBoxHeight} x2={viewBoxWidth} y2={viewBoxHeight} className="axis" />
-          {/* Draw the y-axis */}
-          <line x1="0" y1="0" x2="0" y2={viewBoxHeight} className="axis" />
-          {/* Draw y-axis tick marks and labels */}
-          {yTickMarks}
-        </svg>
-      </div>
-    );
-  };
+  firebasePush(idRef, {uniqueID: uniqueID} )
+  */
+
+  // update lifetime tasks completed
+  /*
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "uniqueID");
+  const lifetimeRef = ref(idRef, "lifetime");
+
+  onValue(lifetimeRef, (snapshot) => {
+    setLifetime(snapshot.val);
+    // const lifetimeValue = snapshot.val();
+  });
+
+  const newLifetime = lifetime + 1;
+  // const newLifetime = lifetimeValue + 1;
+  firebaseSet(lifetimeRef, newLifetime);
+  */
+
+  // add new date
+  /*
+  */
+
+  // add new tasks + increment daily # tasks
+  /*
+  const taskName;
+
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "uniqueID");
+  const dateRef = ref(idRef, "date");
+  const taskRef = ref(dateRef, "tasks");
+  const dailyNumRef = ref(dateRef, "dailyNumTasks");
+
+  firebasePush(taskRef, {name: taskName} );
+
+  onValue(dailyNumRef, (snapshot) => {
+    setDailyNum(snapshot.val);
+    // const dailyNumTasksValue = snapshot.val();
+  });
+
+  const newDailyNumValue = dailyNum + 1;
+  // const newDailyNumTasksValue = dailyNumTasksValue + 1;
+  firebaseSet(dailyNumRef, newDailyNumValue);
+  */
+
+  // increment daily # tasks completed
+  /*
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "uniqueID");
+  const dateRef = ref(idRef, "date");
+  const taskRef = ref(dateRef, "tasks");
+  const dailyNumCompleteRef = ref(dateRef, "dailyNumTasksComplete");
+
+  onValue(dailyNumCompleteRef, (snapshot) => {
+    setDailyNumComplete(snapshot.val);
+    // const dailyNumCompleteValue = snapshot.val();
+  });
+
+  const newDailyNumCompleteValue = dailyNumComplete + 1;
+  // const newDailyNumTasksValue = dailyNumTasksValue + 1;
+  firebaseSet(dailyNumCompleteRef, newDailyNumCompleteValue);
+  */
+    
 
   return (
     <div>
       <main>
-        <h2>Stats Page</h2>
+        {/* <h2>Stats Page</h2> */}
         <nav>
           <ul class="menu mb-3 d-flex justify-content-end">
             <li><Link to='/homepage'>Home</Link></li>
             <li><Link to='/taskmanager'>Task Manager</Link></li>
             <li><Link to='/spotify'>Spotify Page</Link></li>
-            <li><Link to='/stats'>Stats Page</Link></li>
+            <li><Link to='/stats'>Achievements</Link></li>
           </ul>
         </nav>
-        <div className="stats-objects">
-          <div className="stats-streak mar">
-            <h3>7 Day Streak!</h3>
-            <svg>
-              <circle class="bg" cx="57" cy="57" r="52" />
-              <circle class="meter-1" cx="57" cy="57" r="52" />
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black">Streak</text>
-            </svg>
+
+        <div className="stats">
+
+          {/* Stats header */}
+          <div className="stats-header">
+            <img className="frog" src={frog} alt="orange frog with magnifying glass"/>
+            <div className="stats-header-stats">
+              <h1>Statistics</h1>
+              <div className="stats-main-box">
+                <div className="stats-daily-streak">
+                  <h3>Daily Streak</h3>
+                  <div className="stats-streak-num">
+                    <p>3</p>
+                    <img src={streak} alt="fire"/>
+                  </div>
+                </div>
+                <div className="stats-tasks-completed">
+                  <h3>Tasks completed today</h3>
+                  <div className="stats-tasks-completed-num">
+                    <p>5</p>
+                    <img src={checkmark} alt="green checkmark"/>
+                  </div>
+                  <div className="stats-tasks-progress">
+                    <progress className="stats-progress-bar" value={.625}/>
+                    <p>5/8</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="stats-daily mar">
-            <h3>5/7 Tasks Complete!</h3>
-            <svg>
-              <circle class="bg" cx="57" cy="57" r="52" />
-              <circle class="meter-2" cx="57" cy="57" r="52" />
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black">Daily</text>
-            </svg>
-          </div>
+          {/* Daily Quests + All Time Stats */}
+          <div className="stats-secondary">
 
-          <div className="stats-achievements mar">
-            <h3>15/30 Badges Unlocked!</h3>
-            <svg>
-              <circle class="bg" cx="57" cy="57" r="52" />
-              <circle class="meter-3" cx="57" cy="57" r="52" />
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black">Badges</text>
-            </svg>
-          </div>
+            {/* Daily Quests */}
+            <div className="stats-daily-quests">
+              <h2>Daily Quests</h2>
+              <div className="stats-quest-1 box-border stats-quest-box">
+                <h3>Complete 1 task</h3>
+                  <div className="stats-tasks-progress">
+                    <progress className="stats-progress-bar" value={1}/>
+                    <p>1/1</p>
+                  </div>
+              </div>
+              <div className="stats-quest-2 box-border stats-quest-box">
+                <h3>Finish 2 tasks within 1 pomodoro session</h3>
+                  <div className="stats-tasks-progress">
+                    <progress className="stats-progress-bar" value={.5}/>
+                    <p>1/2</p>
+                  </div>
+              </div>
+              <div className="stats-quest-3 box-border stats-quest-box">
+                <h3>Complete 1 journal entry</h3>
+                  <div className="stats-tasks-progress">
+                    <progress className="stats-progress-bar" value={0}/>
+                    <p>0/1</p>
+                  </div>
+              </div>
+            </div>
 
-          <div className="stats-daily-ques mar">
-            <h3>Daily Quest List</h3>
-            <label class="container">Reflect on a task
-              <input type="checkbox" />
-              <span class="checkmark"></span>
-            </label>
+            {/* All Time Stats */}
+            <div className="stats-all-time">
+              <h2>All Time Statistics</h2>
+              <div className="stats-longest-streak stats-all-time-box">
+                <img src={streak} alt="fire"/>
+                <div className="stats-all-time-text">
+                  <p>16</p>
+                  <h3>Longest day streak</h3>
+                </div>
+              </div>
+              <div className="stats-lifetime-tasks stats-all-time-box">
+                <img src={checkmark} alt="green checkmark"/>
+                <div className="stats-all-time-text">
+                  <p>43</p>
+                  <h3>Tasks completed</h3>
+                </div>
+              </div>
+              <div className="stats-pomodoros-set stats-all-time-box">
+                <img src={timer} alt="timer"/>
+                <div className="stats-all-time-text">
+                  <p>8</p>
+                  <h3>Pomodoro timers set</h3>
+                </div>
+              </div>
+              <div className="stats-quests-completed stats-all-time-box">
+                <img src={chest} alt="chest"/>
+                <div className="stats-all-time-text">
+                  <p>12</p>
+                  <h3>Daily quests completed</h3>
+                </div>
+              </div>
 
-            <label class="container">Finish 3 subtasks within 1 hour
-              <input type="checkbox" />
-              <span class="checkmark"></span>
-            </label>
-
-            <label class="container">Complete a task
-              <input type="checkbox" />
-              <span class="checkmark"></span>
-            </label>
-          </div>
-
-          <div className="stats-graph mar">
-            <h3>Weekly Productivity</h3>
-            <LineChart />
+            </div>
           </div>
 
         </div>
+        
 
       </main>
     </div>
