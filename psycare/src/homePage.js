@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import SpotifyPage from './spotify.js';
 
 
 export default function HomePage(props) {
@@ -145,6 +146,13 @@ export default function HomePage(props) {
             </div>
           </section>
         </div>
+
+
+        {/* spotify section */}
+        <section>
+          <SpotifyPage />
+        </section>
+        
       </main>
     </div>
   )

@@ -8,7 +8,7 @@ export default function SpotifyPage(props) {
     /*Spotify Login - OAuth*/
     const CLIENT_ID = "c67a0f8f23d84a63aec52a3c42cda937";
     const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
-    const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/spotify";
+    const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/homepage";
     const SPACE_DELIMITER = "%20";
     const SCOPES = [
         "user-read-currently-playing",
@@ -65,6 +65,8 @@ export default function SpotifyPage(props) {
         }
     }, []);
 
+    const [showIframe, setShowIframe] = useState(false);
+
     const handleGetPlaylists = () => {
         // console.log(searchKey);
         axios
@@ -82,6 +84,7 @@ export default function SpotifyPage(props) {
                     // console.log("key: " + searchKey);
                     // console.log("id: " + item.id);
                     setPlaylistID(item.id);
+                    setShowIframe(true);
                 }
             });
           })
@@ -90,42 +93,46 @@ export default function SpotifyPage(props) {
           });
     };
 
+    const handleHide = () => {
+      var elements = document.getElementsByClassName("hide");
+      for (var i = 0; i < elements.length; i++) {
+        var element = elements[i];
+        if (element.style.display === "none") {
+          element.style.display = "block";
+        } else {
+          element.style.display = "none";
+        }
+      }
+    }
+
     return (
-        <div>
+        <div className="spotify">
             <main>
-                <h2>Spotify Page</h2>
-                <nav>
-                    <ul className="menu mb-3 d-flex justify-content-end">
-                        <li><Link to='/homepage'>Home</Link></li>
-                        <li><Link to='/taskmanager'>Task Manager</Link></li>
-                        <li><Link to='/spotify'>Spotify Page</Link></li>
-                        <li><Link to='/stats'>Stats Page</Link></li>
-                    </ul>
-                </nav>
-
-                <h1>Spotify React</h1>
-                <button onClick={handleLogin}>login to spotify</button>
-                <form onSubmit={handleGetPlaylists}>
-                       <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-                       <button type={"submit"}>Get Playlist</button>
+              <div className="spotify-nav">
+                <button className="hide spotify-button" onClick={handleLogin}>Spotify Login</button>
+                <form className="hide" onSubmit={handleGetPlaylists}>
+                       <input className="spotify-search-bar" type="text" onChange={e => setSearchKey(e.target.value)}/>
+                       <button className="spotify-button spotify-playlist-button" type={"submit"}>Get Playlist</button>
                 </form>
-
-
-                <br></br>
-                <br></br>
+                <button className="spotify-button" onClick={handleHide}>Toggle Spotify</button>
+              </div>
                 
+              {showIframe && (
+                <div>
+                  <iframe className="hide spotify-playlist"
+                      title="Spotify Embed: Recommendation Playlist "
+                      src={`https://open.spotify.com/embed/playlist/${playlistID}?utm_source=generator&theme=0`}
+                      // src={`https://open.spotify.com/embed/playlist/4gUJbOq4PutuUUIGQQqHRi?utm_source=generator&theme=0`}
+                      width="100%"
+                      height="100%"
+                      style={{ minHeight: '360px' }}
+                      frameBorder="0"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      loading="lazy"
+                  />
+                </div>
+              )}
                 
-                <iframe
-                    title="Spotify Embed: Recommendation Playlist "
-                    src={`https://open.spotify.com/embed/playlist/${playlistID}?utm_source=generator&theme=0`}
-                    // src={`https://open.spotify.com/embed/playlist/4gUJbOq4PutuUUIGQQqHRi?utm_source=generator&theme=0`}
-                    width="100%"
-                    height="100%"
-                    style={{ minHeight: '360px' }}
-                    frameBorder="0"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                />
             </main>
         </div>
     )
