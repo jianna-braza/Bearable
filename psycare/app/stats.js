@@ -27,7 +27,7 @@ function AddLifetimeTasks(props) {
   const idRef = ref(usersRef, "userID");
   const lifetimeRef = ref(idRef, "lifetime");
 
-  const lifetimeValue = 0;
+  let lifetimeValue = 0;
 
   onValue(lifetimeRef, (snapshot) => {
     lifetimeValue = snapshot.val();
@@ -49,7 +49,7 @@ function AddDailyNumComplete(props) {
   const taskRef = ref(dateRef, "tasks");
   const dailyNumCompleteRef = ref(dateRef, "dailyNumTasksComplete");
 
-  const dailyNumCompleteValue = 0;
+  let dailyNumCompleteValue = 0;
 
   onValue(dailyNumCompleteRef, (snapshot) => {
     dailyNumCompleteValue = snapshot.val();
@@ -71,7 +71,7 @@ function AddTaskDailyNum(props) {
   const taskRef = ref(dateRef, "tasks");
   const dailyNumRef = ref(dateRef, "dailyNumTasks");
 
-  const dailyNumValue = 0;
+  let dailyNumValue = 0;
 
   firebasePush(taskRef, {name: props.taskName} );
 
