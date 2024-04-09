@@ -21,8 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Next.Js
-.next
-next-env.d.ts
-dist

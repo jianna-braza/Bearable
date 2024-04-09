@@ -1,0 +1,125 @@
+/* font styling */
+.stats p {
+    font-weight: bold;
+}
+
+.stats h2 {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.stats h3 {
+    font-weight: lighter;
+    font-size: 20px;
+}
+
+
+/* header stats */
+.stats-header {
+    display: flex;
+    align-items: end;
+    margin-bottom: 100px;
+}
+
+.frog {
+    height: 300px;
+    margin-right: 20px;
+}
+
+.stats-header-stats h1{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.stats-main-box {
+    border: 1px solid #969696;
+    border-radius: 12px;
+    display: flex;
+}
+
+.stats-main-box h2 {
+    font-size: 20px;
+}
+.stats-main-box img {
+    margin-left: 10px;
+    height: 25px;
+}
+
+.stats-daily-streak {
+    border-right: 1px solid #969696;
+    padding: 20px;
+}
+
+.stats-streak-num {
+    display: flex;
+}
+
+.stats-tasks-completed-num {
+    display: flex;
+}
+
+.stats-tasks-completed {
+    padding: 20px;
+}
+
+.stats-tasks-progress {
+    display: flex;
+    align-content: center;
+}
+
+.stats-progress-bar {
+    background-color: transparent;
+    margin-right: 10px;
+    
+}
+
+.stats-progress-bar::-webkit-progress-bar {
+    background-color: #E8E8E8;
+    border-radius: 12px;
+}
+
+.stats-progress-bar::-webkit-progress-value {
+    background-color: #F0BB69;
+    border-radius: 12px;
+}
+
+.stats-tasks-progress p {
+    margin-bottom: 0;
+}
+
+
+
+/* secondary stats */
+.stats-secondary {
+    display: flex;
+    margin: 0 100px 50px 100px;
+}
+
+.stats-quest-box {
+    border: 1px solid #969696;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.stats-all-time-box {
+    border: 1px solid #969696;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.stats-daily-quests {
+    margin-right: 150px;
+}
+
+.stats-all-time img {
+    height: 75px;
+    margin-right: 25px;
+}
+
+.stats-all-time p {
+    font-size: 30px;
+}
