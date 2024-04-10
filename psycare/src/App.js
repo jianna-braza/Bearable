@@ -7,6 +7,7 @@ import SpotifyPage from './spotify.js';
 import StatsPage from './stats.js';
 import TaskManager from './taskManager.js';
 import Calendar from './calendar.js';
+import splashScreen from './splashScreen';
 
 class App extends Component {
   render() {
@@ -27,4 +28,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default splashScreen(App);

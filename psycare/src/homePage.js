@@ -152,7 +152,7 @@ export default function HomePage(props) {
         <section>
           <SpotifyPage />
         </section>
-        
+
       </main>
     </div>
   )
