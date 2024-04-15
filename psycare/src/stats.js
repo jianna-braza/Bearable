@@ -9,6 +9,14 @@ import chest from "./assets/chest.png";
 import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
+const handleClick = (event) => {
+  const db = getDatabase();
+  const usersRef = ref(db, "users");
+  const idRef = ref(usersRef, "userID");
+
+  firebasePush(idRef, 123)
+}
+
 function AddUserID(props) {
   const db = getDatabase();
   const usersRef = ref(db, "users");
@@ -86,116 +94,11 @@ function AddTaskDailyNum(props) {
 
 
 
-
-
-
-export default function StatsPage(props) {
-
-  // get user unique id
-  // if it doesn't exist in db, create a new key
-  // if date doesn't exist, create date key
-    // new task added
-      // increment daily # tasks
-    // task completed
-      // increment daily # tasks completed
-      // incremement lifetime tasks
-  
-  // userid
-    // lifetime tasks completed
-    // date
-      // daily # tasks
-      // daily # tasks completed
-      // all tasks completed boolean
-      // tasks
-        // task 1
-        // task 2
-
-  // states
-  /*
-  const [lifetime, setLifetime] = useState(0);
-  const [dailyNum, setDailyNum] = useState(0);
-  const [dailyNumComplete, setDailyNumComplete] = useState(0);
-  */
-
-  // get user unique id / add id to realtime database
-  /*
-  const uniqueID;
-
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "uniqueID");
-
-  firebasePush(idRef, {uniqueID: uniqueID} )
-  */
-
-  // update lifetime tasks completed
-  /*
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "uniqueID");
-  const lifetimeRef = ref(idRef, "lifetime");
-
-  onValue(lifetimeRef, (snapshot) => {
-    setLifetime(snapshot.val);
-    // const lifetimeValue = snapshot.val();
-  });
-
-  const newLifetime = lifetime + 1;
-  // const newLifetime = lifetimeValue + 1;
-  firebaseSet(lifetimeRef, newLifetime);
-  */
-
-  // add new date
-  /*
-  */
-
-  // add new tasks + increment daily # tasks
-  /*
-  const taskName;
-
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "uniqueID");
-  const dateRef = ref(idRef, "date");
-  const taskRef = ref(dateRef, "tasks");
-  const dailyNumRef = ref(dateRef, "dailyNumTasks");
-
-  firebasePush(taskRef, {name: taskName} );
-
-  onValue(dailyNumRef, (snapshot) => {
-    setDailyNum(snapshot.val);
-    // const dailyNumTasksValue = snapshot.val();
-  });
-
-  const newDailyNumValue = dailyNum + 1;
-  // const newDailyNumTasksValue = dailyNumTasksValue + 1;
-  firebaseSet(dailyNumRef, newDailyNumValue);
-  */
-
-  // increment daily # tasks completed
-  /*
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "uniqueID");
-  const dateRef = ref(idRef, "date");
-  const taskRef = ref(dateRef, "tasks");
-  const dailyNumCompleteRef = ref(dateRef, "dailyNumTasksComplete");
-
-  onValue(dailyNumCompleteRef, (snapshot) => {
-    setDailyNumComplete(snapshot.val);
-    // const dailyNumCompleteValue = snapshot.val();
-  });
-
-  const newDailyNumCompleteValue = dailyNumComplete + 1;
-  // const newDailyNumTasksValue = dailyNumTasksValue + 1;
-  firebaseSet(dailyNumCompleteRef, newDailyNumCompleteValue);
-  */
-    
+export default function StatsPage(props) {   
 
   return (
     <div>
       <main>
-        {/* <h2>Stats Page</h2> */}
         <nav>
           <ul class="menu mb-3 d-flex justify-content-end">
             <li><Link to='/homepage'>Home</Link></li>
@@ -206,6 +109,8 @@ export default function StatsPage(props) {
         </nav>
 
         <div className="stats">
+
+        <button onClick={handleClick}>Click me!</button>
 
           {/* Stats header */}
           <div className="stats-header">
