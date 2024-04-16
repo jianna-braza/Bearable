@@ -8,13 +8,31 @@ import timer from "./assets/timer.png";
 import chest from "./assets/chest.png";
 import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import app from "./firebase.js";
+import db from "./firebase.js";
+import { addDoc, doc, setDoc, collection } from "firebase/firestore";
+
+
+
+
 
 const handleClick = (event) => {
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "userID");
+  // const firebasedb = db;
+  console.log(db);
 
-  firebasePush(idRef, 123)
+  try {
+    const docRef = addDoc(collection(db, "UserData"), {
+      LifetimeTasks: 1
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+
+  // const usersRef = ref(db, "users");
+  // const idRef = ref(usersRef, "userID");
+
+  // firebasePush(idRef, 123);
 }
 
 function AddUserID(props) {

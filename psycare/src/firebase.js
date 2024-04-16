@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, set as firebaseSet, onValue, push as firebasePush } from 'firebase/database';
 import { getAuth, EmailAuthProvider, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth'
 // import { useAuthState } from 'react-firebase-hooks/auth';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,7 +18,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //get a reference to the database service
-const db = getDatabase();
+// const db = getDatabase();
+const db = getFirestore(app);
+export default db;
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
