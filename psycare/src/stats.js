@@ -10,18 +10,39 @@ import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush } f
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import app from "./firebase.js";
 import db from "./firebase.js";
-import { addDoc, doc, setDoc, collection } from "firebase/firestore";
+import { addDoc, doc, setDoc, getDoc, collection } from "firebase/firestore";
 
 
+// add user to database
+const addUser = async (event) => {
+  const docRef = await addDoc(collection(db, "UserData"), {
+    UserID: 1,
+    LifetimeTasks: 0,
+    LifetimePomodoros: 0
+  })
+}
 
+// increment lifetime pomodoros
+const lifetimePomodoros = async (event) => {
+  const docRef = doc(db, 'UserData', 'V0IxhzDfZ51IpnkMcQvn', 'LifetimePomodoros')
+  const docSnap = await getDoc(docRef);
+  const num = docSnap.data();
 
+  setDoc(docRef, {lifetimePomodoros: num + 1});
 
-const handleClick = (event) => {
+}
+
+// increment lifetime tasks
+const lifetimeTasks = async (event) => {
+
+}
+
+const handleClick =  async (event) => {
   // const firebasedb = db;
   console.log(db);
 
   try {
-    const docRef = addDoc(collection(db, "UserData"), {
+    const docRef = await addDoc(collection(db, "UserData"), {
       LifetimeTasks: 1
     });
     console.log("Document written with ID: ", docRef.id);
@@ -34,6 +55,12 @@ const handleClick = (event) => {
 
   // firebasePush(idRef, 123);
 }
+
+
+
+
+
+
 
 function AddUserID(props) {
   const db = getDatabase();
@@ -128,7 +155,7 @@ export default function StatsPage(props) {
 
         <div className="stats">
 
-        <button onClick={handleClick}>Click me!</button>
+        <button onClick={lifetimePomodoros}>Click me!</button>
 
           {/* Stats header */}
           <div className="stats-header">

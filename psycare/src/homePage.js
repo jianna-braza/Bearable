@@ -81,8 +81,7 @@ export default function HomePage(props) {
           <ul className="menu mb-3 d-flex justify-content-end">
             <li><Link to='/homepage'>Home</Link></li>
             <li><Link to='/taskmanager'>Task Manager</Link></li>
-            <li><Link to='/spotify'>Spotify Page</Link></li>
-            <li><Link to='/stats'>Stats Page</Link></li>
+            <li><Link to='/stats'>Achievments</Link></li>
           </ul>
         </nav>
       </header>
