@@ -167,7 +167,7 @@ export default function HomePage(props) {
             <h2>Press a button to start your timer!</h2>
             <div className="d-flex column justify-content-around mb-5 mt-3">
               <button type="button" className="myButton" onClick={readyTimer}>
-                Pomodoro timer
+                Task Timer
               </button>
               <button type="button" className="myButton" onClick={readyTimer}>
                 Short break
