@@ -167,13 +167,13 @@ export default function HomePage(props) {
             <h2>Press a button to start your timer!</h2>
             <div className="d-flex column justify-content-around mb-5 mt-3">
               <button type="button" className="myButton" onClick={readyTimer}>
-                Task Timer
+                Task Timer (25 mins)
               </button>
               <button type="button" className="myButton" onClick={readyTimer}>
-                Short break
+                Short break (5 mins)
               </button>
               <button type="button" className="myButton" onClick={readyTimer}>
-                Long break
+                Long break (15 mins)
               </button>
             </div>
             <div className="d-flex justify-content-around align-items-center">
