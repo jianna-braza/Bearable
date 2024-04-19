@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, set as firebaseSet, onValue, push as firebasePush } from 'firebase/database';
-import { getAuth, EmailAuthProvider, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 // import { useAuthState } from 'react-firebase-hooks/auth';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
@@ -23,4 +23,15 @@ const db = getFirestore(app);
 export default db;
 
 export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+
+const provider = new GoogleAuthProvider()
+
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
