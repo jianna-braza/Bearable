@@ -82,7 +82,7 @@ export default function HomePage(props) {
               <Link to="/taskmanager">Task Manager</Link>
             </li>
             <li>
-              <Link to="/stats">Achievments</Link>
+              <Link to="/stats">Achievements</Link>
             </li>
           </ul>
         </nav>
@@ -164,6 +164,7 @@ export default function HomePage(props) {
             </div>
           </section>
           <section className="col-9">
+            <h2>Press a button to start your timer!</h2>
             <div className="d-flex column justify-content-around mb-5 mt-3">
               <button type="button" className="myButton" onClick={readyTimer}>
                 Pomodoro timer
