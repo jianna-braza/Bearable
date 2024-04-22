@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import SpotifyPage from "./spotify.js";
 import { signInWithGoogle } from "./firebase.js";
+import Navbar from './Navbar.js';
+import CurrentTask from './CurrentTask.js';
 
 export default function HomePage(props) {
   let [taskNum, setTaskNum] = useState(1);
@@ -64,27 +66,14 @@ export default function HomePage(props) {
     startTimer();
   };
 
-  function update() {
-    setTaskNum(2);
-    setTaskName("Reading Response 7");
-  }
+
 
   return (
     <div>
       <header>
         <h1>Psycare Home Page</h1>
         <nav>
-          <ul className="menu mb-3 d-flex justify-content-end">
-            <li>
-              <Link to="/homepage">Home</Link>
-            </li>
-            <li>
-              <Link to="/taskmanager">Task Manager</Link>
-            </li>
-            <li>
-              <Link to="/stats">Achievements</Link>
-            </li>
-          </ul>
+          <Navbar />
         </nav>
       </header>
       <main>
@@ -97,72 +86,9 @@ export default function HomePage(props) {
         </section>
 
         <div className="d-flex row">
-          <section className="col-3">
-            <div className="d-flex row">
-              <p className="mb-2">{"task " + taskNum + " out of 2"}</p>
-              <h2>Current Task:</h2>
-              <h3 className="mb-2">{taskName}</h3>
-              <button
-                type="button"
-                className="myButton"
-                data-toggle="modal"
-                data-backdrop="false"
-                data-target="#exampleModal"
-                onClick={update}
-              >
-                Mark as done
-              </button>
 
-              <div
-                className="modal fade"
-                id="exampleModal"
-                tabIndex="-1"
-                role="dialog"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog" role="document">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title" id="exampleModalLabel">
-                        Great job completing your task!
-                      </h5>
-                      <button
-                        type="button"
-                        className="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div className="modal-body d-flex row">
-                      <p>
-                        That's one less thing on the docket! Feel free to take a
-                        small break before you try jumping straight into your
-                        next task. You've got it &#40;:
-                      </p>
-                    </div>
-                    <div className="modal-footer">
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        data-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <CurrentTask taskName={taskName} taskNum={taskNum} setTaskName={setTaskName} setTaskNum={setTaskNum} />
 
-              <img
-                src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/bear.png?raw=true"
-                alt="bear"
-                className="bear"
-              />
-            </div>
-          </section>
           <section className="col-9">
             <h2>Press a button to start your timer!</h2>
             <div className="d-flex column justify-content-around mb-5 mt-3">
@@ -208,6 +134,11 @@ export default function HomePage(props) {
         <section>
           <SpotifyPage />
         </section>
+        <img
+          src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/bear.png?raw=true"
+          alt="bear"
+          className="bear flex"
+        />
       </main>
     </div>
   );
