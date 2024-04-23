@@ -13,27 +13,61 @@ import db from "./firebase.js";
 import { addDoc, doc, setDoc, getDoc, collection } from "firebase/firestore";
 
 
+const stuff = (user) => {
+  if (user)
+  db.collection('users').doc(user.uid).get().then(doc => {
+
+})
+
+}
+function getUID() {
+
+}
+
 // add user to database
 const addUser = async (event) => {
-  const docRef = await addDoc(collection(db, "UserData"), {
-    UserID: 1,
+  const docRef = await addDoc(collection(db, "userData"), {
+    uid: 1,
     LifetimeTasks: 0,
-    LifetimePomodoros: 0
+    LifetimePomodoros: 0,
+    LifetimeQuests: 0
   })
 }
 
 // increment lifetime pomodoros
 const lifetimePomodoros = async (event) => {
-  const docRef = doc(db, 'UserData', 'V0IxhzDfZ51IpnkMcQvn', 'LifetimePomodoros')
+  // const docRef = doc(db, 'userData', '1RcBD5019iAPiX1o5oPR', 'LifetimePomodoros')
+  // const docSnap = await getDoc(docRef);
+  // const num = docSnap.data();
+
+  // setDoc(docRef, {lifetimePomodoros: num + 1});
+  const docRef = doc(db, 'userData', '1RcBD5019iAPiX1o5oPR');
   const docSnap = await getDoc(docRef);
-  const num = docSnap.data();
-
-  setDoc(docRef, {lifetimePomodoros: num + 1});
-
+  const data = docSnap.data();
+  
+  // Check if the document exists
+  if (docSnap.exists()) {
+    let currentPomodoros = 0;
+    // Check if the document has the field "LifetimePomodoros"
+    if (data && data.hasOwnProperty('LifetimePomodoros')) {
+      currentPomodoros = data.LifetimePomodoros;
+    }
+    // Increment the value of "LifetimePomodoros" or create it with the initial value of 1
+    await setDoc(docRef, { LifetimePomodoros: currentPomodoros + 1 }, { merge: true });
+  } 
+  else {
+    // If the document doesn't exist, create it with the field "LifetimePomodoros" and the initial value of 1
+    await setDoc(docRef, { LifetimePomodoros: 1 });
+  }
 }
 
 // increment lifetime tasks
 const lifetimeTasks = async (event) => {
+
+}
+
+// increment lifetime quests
+const lifetimeQuests = async (event) => {
 
 }
 
@@ -154,7 +188,10 @@ export default function StatsPage(props) {
 
         <div className="stats">
 
-        <button onClick={lifetimePomodoros}>Click me!</button>
+        <button onClick={addUser}>Add user</button>
+        <button onClick={lifetimePomodoros}>Increment pomodoro</button>
+        <button onClick={lifetimeTasks}>Increment task</button>
+        <button onClick={lifetimeQuests}>Increment quest</button>
 
           {/* Stats header */}
           <div className="stats-header">

@@ -4,6 +4,7 @@ import { signInWithGoogle } from "./firebase.js";
 import Navbar from './Navbar.js';
 import CurrentTask from './CurrentTask.js';
 import Timers from './Timers.js';
+import './homePage.css';
 
 export default function HomePage(props) {
 
@@ -32,9 +33,12 @@ export default function HomePage(props) {
         </div>
 
         {/* spotify section */}
-        <section>
+
+        <div className="spotify-content">
           <SpotifyPage />
-        </section>
+        </div>
+
+
         <img
           src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/bear.png?raw=true"
           alt="bear"
