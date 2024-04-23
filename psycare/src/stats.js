@@ -63,12 +63,46 @@ const lifetimePomodoros = async (event) => {
 
 // increment lifetime tasks
 const lifetimeTasks = async (event) => {
-
+  const docRef = doc(db, 'userData', '1RcBD5019iAPiX1o5oPR');
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
+  
+  // Check if the document exists
+  if (docSnap.exists()) {
+    let currentTasks = 0;
+    // Check if the document has the field "LifetimeTasks"
+    if (data && data.hasOwnProperty('LifetimeTasks')) {
+      currentTasks = data.LifetimeTasks;
+    }
+    // Increment the value of "LifetimePomodoros" or create it with the initial value of 1
+    await setDoc(docRef, { LifetimeTasks: currentTasks + 1 }, { merge: true });
+  } 
+  else {
+    // If the document doesn't exist, create it with the field "LifetimeTasks" and the initial value of 1
+    await setDoc(docRef, { LifetimeTasks: 1 });
+  }
 }
 
 // increment lifetime quests
 const lifetimeQuests = async (event) => {
-
+  const docRef = doc(db, 'userData', '1RcBD5019iAPiX1o5oPR');
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
+  
+  // Check if the document exists
+  if (docSnap.exists()) {
+    let currentQuests = 0;
+    // Check if the document has the field "LifetimeTasks"
+    if (data && data.hasOwnProperty('LifetimeQuests')) {
+      currentQuests = data.LifetimeQuests;
+    }
+    // Increment the value of "LifetimePomodoros" or create it with the initial value of 1
+    await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
+  } 
+  else {
+    // If the document doesn't exist, create it with the field "LifetimeTasks" and the initial value of 1
+    await setDoc(docRef, { LifetimeQuests: 1 });
+  }
 }
 
 const handleClick =  async (event) => {
