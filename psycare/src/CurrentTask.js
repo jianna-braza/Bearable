@@ -1,8 +1,23 @@
 import React, { useState } from "react";
 
 export default function CurrentTask(props) {
+  const QUOTES = [
+    "Task complete! You're making progress one step at a time. Keep up the momentum!",
+    "Way to go! Your tasks didn't stand a chance against your determination. Keep up the amazing work ethic!",
+    "You did it! Your task is done, and you're ready to conquer the day. Keep that positive momentum going!"
+  ]
+
   let [taskNum, setTaskNum] = useState(1);
   let [taskName, setTaskName] = useState("Pay Good to Go bill");
+  let [quoteNum, setQuoteNum] = useState(getRandomNum());
+
+  function getRandomNum() {
+    return Math.floor(Math.random() * 3);
+  }
+
+  function changeQuote() {
+    setQuoteNum(getRandomNum());
+  }
 
   function update() {
     setTaskNum(2);
@@ -21,8 +36,7 @@ export default function CurrentTask(props) {
           data-toggle="modal"
           data-backdrop="false"
           data-target="#exampleModal"
-          onClick={update}
-        >
+          onClick={update}>
           Mark as done
         </button>
 
@@ -51,9 +65,7 @@ export default function CurrentTask(props) {
               </div>
               <div className="modal-body d-flex row">
                 <p>
-                  That's one less thing on the docket! Feel free to take a
-                  small break before you try jumping straight into your
-                  next task. You've got it &#40;:
+                  {QUOTES[quoteNum]}
                 </p>
               </div>
               <div className="modal-footer">
@@ -61,6 +73,7 @@ export default function CurrentTask(props) {
                   type="button"
                   className="btn btn-secondary"
                   data-dismiss="modal"
+                  onClick={changeQuote}
                 >
                   Close
                 </button>

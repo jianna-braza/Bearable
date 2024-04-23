@@ -88,10 +88,13 @@ export default function Timers(props) {
           <button type="button" className="myButton" onClick={resetTimer}>
             Restart
           </button>
-          <img
-            src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/woolly-barrel%201.png?raw=true"
-            alt="barrel"
-          />
+          <div>
+            {/* <img
+              src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/woolly-barrel%201.png?raw=true"
+              alt="barrel"
+            /> */}
+          </div>
+
         </div>
       </div>
     </section>

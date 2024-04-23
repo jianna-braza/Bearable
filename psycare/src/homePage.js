@@ -10,10 +10,7 @@ export default function HomePage(props) {
   return (
     <div>
       <header>
-        <h1>Psycare Home Page</h1>
-        <nav>
-          <Navbar />
-        </nav>
+        <Navbar />
       </header>
       <main>
 
