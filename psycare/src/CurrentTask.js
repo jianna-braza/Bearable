@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useState } from "react";
 
 export default function CurrentTask(props) {
+  let [taskNum, setTaskNum] = useState(1);
+  let [taskName, setTaskName] = useState("Pay Good to Go bill");
 
   function update() {
-    props.setTaskNum(2);
-    props.setTaskName("Reading Response 7");
+    setTaskNum(2);
+    setTaskName("Reading Response 7");
   }
 
   return (
     <section className="col-3">
       <div className="d-flex row">
-        <p className="mb-2">{"task " + props.taskNum + " out of 2"}</p>
+        <p className="mb-2">{"task " + taskNum + " out of 2"}</p>
         <h2>Current Task:</h2>
-        <h3 className="mb-2">{props.taskName}</h3>
+        <h3 className="mb-2">{taskName}</h3>
         <button
           type="button"
           className="myButton"
