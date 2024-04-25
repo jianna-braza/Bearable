@@ -64,8 +64,6 @@
 
 /* Welcome to */
 .welcome-to {
-  width: 310px;
-  height: 63px;
   left: 565px;
   top: 300px;
   font-weight: 400;
@@ -76,8 +74,6 @@
 
 /* the */
 .the-header {
-  width: 107px;
-  height: 68px;
   left: 667px;
   top: 363px;
   font-weight: 400;
@@ -88,8 +84,6 @@
 
 /* AquaPod */
 .aquapod-header {
-  width: 370px;
-  height: 137px;
   left: 535px;
   top: 406px;
   font-weight: 400;
