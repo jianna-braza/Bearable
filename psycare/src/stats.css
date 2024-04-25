@@ -19,6 +19,18 @@
     font-weight: bold;
 }
 
+.stats-main-box {
+    background-color: #FFFFFF;
+}
+
+.stats-quest-box {
+    background-color: #FFFFFF;
+}
+
+.stats-all-time-box {
+    background-color: #FFFFFF;
+}
+
 
 /* header stats */
 .stats-header {
@@ -28,13 +40,18 @@
 }
 
 .frog {
-    height: 300px;
+    height: 350px;
     margin-right: 20px;
+}
+
+.stats-header-stats {
+    margin-left: 40px;
 }
 
 .stats-header-stats h1 {
     font-size: 25px;
     font-weight: bold;
+    margin-bottom: 15px;
 }
 
 .stats-main-box div div img {
@@ -45,43 +62,49 @@
     border: 1px solid #969696;
     border-radius: 12px;
     display: flex;
-    height: 200px;
+    height: 225px;
+    width: 48vw;
 }
 
 .stats-main-box h2 {
     font-size: 20px;
 }
 .stats-main-box img {
-    margin-left: 10px;
+    margin-left: 15px;
     height: 25px;
 }
 
 .stats-daily-streak {
     border-right: 1px solid #969696;
-    padding: 20px;
+    padding: 35px;
+    width: 15vw;
 }
 
 .stats-streak-num {
     display: flex;
+    align-items: center;
 }
 
 .stats-tasks-completed-num {
     display: flex;
+    align-items: center;
 }
 
 .stats-tasks-completed {
-    padding: 20px;
+    padding: 35px;
 }
 
 .stats-tasks-progress {
     display: flex;
     align-content: center;
+    margin-top: 35px;
 }
 
 .stats-progress-bar {
     background-color: transparent;
     margin-right: 10px;
-    
+    height: 25px;
+    width: 25vw;
 }
 
 .stats-progress-bar::-webkit-progress-bar {
@@ -103,23 +126,32 @@
 /* secondary stats */
 .stats-secondary {
     display: flex;
-    margin: 0 100px 50px 100px;
+    justify-content: center;
+    margin: 0 auto 50px auto;
+}
+
+.stats-secondary h2 {
+    margin-bottom: 15px;
 }
 
 .stats-quest-box {
     border: 1px solid #969696;
     border-radius: 12px;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 30px;
+    height: 156px;
+    width: 30vw;
 }
 
 .stats-all-time-box {
     border: 1px solid #969696;
     border-radius: 12px;
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 10px 30px 10px 30px;
     display: flex;
     align-items: center;
+    height: 112px;
+    width: 30vw;
 }
 
 .stats-daily-quests {
@@ -127,7 +159,7 @@
 }
 
 .stats-all-time img {
-    height: 75px;
+    height: 60px;
     margin-right: 25px;
 }
 
