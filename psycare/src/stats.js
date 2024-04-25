@@ -14,8 +14,8 @@ import { addDoc, doc, setDoc, getDoc, collection } from "firebase/firestore";
 
 // to-do
 // achievments page css
-// create user with uid in firestore database with google auth
-// update incremement functions with uid variable
+// create user with uid in firestore database with google auth - done
+// update incremement functions with uid variable - done
 // streak counter
 // daily quest box
 // tasks completed today
@@ -27,41 +27,32 @@ const lifetimeTasks = async (userId) => {
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   
-  // Check if the document exists
   if (docSnap.exists()) {
     let currentTasks = 0;
-    // Check if the document has the field "LifetimeTasks"
     if (data && data.hasOwnProperty('LifetimeTasks')) {
       currentTasks = data.LifetimeTasks;
     }
-    // Increment the value of "LifetimePomodoros" or create it with the initial value of 1
     await setDoc(docRef, { LifetimeTasks: currentTasks + 1 }, { merge: true });
   } 
   else {
-    // If the document doesn't exist, create it with the field "LifetimeTasks" and the initial value of 1
     await setDoc(docRef, { LifetimeTasks: 1 });
   }
 }
 
 // increment lifetime pomodoros
 const lifetimePomodoros = async (userId) => {
-  // setDoc(docRef, {lifetimePomodoros: num + 1});
   const docRef = doc(db, 'userData', userId);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   
-  // Check if the document exists
   if (docSnap.exists()) {
     let currentPomodoros = 0;
-    // Check if the document has the field "LifetimePomodoros"
     if (data && data.hasOwnProperty('LifetimePomodoros')) {
       currentPomodoros = data.LifetimePomodoros;
     }
-    // Increment the value of "LifetimePomodoros" or create it with the initial value of 1
     await setDoc(docRef, { LifetimePomodoros: currentPomodoros + 1 }, { merge: true });
   } 
   else {
-    // If the document doesn't exist, create it with the field "LifetimePomodoros" and the initial value of 1
     await setDoc(docRef, { LifetimePomodoros: 1 });
   }
 }
@@ -72,18 +63,14 @@ const lifetimeQuests = async (userId) => {
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   
-  // Check if the document exists
   if (docSnap.exists()) {
     let currentQuests = 0;
-    // Check if the document has the field "LifetimeQuests"
     if (data && data.hasOwnProperty('LifetimeQuests')) {
       currentQuests = data.LifetimeQuests;
     }
-    // Increment the value of "LifetimePomodoros" or create it with the initial value of 1
     await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
   } 
   else {
-    // If the document doesn't exist, create it with the field "LifetimeTasks" and the initial value of 1
     await setDoc(docRef, { LifetimeQuests: 1 });
   }
 }
@@ -91,7 +78,10 @@ const lifetimeQuests = async (userId) => {
 
 export default function StatsPage(props) { 
   
-  const [userId, setUserId] = useState(0);
+  // get userId
+  const [userId, setUserId] = useState(() => {
+    return localStorage.getItem('userId') || null;
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -100,6 +90,7 @@ export default function StatsPage(props) {
         if (currentUser !== null) {
           console.log("User ID:", currentUser.uid);
           setUserId(currentUser.uid);
+          localStorage.setItem('userId', currentUser.uid);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -108,13 +99,26 @@ export default function StatsPage(props) {
     fetchUserData();
   }, []);
 
+  // add user to firestore database with uid as key
   const addUser = async (event) => {
-    const docRef = await setDoc(doc(db, "userData", userId), {
-      LifetimeTasks: 0,
-      LifetimePomodoros: 0,
-      LifetimeQuests: 0,
-      LongestStreak: 0
-    })
+    try {
+      const docRef = doc(db, "userData", userId);
+      const docSnap = await getDoc(docRef);
+  
+      if (!docSnap.exists()) {
+        await setDoc(docRef, {
+          LifetimeTasks: 0,
+          LifetimePomodoros: 0,
+          LifetimeQuests: 0,
+          LongestStreak: 0
+        });
+        console.log("User document created successfully.");
+      } else {
+        console.log("User document already exists.");
+      }
+    } catch (error) {
+      console.error("Error adding user:", error);
+    }
   }
 
 
@@ -140,9 +144,7 @@ export default function StatsPage(props) {
       fetchCurrLifetimeTasks();
     }
   }, [userId]);
-  
-  // Similarly modify other useEffect hooks for fetching pomodoros and quests
-  
+    
 
   // retrieve current lifetime pomodoros
   const [currLifetimePomodoros, setCurrLifetimePomodoros] = useState(0);
@@ -183,6 +185,27 @@ export default function StatsPage(props) {
         }
       };
       fetchCurrLifetimeQuests();
+    }
+  }, [userId]);
+
+  // retrieve current longest streak
+  const [currLongestStreak, setCurrLongestStreak] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchCurrLongestStreak = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('LongestStreak')) {
+            setCurrLongestStreak(data.LongestStreak);
+          }
+        } catch (error) {
+          console.error("Error fetching longest streak:", error);
+        }
+      };
+      fetchCurrLongestStreak();
     }
   }, [userId]);
   
@@ -372,7 +395,7 @@ export default function StatsPage(props) {
               <div className="stats-longest-streak stats-all-time-box">
                 <img src={streak} alt="fire"/>
                 <div className="stats-all-time-text">
-                  <p>16</p>
+                  <p>{currLongestStreak}</p>
                   <h3>Longest day streak</h3>
                 </div>
               </div>
