@@ -159,8 +159,8 @@
 }
 
 .stats-all-time img {
-    height: 60px;
     margin-right: 25px;
+    width: 80px;
 }
 
 .stats-all-time p {
