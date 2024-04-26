@@ -14,36 +14,36 @@ export default function HomePage(props) {
         <Navbar />
       </header>
       <main>
+          {/*Authentication*/}
+            <div>
+              <button className="myButton" onClick={signInWithGoogle}>
+                Sign In With Google
+              </button>
+            </div>
 
-        {/*Authentication*/}
-        <section>
-          <button className="myButton" onClick={signInWithGoogle}>
-            Sign In With Google
-          </button>
-        </section>
+          <div className="d-flex row">
 
-        <div className="d-flex row">
+            <CurrentTask />
 
-          <CurrentTask />
-
-          <Timers />
-
+            <Timers />
 
 
-        </div>
 
-        {/* spotify section */}
+          </div>
 
-        <div className="spotify-content">
-          <SpotifyPage />
-        </div>
+          {/* spotify section */}
+
+          <div className="spotify-content">
+            <SpotifyPage />
+          </div>
 
 
-        <img
-          src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/bear.png?raw=true"
-          alt="bear"
-          className="bear flex"
-        />
+          <img
+            src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/bear.png?raw=true"
+            alt="bear"
+            className="bear flex"
+          />
+        
       </main>
     </div>
   );

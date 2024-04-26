@@ -144,6 +144,11 @@ export default function SpotifyPage(props) {
       }
     }
 
+    
+
+
+
+
     // State to manage visibility
     const [showAdditionalElements, setShowAdditionalElements] = useState(false);
 

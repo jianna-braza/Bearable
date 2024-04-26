@@ -20,6 +20,7 @@
     border: 1px solid black;
     border-radius: 12px;
     height: 3rem;
+    /* width: 10rem; */
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }

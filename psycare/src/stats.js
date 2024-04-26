@@ -11,6 +11,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import app from "./firebase.js";
 import db from "./firebase.js";
 import { addDoc, doc, setDoc, getDoc, collection } from "firebase/firestore";
+import Navbar from './Navbar.js';
 
 // to-do
 // achievments page css
@@ -308,13 +309,9 @@ export default function StatsPage(props) {
   return (
     <div>
       <main>
-        <nav>
-          <ul class="menu mb-3 d-flex justify-content-end">
-            <li><Link to='/homepage'>Home</Link></li>
-            <li><Link to='/taskmanager'>Task Manager</Link></li>
-            <li><Link to='/stats'>Achievements</Link></li>
-          </ul>
-        </nav>
+        <header>
+          <Navbar />
+        </header>
 
         <div className="stats">
 
@@ -323,9 +320,6 @@ export default function StatsPage(props) {
           <p>{userId}</p>
 
         <button onClick={addUser}>Add user</button>
-        {/* <button onClick={lifetimeTasks}>Increment task</button> */}
-        {/* <button onClick={lifetimePomodoros}>Increment pomodoro</button> */}
-        {/* <button onClick={lifetimeQuests}>Increment quest</button> */}
         <button onClick={() => lifetimeTasks(userId)}>Increment task</button>
         <button onClick={() => lifetimePomodoros(userId)}>Increment pomodoro</button>
         <button onClick={() => lifetimeQuests(userId)}>Increment quest</button>
