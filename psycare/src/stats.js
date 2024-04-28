@@ -76,6 +76,60 @@ const lifetimeQuests = async (userId) => {
   }
 }
 
+// add current date to date array, update CurrStreak, update LongestStreak
+const dailyStreaks = async (userId) => {
+  try {
+      const docRef = doc(db, "userData", userId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+          const currentDate = new Date().toISOString(); // Get current date in ISO format
+          const userData = docSnap.data();
+          
+          // Add current date to the 'dates' field array
+          userData.CheckInDates = userData.CheckInDates || []; // Initialize if 'dates' field doesn't exist
+          userData.CheckInDates.push(currentDate);
+
+          // Update the document with the new 'dates' field
+          await setDoc(docRef, userData);
+
+          console.log("Current date added to the 'dates' field successfully.");
+
+          // Check streak
+          const today = new Date();
+          const yesterday = new Date(today);
+          yesterday.setDate(yesterday.getDate() - 1);
+          const yesterdayISO = yesterday.toISOString().slice(0, 10); // Get yesterday's date in ISO format (YYYY-MM-DD)
+
+          if (userData.CheckInDates.includes(yesterdayISO)) {
+              // Increment CurrStreak if there is a date from the previous day
+              userData.CurrStreak = (userData.CurrStreak || 0) + 1;
+              console.log("CurrStreak incremented by 1.");
+          } else {
+              // Set CurrStreak to 1 if there is no date from the previous day
+              userData.CurrStreak = 1;
+              console.log("CurrStreak set to 1.");
+          }
+
+          // Update document with the updated streak
+          await setDoc(docRef, userData);
+
+          // Compare CurrStreak and LongestStreak
+          if (userData.CurrStreak > (userData.LongestStreak || 0)) {
+              // Update LongestStreak if CurrStreak is greater
+              userData.LongestStreak = userData.CurrStreak;
+              await setDoc(docRef, userData);
+              console.log("LongestStreak updated with CurrStreak value.");
+          }
+      } else {
+          console.log("User document does not exist.");
+      }
+  } catch (error) {
+      console.error("Error adding current date and checking streak:", error);
+  }
+};  
+  
+
 
 export default function StatsPage(props) { 
   
@@ -111,7 +165,9 @@ export default function StatsPage(props) {
           LifetimeTasks: 0,
           LifetimePomodoros: 0,
           LifetimeQuests: 0,
-          LongestStreak: 0
+          LongestStreak: 0,
+          CurrStreak: 0,
+          CheckInDates: []
         });
         console.log("User document created successfully.");
       } else {
@@ -207,6 +263,27 @@ export default function StatsPage(props) {
         }
       };
       fetchCurrLongestStreak();
+    }
+  }, [userId]);
+
+  // retrieve current streak
+  const [currStreak, setCurrStreak] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchCurrStreak = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('CurrStreak')) {
+            setCurrStreak(data.CurrStreak);
+          }
+        } catch (error) {
+          console.error("Error fetching longest streak:", error);
+        }
+      };
+      fetchCurrStreak();
     }
   }, [userId]);
   
@@ -319,11 +396,20 @@ export default function StatsPage(props) {
 
           <p>{userId}</p>
 
+        {/* attach to "sign in with google" */}
         <button onClick={addUser}>Add user</button>
+
+        {/* attach to "mark as done" */}
         <button onClick={() => lifetimeTasks(userId)}>Increment task</button>
+
+        {/* attach to "start" */}
         <button onClick={() => lifetimePomodoros(userId)}>Increment pomodoro</button>
+
+        {/* attach to tbd, mark as done? */}
         <button onClick={() => lifetimeQuests(userId)}>Increment quest</button>
 
+        {/* attach to "mark as done" */}
+        <button onClick={() => dailyStreaks(userId)}>Adjust daily streak</button>
 
 
           {/* Stats header */}
@@ -335,7 +421,7 @@ export default function StatsPage(props) {
                 <div className="stats-daily-streak">
                   <h3>Daily Streak</h3>
                   <div className="stats-streak-num">
-                    <h4>3</h4>
+                    <h4>{currStreak}</h4>
                     <img src={streak} alt="fire"/>
                   </div>
                 </div>
