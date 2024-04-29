@@ -209,6 +209,7 @@ const SetQuests = async (userId, dailyQuest1, dailyQuest2, dailyQuest3) => {
 
 // complete "set a task timer" quest
 const TaskTimerQuest = async (userId, quest1) => {
+  console.log(quest1);
 
   if (quest1 === "Set a task timer") {
     const docRef = doc(db, 'userData', userId);
@@ -222,6 +223,7 @@ const TaskTimerQuest = async (userId, quest1) => {
 
 // complete "complete 1 task" quest
 const OneTaskQuest = async (userId, quest1) => {
+  console.log(quest1);
 
   if (quest1 === "Complete 1 task") {
     const docRef = doc(db, 'userData', userId);
@@ -235,6 +237,7 @@ const OneTaskQuest = async (userId, quest1) => {
 
 // complete "complete add task to to-do list" quest
 const AddTaskQuest = async (userId, quest2) => {
+  console.log(quest2);
 
   if (quest2 === "Add a task to your to-do list") {
     const docRef = doc(db, 'userData', userId);
@@ -248,6 +251,7 @@ const AddTaskQuest = async (userId, quest2) => {
 
 // complete "complete short timer" quest
 const ShortTimerQuest = async (userId, quest2) => {
+  console.log(quest2);
 
   if (quest2 === "Set a short break timer") {
     const docRef = doc(db, 'userData', userId);
@@ -261,6 +265,7 @@ const ShortTimerQuest = async (userId, quest2) => {
 
 // complete "complete journal entry" quest
 const JournalEntryQuest = async (userId, quest3) => {
+  console.log(quest3);
 
   if (quest3 === "Complete 1 journal entry") {
     const docRef = doc(db, 'userData', userId);
@@ -274,6 +279,7 @@ const JournalEntryQuest = async (userId, quest3) => {
 
 // complete "complete long timer" quest
 const LongTimerQuest = async (userId, quest3) => {
+  console.log(quest3);
 
   if (quest3 === "Set a long break timer") {
     const docRef = doc(db, 'userData', userId);
@@ -511,7 +517,7 @@ export default function StatsPage(props) {
             setQuest3(data.Quest3);
           }
         } catch (error) {
-          console.error("Error fetching quest 3:", error);
+          console.error("Error fetching quest 2:", error);
         }
       };
       fetchQuest3();
@@ -769,7 +775,12 @@ export default function StatsPage(props) {
         <button onClick={() => DailyStreaks(userId)}>Add to daily streak</button>
 
         {/* attach to "mark as done" */}
-        <button onClick={() => SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3)}>Update Quests</button>
+        {/* <button onClick={() => SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3)}>Update Quests</button> */}
+        <button onClick={async () => {
+        await SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);
+        window.location.reload();
+      }}>Update Quests</button>
+
 
         <br></br>
 
