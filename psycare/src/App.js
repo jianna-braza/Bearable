@@ -6,7 +6,7 @@ import TaskPage from './taskPage.js';
 import SpotifyPage from './spotify.js';
 import StatsPage from './stats.js';
 import TaskManager from './taskManager.js';
-import Calendar from './calendar.js';
+import CalendarPage from './CalendarPage.js';
 import withSplashScreen from './withSplashScreen.js';
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
             <Route path="spotify" element={<SpotifyPage />} />
             <Route path="stats" element={<StatsPage />} />
             <Route path="taskmanager" element={<TaskManager />} />
-            <Route path="calendar" element={<Calendar />} />
+            <Route path="calendar" element={<CalendarPage />} />
             <Route path='*' element={<Navigate to='/homepage' />} />
           </Routes>
       </Router>
