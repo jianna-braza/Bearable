@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .whole {
-  background-color: #F2EBE0;
+  background-color: #F5F5F5;
 }
 
 body {
@@ -17,7 +17,7 @@ body {
   display: flex;
   height: inherit;
   flex-direction: column;
-  background-color: #F2EBE0;
+  background-color: #F5F5F5;
 }
 
 .timer {

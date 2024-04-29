@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./stats.css";
 import frog from "./assets/frog.png";
@@ -10,152 +10,817 @@ import { getDatabase, ref, onValue, set as firebaseSet, push as firebasePush } f
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import app from "./firebase.js";
 import db from "./firebase.js";
-import { addDoc, doc, setDoc, getDoc, collection } from "firebase/firestore";
+import { addDoc, doc, setDoc, getDoc, collection, updateDoc, serverTimestamp } from "firebase/firestore";
+import Navbar from './Navbar.js';
+
+// to-do
+// achievments page css
+// create user with uid in firestore database with google auth - done
+// update incremement functions with uid variable - done
+// streak counter
+// daily quest box
+// tasks completed today
 
 
-// add user to database
-const addUser = async (event) => {
-  const docRef = await addDoc(collection(db, "UserData"), {
-    UserID: 1,
-    LifetimeTasks: 0,
-    LifetimePomodoros: 0
-  })
+// increment lifetime tasks
+const LifetimeTasks = async (userId) => {
+  const docRef = doc(db, 'userData', userId);
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
+  
+  if (docSnap.exists()) {
+    let currentTasks = 0;
+    if (data && data.hasOwnProperty('LifetimeTasks')) {
+      currentTasks = data.LifetimeTasks;
+    }
+    await setDoc(docRef, { LifetimeTasks: currentTasks + 1 }, { merge: true });
+  } 
+  else {
+    await setDoc(docRef, { LifetimeTasks: 1 });
+  }
 }
 
 // increment lifetime pomodoros
-const lifetimePomodoros = async (event) => {
-  const docRef = doc(db, 'UserData', 'V0IxhzDfZ51IpnkMcQvn', 'LifetimePomodoros')
+const LifetimePomodoros = async (userId) => {
+  const docRef = doc(db, 'userData', userId);
   const docSnap = await getDoc(docRef);
-  const num = docSnap.data();
-
-  setDoc(docRef, {lifetimePomodoros: num + 1});
-
-}
-
-// increment lifetime tasks
-const lifetimeTasks = async (event) => {
-
-}
-
-const handleClick =  async (event) => {
-  // const firebasedb = db;
-  console.log(db);
-
-  try {
-    const docRef = await addDoc(collection(db, "UserData"), {
-      LifetimeTasks: 1
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
+  const data = docSnap.data();
+  
+  if (docSnap.exists()) {
+    let currentPomodoros = 0;
+    if (data && data.hasOwnProperty('LifetimePomodoros')) {
+      currentPomodoros = data.LifetimePomodoros;
+    }
+    await setDoc(docRef, { LifetimePomodoros: currentPomodoros + 1 }, { merge: true });
+  } 
+  else {
+    await setDoc(docRef, { LifetimePomodoros: 1 });
   }
-
-  // const usersRef = ref(db, "users");
-  // const idRef = ref(usersRef, "userID");
-
-  // firebasePush(idRef, 123);
 }
 
+// increment lifetime quests
+const LifetimeQuests = async (userId) => {
+  const docRef = doc(db, 'userData', userId);
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data();
 
+  // if (questNum === "quest1") {
+  //   if (quest1Stop === 0) {
+  //     if (docSnap.exists()) {
+  //       let currentQuests = 0;
+  //       if (data && data.hasOwnProperty('LifetimeQuests')) {
+  //         currentQuests = data.LifetimeQuests;
+  //       }
+  //       await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
+  //     } 
+  //     else {
+  //       await setDoc(docRef, { LifetimeQuests: 1 });
+  //     }
+  //   }
+  //   await updateDoc(docRef, {
+  //     Quest1Stop: 1
+  //   });
+  // }
 
+  // if (questNum === "quest2") {
+  //   if (quest2Stop === 0) {
+  //     if (docSnap.exists()) {
+  //       let currentQuests = 0;
+  //       if (data && data.hasOwnProperty('LifetimeQuests')) {
+  //         currentQuests = data.LifetimeQuests;
+  //       }
+  //       await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
+  //     } 
+  //     else {
+  //       await setDoc(docRef, { LifetimeQuests: 1 });
+  //     }
+  //   }
+  //   await updateDoc(docRef, {
+  //     Quest2Stop: 1
+  //   });
+  // }
 
-
-
-
-function AddUserID(props) {
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "userID");
-
-  firebasePush(idRef, {userID: props} )
+  // if (questNum === "quest3") {
+  //   if (quest3Stop === 0) {
+  //     if (docSnap.exists()) {
+  //       let currentQuests = 0;
+  //       if (data && data.hasOwnProperty('LifetimeQuests')) {
+  //         currentQuests = data.LifetimeQuests;
+  //       }
+  //       await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
+  //     } 
+  //     else {
+  //       await setDoc(docRef, { LifetimeQuests: 1 });
+  //     }
+  //   }
+  //   await updateDoc(docRef, {
+  //     Quest3Stop: 1
+  //   });
+  // }
+  
+  if (docSnap.exists()) {
+    let currentQuests = 0;
+    if (data && data.hasOwnProperty('LifetimeQuests')) {
+      currentQuests = data.LifetimeQuests;
+    }
+    await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
+  } 
+  else {
+    await setDoc(docRef, { LifetimeQuests: 1 });
+  }
 }
+  
+// add current date to date array, update CurrStreak, update LongestStreak
+// attach to "mark as done" button
+const DailyStreaks = async (userId) => {
+  try {
+      const docRef = doc(db, "userData", userId);
+      const docSnap = await getDoc(docRef);
 
-function UpdateCheckIn(props) {
+      if (docSnap.exists()) {
+          const currentDate = new Date().toISOString(); // Get current date in ISO format
+          const userData = docSnap.data();
+          
+          // Add current date to the 'dates' field array
+          userData.CheckInDates = userData.CheckInDates || []; // Initialize if 'dates' field doesn't exist
+          userData.CheckInDates.push(currentDate);
 
-}
+          // Update the document with the new 'dates' field
+          await setDoc(docRef, userData);
 
-function AddLifetimeTasks(props) {
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "userID");
-  const lifetimeRef = ref(idRef, "lifetime");
+          console.log("Current date added to the 'dates' field successfully.");
 
-  const lifetimeValue = 0;
+          // Check streak
+          const today = new Date();
+          const yesterday = new Date(today);
+          yesterday.setDate(yesterday.getDate() - 1);
+          const yesterdayISO = yesterday.toISOString().slice(0, 10); // Get yesterday's date in ISO format (YYYY-MM-DD)
+          const todayISO = today.toISOString().slice(0, 10);
 
-  onValue(lifetimeRef, (snapshot) => {
-    lifetimeValue = snapshot.val();
+          console.log(todayISO);
+
+          if (!userData.CheckInDates.includes(todayISO)) {
+            if (userData.CheckInDates.includes(yesterdayISO)) {
+              // Increment CurrStreak if there is a date from the previous day
+              userData.CurrStreak = (userData.CurrStreak || 0) + 1;
+              console.log("CurrStreak incremented by 1.");
+            } else {
+              // Set CurrStreak to 1 if there is no date from the previous day
+              userData.CurrStreak = 1;
+              console.log("CurrStreak set to 1.");
+            }
+          }
+
+          // Update document with the updated streak
+          await setDoc(docRef, userData);
+
+          // Compare CurrStreak and LongestStreak
+          if (userData.CurrStreak > (userData.LongestStreak || 0)) {
+              // Update LongestStreak if CurrStreak is greater
+              userData.LongestStreak = userData.CurrStreak;
+              await setDoc(docRef, userData);
+              console.log("LongestStreak updated with CurrStreak value.");
+          }
+      } else {
+          console.log("User document does not exist.");
+      }
+  } catch (error) {
+      console.error("Error adding current date and checking streak:", error);
+  }
+};
+
+// attach to "sign in with google" button
+const SetQuests = async (userId, dailyQuest1, dailyQuest2, dailyQuest3) => {
+
+  const docRef = doc(db, 'userData', userId);
+
+  await updateDoc(docRef, {
+    Quest1: dailyQuest1,
+    Quest2: dailyQuest2,
+    Quest3: dailyQuest3,
+    Quest1Done: 0,
+    Quest2Done: 0,
+    Quest3Done: 0,
+    Quest1Stop: 0,
+    Quest2Stop: 0,
+    Quest3Stop: 0
   });
-
-  const newLifetime = lifetimeValue + 1;
-  firebaseSet(lifetimeRef, newLifetime);
 }
 
-function AddDate(props) {
+// complete "set a task timer" quest
+const TaskTimerQuest = async (userId, quest1) => {
+  console.log(quest1);
+
+  if (quest1 === "Set a task timer") {
+    const docRef = doc(db, 'userData', userId);
+    await updateDoc(docRef, {
+      Quest1Done: 1
+    });
+    LifetimeQuests(userId);
+  }
   
 }
 
-function AddDailyNumComplete(props) {
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "uniqueID");
-  const dateRef = ref(idRef, "date");
-  const taskRef = ref(dateRef, "tasks");
-  const dailyNumCompleteRef = ref(dateRef, "dailyNumTasksComplete");
+// complete "complete 1 task" quest
+const OneTaskQuest = async (userId, quest1) => {
+  console.log(quest1);
 
-  const dailyNumCompleteValue = 0;
+  if (quest1 === "Complete 1 task") {
+    const docRef = doc(db, 'userData', userId);
+    await updateDoc(docRef, {
+      Quest1Done: 1
+    });
+    LifetimeQuests(userId);
+  }
+  
+}
 
-  onValue(dailyNumCompleteRef, (snapshot) => {
-    dailyNumCompleteValue = snapshot.val();
+// complete "complete add task to to-do list" quest
+const AddTaskQuest = async (userId, quest2) => {
+  console.log(quest2);
+
+  if (quest2 === "Add a task to your to-do list") {
+    const docRef = doc(db, 'userData', userId);
+    await updateDoc(docRef, {
+      Quest2Done: 1
+    });
+    LifetimeQuests(userId);
+  }
+  
+}
+
+// complete "complete short timer" quest
+const ShortTimerQuest = async (userId, quest2) => {
+  console.log(quest2);
+
+  if (quest2 === "Set a short break timer") {
+    const docRef = doc(db, 'userData', userId);
+    await updateDoc(docRef, {
+      Quest2Done: 1
+    });
+    LifetimeQuests(userId);
+  }
+  
+}
+
+// complete "complete journal entry" quest
+const JournalEntryQuest = async (userId, quest3) => {
+  console.log(quest3);
+
+  if (quest3 === "Complete 1 journal entry") {
+    const docRef = doc(db, 'userData', userId);
+    await updateDoc(docRef, {
+      Quest3Done: 1
+    });
+    LifetimeQuests(userId);
+  }
+  
+}
+
+// complete "complete long timer" quest
+const LongTimerQuest = async (userId, quest3) => {
+  console.log(quest3);
+
+  if (quest3 === "Set a long break timer") {
+    const docRef = doc(db, 'userData', userId);
+    await updateDoc(docRef, {
+      Quest3Done: 1
+    });
+    LifetimeQuests(userId);
+  }
+}
+
+
+// add user to firestore database with uid as key
+const AddUser = async (userId) => {
+  try {
+    const docRef = doc(db, "userData", userId);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      await setDoc(docRef, {
+        LifetimeTasks: 0,
+        LifetimePomodoros: 0,
+        LifetimeQuests: 0,
+        LongestStreak: 0,
+        CurrStreak: 0,
+        CheckInDates: [],
+        Quest1: null,
+        Quest2: null,
+        Quest3: null,
+        Quest1Done: 0,
+        Quest2Done: 0,
+        Quest3Done: 0,
+        Quest1Stop: 0,
+        Quest2Stop: 0,
+        Quest3Stop: 0
+      });
+      console.log("User document created successfully.");
+    } else {
+      console.log("User document already exists.");
+    }
+  } catch (error) {
+    console.error("Error adding user:", error);
+  }
+}
+
+  
+
+
+export default function StatsPage(props) { 
+  
+  // retrieve userId
+  const [userId, setUserId] = useState(() => {
+    return localStorage.getItem('userId') || null;
   });
 
-  const newDailyNumCompleteValue = dailyNumCompleteValue + 1;
-  firebaseSet(dailyNumCompleteRef, newDailyNumCompleteValue);
-}
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const currentUser = getAuth().currentUser;
+        if (currentUser !== null) {
+          console.log("User ID:", currentUser.uid);
+          setUserId(currentUser.uid);
+          localStorage.setItem('userId', currentUser.uid);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUserData();
+  }, []);
 
-function UpdateAllDone(props) {
-
-}
-
-function AddTaskDailyNum(props) {
-  const db = getDatabase();
-  const usersRef = ref(db, "users");
-  const idRef = ref(usersRef, "uniqueID");
-  const dateRef = ref(idRef, "date");
-  const taskRef = ref(dateRef, "tasks");
-  const dailyNumRef = ref(dateRef, "dailyNumTasks");
-
-  const dailyNumValue = 0;
-
-  firebasePush(taskRef, {name: props.taskName} );
-
-  onValue(dailyNumRef, (snapshot) => {
-    dailyNumValue = snapshot.val();
-  });
-
-  const newDailyNumValue = dailyNumValue + 1;
-  firebaseSet(dailyNumRef, newDailyNumValue);
-}
+  
 
 
+  // retrieve lifetime stats
+
+  // retrieve lifetime tasks
+  const [currLifetimeTasks, setCurrLifetimeTasks] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchCurrLifetimeTasks = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('LifetimeTasks')) {
+            setCurrLifetimeTasks(data.LifetimeTasks);
+          }
+        } catch (error) {
+          console.error("Error fetching lifetime tasks:", error);
+        }
+      };
+      fetchCurrLifetimeTasks();
+    }
+  }, [userId]);
+    
+
+  // retrieve current lifetime pomodoros
+  const [currLifetimePomodoros, setCurrLifetimePomodoros] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchCurrLifetimePomodoros = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('LifetimePomodoros')) {
+            setCurrLifetimePomodoros(data.LifetimePomodoros);
+          }
+        } catch (error) {
+          console.error("Error fetching lifetime pomodoros:", error);
+        }
+      };
+      fetchCurrLifetimePomodoros();
+    }
+  }, [userId]);
+
+  // retrieve current lifetime quests
+  const [currLifetimeQuests, setCurrLifetimeQuests] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchCurrLifetimeQuests = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('LifetimeQuests')) {
+            setCurrLifetimeQuests(data.LifetimeQuests);
+          }
+        } catch (error) {
+          console.error("Error fetching lifetime quests:", error);
+        }
+      };
+      fetchCurrLifetimeQuests();
+    }
+  }, [userId]);
+
+  // retrieve current longest streak
+  const [currLongestStreak, setCurrLongestStreak] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchCurrLongestStreak = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('LongestStreak')) {
+            setCurrLongestStreak(data.LongestStreak);
+          }
+        } catch (error) {
+          console.error("Error fetching longest streak:", error);
+        }
+      };
+      fetchCurrLongestStreak();
+    }
+  }, [userId]);
+
+  // retrieve current streak
+  const [currStreak, setCurrStreak] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchCurrStreak = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('CurrStreak')) {
+            setCurrStreak(data.CurrStreak);
+          }
+        } catch (error) {
+          console.error("Error fetching longest streak:", error);
+        }
+      };
+      fetchCurrStreak();
+    }
+  }, [userId]);
+
+  // retrieve user quest 1
+  const [quest1, setQuest1] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest1 = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest1')) {
+            setQuest1(data.Quest1);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 1:", error);
+        }
+      };
+      fetchQuest1();
+    }
+  }, [userId]);
+
+  // retrieve user quest 2
+  const [quest2, setQuest2] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest2 = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest2')) {
+            setQuest2(data.Quest2);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 2:", error);
+        }
+      };
+      fetchQuest2();
+    }
+  }, [userId]);
+
+  // retrieve user quest 3
+  const [quest3, setQuest3] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest3 = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest3')) {
+            setQuest3(data.Quest3);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 2:", error);
+        }
+      };
+      fetchQuest3();
+    }
+  }, [userId]);
+
+  // retrieve quest 1 done
+  const [quest1Done, setQuest1Done] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest1Done = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest1Done')) {
+            setQuest1Done(data.Quest1Done);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 1 done:", error);
+        }
+      };
+      fetchQuest1Done();
+    }
+  }, [userId]);
+
+  // retrieve quest 2 done
+  const [quest2Done, setQuest2Done] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest2Done = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest2Done')) {
+            setQuest2Done(data.Quest2Done);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 2 done:", error);
+        }
+      };
+      fetchQuest2Done();
+    }
+  }, [userId]);
+
+  // retrieve quest 3 done
+  const [quest3Done, setQuest3Done] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest3Done = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest3Done')) {
+            setQuest3Done(data.Quest3Done);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 3 done:", error);
+        }
+      };
+      fetchQuest3Done();
+    }
+  }, [userId]);
+
+  // retrieve quest 1 stop
+  const [quest1Stop, setQuest1Stop] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest1Stop = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest1Stop')) {
+            setQuest1Stop(data.Quest1Stop);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 1 stop:", error);
+        }
+      };
+      fetchQuest1Stop();
+    }
+  }, [userId]);
+
+  // retrieve quest 2 stop
+  const [quest2Stop, setQuest2Stop] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest2Stop = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest2Stop')) {
+            setQuest2Stop(data.Quest2Stop);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 2 stop:", error);
+        }
+      };
+      fetchQuest2Stop();
+    }
+  }, [userId]);
+
+  // retrieve quest 3 stop
+  const [quest3Stop, setQuest3Stop] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchQuest3Stop = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest3Stop')) {
+            setQuest3Stop(data.Quest3Stop);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 3 stop:", error);
+        }
+      };
+      fetchQuest3Stop();
+    }
+  }, [userId]);
+  
 
 
-export default function StatsPage(props) {   
+  // display quotes
+
+  // display load screen quote
+  const [quote, setQuote] = useState(0);
+
+  const randomNumber = Math.floor(Math.random() * 3) + 1;
+  const quoteNum = "Quote" + randomNumber;
+
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const docRef = doc(db, 'quotes', 'loadScreenQuotes');
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (docSnap.exists() && data.hasOwnProperty(quoteNum)) {
+          setQuote(data[quoteNum]);
+        }
+      } catch (error) {
+        console.error("Error fetching quote:", error);
+      }
+    };
+    fetchQuote();
+  }, []);
+
+
+  // display quests
+
+  // retrieve daily quest 1
+  const [dailyQuest1, setDailyQuest1] = useState(0);
+
+  const quest1Num = Math.floor(Math.random() * 2) + 1;
+  const quest1NumText = "Quest" + quest1Num;
+
+  useEffect(() => {
+    const fetchQuest1 = async () => {
+      try {
+        const docRef = doc(db, 'quests', 'dailyQuest1');
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (docSnap.exists() && data.hasOwnProperty(quest1NumText)) {
+          setDailyQuest1(data[quest1NumText]);
+        }
+      } catch (error) {
+        console.error("Error fetching quest 1:", error);
+      }
+    };
+    fetchQuest1();
+  }, []);
+
+  // retrieve daily quest 2
+  const [dailyQuest2, setDailyQuest2] = useState(0);
+
+  const quest2Num = Math.floor(Math.random() * 2) + 1;
+  const quest2NumText = "Quest" + quest2Num;
+
+  useEffect(() => {
+    const fetchQuest2 = async () => {
+      try {
+        const docRef = doc(db, 'quests', 'dailyQuest2');
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (docSnap.exists() && data.hasOwnProperty(quest2NumText)) {
+          setDailyQuest2(data[quest2NumText]);
+        }
+      } catch (error) {
+        console.error("Error fetching quest 2:", error);
+      }
+    };
+    fetchQuest2();
+  }, []);
+
+  // retrieve daily quest 3
+  const [dailyQuest3, setDailyQuest3] = useState(0);
+
+  const quest3Num = Math.floor(Math.random() * 2) + 1;
+  const quest3NumText = "Quest" + quest3Num;
+
+  useEffect(() => {
+    const fetchQuest3 = async () => {
+      try {
+        const docRef = doc(db, 'quests', 'dailyQuest3');
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (docSnap.exists() && data.hasOwnProperty(quest3NumText)) {
+          setDailyQuest3(data[quest3NumText]);
+        }
+      } catch (error) {
+        console.error("Error fetching quest 3:", error);
+      }
+    };
+    fetchQuest3();
+  }, []);
+
 
   return (
     <div>
       <main>
-        <nav>
-          <ul class="menu mb-3 d-flex justify-content-end">
-            <li><Link to='/homepage'>Home</Link></li>
-            <li><Link to='/taskmanager'>Task Manager</Link></li>
-            <li><Link to='/spotify'>Spotify Page</Link></li>
-            <li><Link to='/stats'>Achievements</Link></li>
-          </ul>
-        </nav>
+        <header>
+          <Navbar />
+        </header>
 
         <div className="stats">
 
-        <button onClick={lifetimePomodoros}>Click me!</button>
+          <p>{quote}</p>
+
+          <p>{userId}</p>
+
+        {/* attach to "sign in with google" */}
+        <button onClick={() => AddUser(userId)}>Add user</button>
+
+        {/* attach to "mark as done" */}
+        <button onClick={() => LifetimeTasks(userId)}>Increment task</button>
+
+        {/* attach to "start" */}
+        <button onClick={() => LifetimePomodoros(userId)}>Increment pomodoro</button>
+
+        {/* attach to complete task buttons */}
+        <button onClick={() => LifetimeQuests(userId)}>Increment quest</button>
+
+        {/* attach to "mark as done" */}
+        <button onClick={() => DailyStreaks(userId)}>Add to daily streak</button>
+
+        {/* attach to "mark as done" */}
+        {/* <button onClick={() => SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3)}>Update Quests</button> */}
+        <button onClick={async () => {
+        await SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);
+        window.location.reload();
+      }}>Update Quests</button>
+
+
+        <br></br>
+
+        {/* attach to "task timer"*/}
+        {/* <button onClick={() => {TaskTimerQuest(userId, quest1); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest1")}}>Complete task timer quest</button> */}
+
+        {/* attach to "mark as done" */}
+        {/* <button onClick={() => {OneTaskQuest(userId, quest1); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest1")}}>Complete 1 task quest</button> */}
+
+        {/* attach to "add task" */}
+        {/* <button onClick={() => {AddTaskQuest(userId, quest2); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest2")}}>Complete add task quest</button> */}
+
+        {/* attach to "short break" */}
+        {/* <button onClick={() => {ShortTimerQuest(userId, quest2); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest2")}}>Complete short timer quest</button> */}
+
+        {/* attach to "short break" */}
+        {/* <button onClick={() => {JournalEntryQuest(userId, quest3); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest3")}}>Complete journal entry quest</button> */}
+
+        {/* attach to "short break" */}
+        {/* <button onClick={() => {LongTimerQuest(userId, quest3); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest3")}}>Complete long timer quest</button> */}
+
+
+        {/* attach to "task timer" */}
+        <button onClick={() => TaskTimerQuest(userId, quest1)}>Complete task timer quest</button>
+
+        {/* attach to "mark as done" */}
+        <button onClick={() => OneTaskQuest(userId, quest1)}>Complete 1 task quest</button>
+
+        {/* attach to "add task" */}
+        <button onClick={() => AddTaskQuest(userId, quest2)}>Complete add task quest</button>
+
+        {/* attach to "short break" */}
+        <button onClick={() => ShortTimerQuest(userId, quest2)}>Complete short timer quest</button>
+
+        {/* attach to "short break" */}
+        <button onClick={() => JournalEntryQuest(userId, quest3)}>Complete journal entry quest</button>
+
+        {/* attach to "short break" */}
+        <button onClick={() => LongTimerQuest(userId, quest3)}>Complete long timer quest</button>
+
 
           {/* Stats header */}
           <div className="stats-header">
@@ -166,14 +831,14 @@ export default function StatsPage(props) {
                 <div className="stats-daily-streak">
                   <h3>Daily Streak</h3>
                   <div className="stats-streak-num">
-                    <p>3</p>
+                    <h4>{currStreak}</h4>
                     <img src={streak} alt="fire"/>
                   </div>
                 </div>
                 <div className="stats-tasks-completed">
                   <h3>Tasks completed today</h3>
                   <div className="stats-tasks-completed-num">
-                    <p>5</p>
+                    <h4>5</h4>
                     <img src={checkmark} alt="green checkmark"/>
                   </div>
                   <div className="stats-tasks-progress">
@@ -192,24 +857,24 @@ export default function StatsPage(props) {
             <div className="stats-daily-quests">
               <h2>Daily Quests</h2>
               <div className="stats-quest-1 box-border stats-quest-box">
-                <h3>Complete 1 task</h3>
+                <h3>{quest1}</h3>
                   <div className="stats-tasks-progress">
-                    <progress className="stats-progress-bar" value={1}/>
-                    <p>1/1</p>
+                    <progress className="stats-progress-bar" value={quest1Done}/>
+                    <p>{quest1Done}/1</p>
                   </div>
               </div>
               <div className="stats-quest-2 box-border stats-quest-box">
-                <h3>Finish 2 tasks within 1 pomodoro session</h3>
+                <h3>{quest2}</h3>
                   <div className="stats-tasks-progress">
-                    <progress className="stats-progress-bar" value={.5}/>
-                    <p>1/2</p>
+                    <progress className="stats-progress-bar" value={quest2Done}/>
+                    <p>{quest2Done}/1</p>
                   </div>
               </div>
               <div className="stats-quest-3 box-border stats-quest-box">
-                <h3>Complete 1 journal entry</h3>
+                <h3>{quest3}</h3>
                   <div className="stats-tasks-progress">
-                    <progress className="stats-progress-bar" value={0}/>
-                    <p>0/1</p>
+                    <progress className="stats-progress-bar" value={quest3Done}/>
+                    <p>{quest3Done}/1</p>
                   </div>
               </div>
             </div>
@@ -220,28 +885,28 @@ export default function StatsPage(props) {
               <div className="stats-longest-streak stats-all-time-box">
                 <img src={streak} alt="fire"/>
                 <div className="stats-all-time-text">
-                  <p>16</p>
+                  <p>{currLongestStreak}</p>
                   <h3>Longest day streak</h3>
                 </div>
               </div>
               <div className="stats-lifetime-tasks stats-all-time-box">
                 <img src={checkmark} alt="green checkmark"/>
                 <div className="stats-all-time-text">
-                  <p>43</p>
+                  <p>{currLifetimeTasks}</p>
                   <h3>Tasks completed</h3>
                 </div>
               </div>
               <div className="stats-pomodoros-set stats-all-time-box">
                 <img src={timer} alt="timer"/>
                 <div className="stats-all-time-text">
-                  <p>8</p>
+                  <p>{currLifetimePomodoros}</p>
                   <h3>Pomodoro timers set</h3>
                 </div>
               </div>
               <div className="stats-quests-completed stats-all-time-box">
                 <img src={chest} alt="chest"/>
                 <div className="stats-all-time-text">
-                  <p>12</p>
+                  <p>{currLifetimeQuests}</p>
                   <h3>Daily quests completed</h3>
                 </div>
               </div>

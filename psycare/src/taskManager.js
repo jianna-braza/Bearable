@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar.js';
 
 export default function TaskManager(props) {
   let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
@@ -7,7 +8,13 @@ export default function TaskManager(props) {
     { day: "Sat, 20", tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
     { day: "Sun, 21", tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
   ])
+  const WEEKDAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [dropTag, setDropTag] = useState("What kind of task is this?");
+
+  //will use to set task manager to current date
+  const date = new Date();
+  let month = date.getMonth();
 
   const handleChange = event => {
     let tag = event.target.textContent;
@@ -19,7 +26,7 @@ export default function TaskManager(props) {
     let tempTasks = testTasks;
     for (let i = 0; i < testTasks.length; i++) {
       if (testTasks[i].day === 'Sat, 20') {
-        tempTasks[i].tasks.push({name: newName, tag: dropTag})
+        tempTasks[i].tasks.push({ name: newName, tag: dropTag })
       }
     }
     setTestTasks(tempTasks);
@@ -131,15 +138,7 @@ export default function TaskManager(props) {
   return (
     <div>
       <header>
-        <h1>Psycare Task Manager</h1>
-        <nav>
-          <ul className="menu mb-3 d-flex justify-content-end">
-            <li><Link to='/homepage'>Home</Link></li>
-            <li><Link to='/taskmanager'>Task Manager</Link></li>
-            <li><Link to='/spotify'>Spotify Page</Link></li>
-            <li><Link to='/stats'>Stats Page</Link></li>
-          </ul>
-        </nav>
+        <Navbar />
       </header>
       <main>
         <div className='d-flex row'>
@@ -152,7 +151,7 @@ export default function TaskManager(props) {
           <section className='col-9'>
 
             <div className="d-flex justify-content-around">
-              <h2>April 2024 &lt; &gt;</h2>
+              <h2>{MONTHS[month]} 2024 &lt; &gt;</h2>
             </div>
             <div className="d-flex justify-content-around">
               {cards}
