@@ -133,59 +133,37 @@ const LifetimeQuests = async (userId) => {
 // add current date to date array, update CurrStreak, update LongestStreak
 // attach to "mark as done" button
 const DailyStreaks = async (userId) => {
-  try {
-      const docRef = doc(db, "userData", userId);
-      const docSnap = await getDoc(docRef);
+  const docRef = doc(db, 'userData', userId);
+  const docSnap = await getDoc(docRef);
+  const userData = docSnap.data();
 
-      if (docSnap.exists()) {
-          const currentDate = new Date().toISOString(); // Get current date in ISO format
-          const userData = docSnap.data();
-          
-          // Add current date to the 'dates' field array
-          userData.CheckInDates = userData.CheckInDates || []; // Initialize if 'dates' field doesn't exist
-          userData.CheckInDates.push(currentDate);
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayISO = yesterday.toISOString().slice(0, 10); // Get yesterday's date in ISO format (YYYY-MM-DD)
+  const todayISO = today.toISOString().slice(0, 10);
 
-          // Update the document with the new 'dates' field
-          await setDoc(docRef, userData);
+  if (userData.LastCheckIn === yesterdayISO) {
+    userData.CurrStreak = (userData.CurrStreak || 0) + 1;
+    console.log("CurrStreak incremented by 1.");
+    userData.LastCheckIn = todayISO;
+  }
+  else if (userData.LastCheckIn === todayISO) {
+    
+  }
+  else {
+    userData.CurrStreak = 1;
+    console.log("CurrStreak set to 1.");
+    userData.LastCheckIn = todayISO;
+  }
 
-          console.log("Current date added to the 'dates' field successfully.");
-
-          // Check streak
-          const today = new Date();
-          const yesterday = new Date(today);
-          yesterday.setDate(yesterday.getDate() - 1);
-          const yesterdayISO = yesterday.toISOString().slice(0, 10); // Get yesterday's date in ISO format (YYYY-MM-DD)
-          const todayISO = today.toISOString().slice(0, 10);
-
-          console.log(todayISO);
-
-          if (!userData.CheckInDates.includes(todayISO)) {
-            if (userData.CheckInDates.includes(yesterdayISO)) {
-              // Increment CurrStreak if there is a date from the previous day
-              userData.CurrStreak = (userData.CurrStreak || 0) + 1;
-              console.log("CurrStreak incremented by 1.");
-            } else {
-              // Set CurrStreak to 1 if there is no date from the previous day
-              userData.CurrStreak = 1;
-              console.log("CurrStreak set to 1.");
-            }
-          }
-
-          // Update document with the updated streak
-          await setDoc(docRef, userData);
-
-          // Compare CurrStreak and LongestStreak
-          if (userData.CurrStreak > (userData.LongestStreak || 0)) {
-              // Update LongestStreak if CurrStreak is greater
-              userData.LongestStreak = userData.CurrStreak;
-              await setDoc(docRef, userData);
-              console.log("LongestStreak updated with CurrStreak value.");
-          }
-      } else {
-          console.log("User document does not exist.");
-      }
-  } catch (error) {
-      console.error("Error adding current date and checking streak:", error);
+  await setDoc(docRef, userData);
+  
+  if (userData.CurrStreak > (userData.LongestStreak || 0)) {
+    // Update LongestStreak if CurrStreak is greater
+    userData.LongestStreak = userData.CurrStreak;
+    await setDoc(docRef, userData);
+    console.log("LongestStreak updated with CurrStreak value.");
   }
 };
 
@@ -304,7 +282,7 @@ const AddUser = async (userId) => {
         LifetimeQuests: 0,
         LongestStreak: 0,
         CurrStreak: 0,
-        CheckInDates: [],
+        LastCheckIn: null,
         Quest1: null,
         Quest2: null,
         Quest3: null,
