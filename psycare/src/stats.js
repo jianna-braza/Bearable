@@ -14,20 +14,21 @@ import { addDoc, doc, setDoc, getDoc, collection, updateDoc, serverTimestamp } f
 import Navbar from './Navbar.js';
 
 // to-do
-// achievments page css
+// achievments page css - done
 // create user with uid in firestore database with google auth - done
 // update incremement functions with uid variable - done
-// streak counter
+// streak counter - done
 // daily quest box
 // tasks completed today
 
 
-// increment lifetime tasks
+// increment lifetime tasks and daily task done
 const LifetimeTasks = async (userId) => {
   const docRef = doc(db, 'userData', userId);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   
+  // incrememnt lifetime tasks
   if (docSnap.exists()) {
     let currentTasks = 0;
     if (data && data.hasOwnProperty('LifetimeTasks')) {
@@ -38,6 +39,15 @@ const LifetimeTasks = async (userId) => {
   else {
     await setDoc(docRef, { LifetimeTasks: 1 });
   }
+
+  // increment daily task done
+  if (docSnap.exists()) {
+    let currTasks = 0;
+    if (data && data.hasOwnProperty('DailyTaskDone')) {
+      currTasks = data.DailyTaskDone;
+    }
+    await setDoc(docRef, { DailyTaskDone: currTasks + 1 }, { merge: true });
+  }  
 }
 
 // increment lifetime pomodoros
@@ -169,7 +179,6 @@ const DailyStreaks = async (userId) => {
 
 // attach to "sign in with google" button
 const SetQuests = async (userId, dailyQuest1, dailyQuest2, dailyQuest3) => {
-
   const docRef = doc(db, 'userData', userId);
 
   await updateDoc(docRef, {
@@ -725,6 +734,50 @@ export default function StatsPage(props) {
     fetchQuest3();
   }, []);
 
+  // retrieve daily task done
+  const [taskDone, setTaskDone] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchTaskDone = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('DailyTaskDone')) {
+            setTaskDone(data.DailyTaskDone);
+          }
+        } catch (error) {
+          console.error("Error fetching daily task done:", error);
+        }
+      };
+      fetchTaskDone();
+    }
+  }, [userId]);
+
+  // retrieve daily task total
+  const [taskTotal, setTaskTotal] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchTaskTotal = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('DailyTaskTotal')) {
+            setTaskTotal(data.DailyTaskTotal);
+          }
+        } catch (error) {
+          console.error("Error fetching daily task total:", error);
+        }
+      };
+      fetchTaskTotal();
+    }
+  }, [userId]);
+
+  const taskPerc = taskDone / taskTotal;
+
 
   return (
     <div>
@@ -818,12 +871,12 @@ export default function StatsPage(props) {
                 <div className="stats-tasks-completed">
                   <h3>Tasks completed today</h3>
                   <div className="stats-tasks-completed-num">
-                    <h4>5</h4>
+                    <h4>{taskDone}</h4>
                     <img src={checkmark} alt="green checkmark"/>
                   </div>
                   <div className="stats-tasks-progress">
-                    <progress className="stats-progress-bar" value={.625}/>
-                    <p>5/8</p>
+                    <progress className="stats-progress-bar" value={taskPerc}/>
+                    <p>{taskDone}/{taskTotal}</p>
                   </div>
                 </div>
               </div>
