@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar.js';
+import db from "./firebase.js";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import firebase from "firebase/compat/app";
+// Required for side-effects
+import "firebase/firestore";
 
 export default function TaskManager(props) {
   let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
@@ -11,17 +17,70 @@ export default function TaskManager(props) {
   const WEEKDAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [dropTag, setDropTag] = useState("What kind of task is this?");
+  let [tasks, setTasks] = useState();
+  const [userId, setUserId] = useState(() => {
+    return localStorage.getItem('userId') || null;
+  });
 
   //will use to set task manager to current date
   const date = new Date();
   let month = date.getMonth();
+  const day = date.getDay();
+  const dateNum = date.getDate()
+  let currentDateString = '' + MONTHS[month] + ', ' + WEEKDAYS[day] + ' ' + dateNum;
+
+  let [testMonth, testDay, testWeek] = [3, 19, 5];
+  let testDate = '' + MONTHS[testMonth] + ', ' + WEEKDAYS[testWeek] + ' ' + testDay;
+
+
+  //not working? data=undefined
+  //getting quote to test if can connect to firebase
+  useEffect(() => {
+    const fetchQuote = async () => {
+      try {
+        const docRef = doc(db, 'quotes', 'loadScreenQuotes');
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        if (docSnap.exists() && data.hasOwnProperty(1)) {
+          setTasks(data[1]);
+        }
+      } catch (error) {
+        console.error("Error fetching quote:", error);
+      }
+    };
+    fetchQuote();
+    console.log(tasks)
+  }, []);
+
+
+
 
   const handleChange = event => {
     let tag = event.target.textContent;
     setDropTag(tag);
   }
 
-  const addTask = event => {
+
+  //not working? error: cannot read properties of null (reading 'indexOf')
+  // async function increment() {
+  //   const docRef = doc(db, 'userData', userId);
+  //   const docSnap = await getDoc(docRef);
+  //   const data = docSnap.data();
+
+  //   // increment daily task total
+  //   if (docSnap.exists()) {
+  //     let currTaskTotal = 0;
+  //     if (data && data.hasOwnProperty('DailyTaskTotal')) {
+  //       currTaskTotal = data.DailyTaskTotal;
+  //     }
+  //     await setDoc(docRef, { DailyTaskTotal: currTaskTotal + 1 }, { merge: true });
+  //   }
+  // }
+
+  const addTask = async event => {
+
+    //increment();
+
     let newName = document.getElementById('task_input').value;
     let tempTasks = testTasks;
     for (let i = 0; i < testTasks.length; i++) {
