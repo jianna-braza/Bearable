@@ -159,7 +159,7 @@ const DailyStreaks = async (userId) => {
     userData.LastCheckIn = todayISO;
   }
   else if (userData.LastCheckIn === todayISO) {
-    
+    console.log("Already checked in for the day");
   }
   else {
     userData.CurrStreak = 1;
