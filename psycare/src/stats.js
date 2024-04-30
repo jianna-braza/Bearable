@@ -291,7 +291,9 @@ const AddUser = async (userId) => {
         Quest3Done: 0,
         Quest1Stop: 0,
         Quest2Stop: 0,
-        Quest3Stop: 0
+        Quest3Stop: 0,
+        DailyTaskDone: 0,
+        DailyTaskTotal: 0
       });
       console.log("User document created successfully.");
     } else {
