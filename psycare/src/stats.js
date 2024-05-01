@@ -18,11 +18,11 @@ import Navbar from './Navbar.js';
 // create user with uid in firestore database with google auth - done
 // update incremement functions with uid variable - done
 // streak counter - done
-// daily quest box
+// daily quest box - done
 // tasks completed today - done
 // attach functions to correct buttons
 
-// code operating under assumption that user logs in once everyday 
+// code operating under assumption that user logs in once a day 
 
 
 // increment lifetime tasks and daily task done
@@ -786,25 +786,6 @@ export default function StatsPage(props) {
 
 
         <br></br>
-
-        {/* attach to "task timer"*/}
-        {/* <button onClick={() => {TaskTimerQuest(userId, quest1); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest1")}}>Complete task timer quest</button> */}
-
-        {/* attach to "mark as done" */}
-        {/* <button onClick={() => {OneTaskQuest(userId, quest1); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest1")}}>Complete 1 task quest</button> */}
-
-        {/* attach to "add task" */}
-        {/* <button onClick={() => {AddTaskQuest(userId, quest2); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest2")}}>Complete add task quest</button> */}
-
-        {/* attach to "short break" */}
-        {/* <button onClick={() => {ShortTimerQuest(userId, quest2); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest2")}}>Complete short timer quest</button> */}
-
-        {/* attach to "short break" */}
-        {/* <button onClick={() => {JournalEntryQuest(userId, quest3); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest3")}}>Complete journal entry quest</button> */}
-
-        {/* attach to "short break" */}
-        {/* <button onClick={() => {LongTimerQuest(userId, quest3); LifetimeQuests(userId, quest1Stop, quest2Stop, quest3Stop, "quest3")}}>Complete long timer quest</button> */}
-
 
         {/* attach to "task timer" */}
         <button onClick={() => TaskTimerQuest(userId, quest1, quest1Stop)}>Complete task timer quest</button>
