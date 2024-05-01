@@ -173,3 +173,9 @@ a {
   scale: 0 0;
   visibility: hidden;
 }
+
+.spotify-content {
+  position: absolute;
+  bottom: 7rem;
+  right: 7rem;
+}
