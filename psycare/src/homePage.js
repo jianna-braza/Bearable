@@ -8,8 +8,6 @@ import { getAuth } from 'firebase/auth';
 import db from "./firebase.js";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
-
-
 export default function HomePage(props) {
   // achievement tracking code
 
@@ -156,6 +154,8 @@ export default function HomePage(props) {
     });
   }
 
+  
+
   return (
     <div>
       <header>
@@ -181,10 +181,18 @@ export default function HomePage(props) {
 
           {/* spotify section */}
 
-          <div className="spotify-content">
-            <SpotifyPage />
+          {/* <div className="spotify-content"> */}
+
+          <div className="above-spotify-extra-space"></div>
+          <div className="spotify-container">
+            <div className="spotify-extra-space"></div>
+            <div>
+              <SpotifyPage />
+            </div>
           </div>
 
+          {/* </div> */}
+            
 
           <img
             src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/bear.png?raw=true"

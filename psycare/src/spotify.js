@@ -157,6 +157,7 @@ export default function SpotifyPage(props) {
         setShowAdditionalElements(!showAdditionalElements);
     };
 
+
     return (
         <div className="spotify" id="spotify">
           <div className="spotify-nav" id="spotifyheader">

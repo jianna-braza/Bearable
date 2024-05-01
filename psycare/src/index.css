@@ -174,8 +174,14 @@ a {
   visibility: hidden;
 }
 
-.spotify-content {
-  position: absolute;
-  bottom: 7rem;
-  right: 7rem;
+.above-spotify-extra-space {
+  margin-top: 135px;
+}
+
+.spotify-container {
+  display: flex;
+}
+
+.spotify-extra-space {
+  width: 85%;
 }
