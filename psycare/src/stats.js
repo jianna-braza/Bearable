@@ -19,7 +19,10 @@ import Navbar from './Navbar.js';
 // update incremement functions with uid variable - done
 // streak counter - done
 // daily quest box
-// tasks completed today
+// tasks completed today - done
+// attach functions to correct buttons
+
+// code operating under assumption that user logs in once everyday 
 
 
 // increment lifetime tasks and daily task done
@@ -69,74 +72,17 @@ const LifetimePomodoros = async (userId) => {
 }
 
 // increment lifetime quests
-const LifetimeQuests = async (userId) => {
+const LifetimeQuests = async (userId, questNumStop) => {
   const docRef = doc(db, 'userData', userId);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
 
-  // if (questNum === "quest1") {
-  //   if (quest1Stop === 0) {
-  //     if (docSnap.exists()) {
-  //       let currentQuests = 0;
-  //       if (data && data.hasOwnProperty('LifetimeQuests')) {
-  //         currentQuests = data.LifetimeQuests;
-  //       }
-  //       await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
-  //     } 
-  //     else {
-  //       await setDoc(docRef, { LifetimeQuests: 1 });
-  //     }
-  //   }
-  //   await updateDoc(docRef, {
-  //     Quest1Stop: 1
-  //   });
-  // }
-
-  // if (questNum === "quest2") {
-  //   if (quest2Stop === 0) {
-  //     if (docSnap.exists()) {
-  //       let currentQuests = 0;
-  //       if (data && data.hasOwnProperty('LifetimeQuests')) {
-  //         currentQuests = data.LifetimeQuests;
-  //       }
-  //       await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
-  //     } 
-  //     else {
-  //       await setDoc(docRef, { LifetimeQuests: 1 });
-  //     }
-  //   }
-  //   await updateDoc(docRef, {
-  //     Quest2Stop: 1
-  //   });
-  // }
-
-  // if (questNum === "quest3") {
-  //   if (quest3Stop === 0) {
-  //     if (docSnap.exists()) {
-  //       let currentQuests = 0;
-  //       if (data && data.hasOwnProperty('LifetimeQuests')) {
-  //         currentQuests = data.LifetimeQuests;
-  //       }
-  //       await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
-  //     } 
-  //     else {
-  //       await setDoc(docRef, { LifetimeQuests: 1 });
-  //     }
-  //   }
-  //   await updateDoc(docRef, {
-  //     Quest3Stop: 1
-  //   });
-  // }
-  
-  if (docSnap.exists()) {
+  if (questNumStop === 0) {
     let currentQuests = 0;
     if (data && data.hasOwnProperty('LifetimeQuests')) {
       currentQuests = data.LifetimeQuests;
     }
     await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
-  } 
-  else {
-    await setDoc(docRef, { LifetimeQuests: 1 });
   }
 }
   
@@ -178,6 +124,7 @@ const DailyStreaks = async (userId) => {
 };
 
 // attach to "sign in with google" button
+// update new daily quests, reset daily task count done/total
 const SetQuests = async (userId, dailyQuest1, dailyQuest2, dailyQuest3) => {
   const docRef = doc(db, 'userData', userId);
 
@@ -190,12 +137,17 @@ const SetQuests = async (userId, dailyQuest1, dailyQuest2, dailyQuest3) => {
     Quest3Done: 0,
     Quest1Stop: 0,
     Quest2Stop: 0,
-    Quest3Stop: 0
+    Quest3Stop: 0,
+    DailyTaskDone: 0,
+    DailyTaskTotal: 0
   });
 }
 
+
+// complete quest buttons
+
 // complete "set a task timer" quest
-const TaskTimerQuest = async (userId, quest1) => {
+const TaskTimerQuest = async (userId, quest1, quest1Stop) => {
   console.log(quest1);
 
   if (quest1 === "Set a task timer") {
@@ -203,13 +155,16 @@ const TaskTimerQuest = async (userId, quest1) => {
     await updateDoc(docRef, {
       Quest1Done: 1
     });
-    LifetimeQuests(userId);
+    LifetimeQuests(userId, quest1Stop);
+    await updateDoc(docRef, {
+      Quest1Stop: 1
+    });
   }
   
 }
 
 // complete "complete 1 task" quest
-const OneTaskQuest = async (userId, quest1) => {
+const OneTaskQuest = async (userId, quest1, quest1Stop) => {
   console.log(quest1);
 
   if (quest1 === "Complete 1 task") {
@@ -217,13 +172,16 @@ const OneTaskQuest = async (userId, quest1) => {
     await updateDoc(docRef, {
       Quest1Done: 1
     });
-    LifetimeQuests(userId);
+    LifetimeQuests(userId, quest1Stop);
+    await updateDoc(docRef, {
+      Quest1Stop: 1
+    });
   }
   
 }
 
 // complete "complete add task to to-do list" quest
-const AddTaskQuest = async (userId, quest2) => {
+const AddTaskQuest = async (userId, quest2, quest2Stop) => {
   console.log(quest2);
 
   if (quest2 === "Add a task to your to-do list") {
@@ -231,13 +189,16 @@ const AddTaskQuest = async (userId, quest2) => {
     await updateDoc(docRef, {
       Quest2Done: 1
     });
-    LifetimeQuests(userId);
+    LifetimeQuests(userId, quest2Stop);
+    await updateDoc(docRef, {
+      Quest2Stop: 1
+    });
   }
   
 }
 
 // complete "complete short timer" quest
-const ShortTimerQuest = async (userId, quest2) => {
+const ShortTimerQuest = async (userId, quest2, quest2Stop) => {
   console.log(quest2);
 
   if (quest2 === "Set a short break timer") {
@@ -245,13 +206,16 @@ const ShortTimerQuest = async (userId, quest2) => {
     await updateDoc(docRef, {
       Quest2Done: 1
     });
-    LifetimeQuests(userId);
+    LifetimeQuests(userId, quest2Stop);
+    await updateDoc(docRef, {
+      Quest2Stop: 1
+    });
   }
   
 }
 
 // complete "complete journal entry" quest
-const JournalEntryQuest = async (userId, quest3) => {
+const JournalEntryQuest = async (userId, quest3, quest3Stop) => {
   console.log(quest3);
 
   if (quest3 === "Complete 1 journal entry") {
@@ -259,13 +223,16 @@ const JournalEntryQuest = async (userId, quest3) => {
     await updateDoc(docRef, {
       Quest3Done: 1
     });
-    LifetimeQuests(userId);
+    LifetimeQuests(userId, quest3Stop);
+    await updateDoc(docRef, {
+      Quest3Stop: 1
+    });
   }
   
 }
 
 // complete "complete long timer" quest
-const LongTimerQuest = async (userId, quest3) => {
+const LongTimerQuest = async (userId, quest3, quest3Stop) => {
   console.log(quest3);
 
   if (quest3 === "Set a long break timer") {
@@ -273,7 +240,10 @@ const LongTimerQuest = async (userId, quest3) => {
     await updateDoc(docRef, {
       Quest3Done: 1
     });
-    LifetimeQuests(userId);
+    LifetimeQuests(userId, quest3Stop);
+    await updateDoc(docRef, {
+      Quest3Stop: 1
+    });
   }
 }
 
@@ -801,18 +771,18 @@ export default function StatsPage(props) {
         {/* attach to "start" */}
         <button onClick={() => LifetimePomodoros(userId)}>Increment pomodoro</button>
 
-        {/* attach to complete task buttons */}
+        {/* called from each complete specific task button */}
         <button onClick={() => LifetimeQuests(userId)}>Increment quest</button>
 
         {/* attach to "mark as done" */}
         <button onClick={() => DailyStreaks(userId)}>Add to daily streak</button>
 
-        {/* attach to "mark as done" */}
+        {/* attach to "sign in with google" */}
         {/* <button onClick={() => SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3)}>Update Quests</button> */}
         <button onClick={async () => {
         await SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);
         window.location.reload();
-      }}>Update Quests</button>
+      }}>Set Quests</button>
 
 
         <br></br>
@@ -837,22 +807,22 @@ export default function StatsPage(props) {
 
 
         {/* attach to "task timer" */}
-        <button onClick={() => TaskTimerQuest(userId, quest1)}>Complete task timer quest</button>
+        <button onClick={() => TaskTimerQuest(userId, quest1, quest1Stop)}>Complete task timer quest</button>
 
         {/* attach to "mark as done" */}
-        <button onClick={() => OneTaskQuest(userId, quest1)}>Complete 1 task quest</button>
+        <button onClick={() => OneTaskQuest(userId, quest1, quest1Stop)}>Complete 1 task quest</button>
 
         {/* attach to "add task" */}
-        <button onClick={() => AddTaskQuest(userId, quest2)}>Complete add task quest</button>
+        <button onClick={() => AddTaskQuest(userId, quest2, quest2Stop)}>Complete add task quest</button>
 
         {/* attach to "short break" */}
-        <button onClick={() => ShortTimerQuest(userId, quest2)}>Complete short timer quest</button>
+        <button onClick={() => ShortTimerQuest(userId, quest2, quest2Stop)}>Complete short timer quest</button>
 
         {/* attach to "short break" */}
-        <button onClick={() => JournalEntryQuest(userId, quest3)}>Complete journal entry quest</button>
+        <button onClick={() => JournalEntryQuest(userId, quest3, quest3Stop)}>Complete journal entry quest</button>
 
         {/* attach to "short break" */}
-        <button onClick={() => LongTimerQuest(userId, quest3)}>Complete long timer quest</button>
+        <button onClick={() => LongTimerQuest(userId, quest3, quest3Stop)}>Complete long timer quest</button>
 
 
           {/* Stats header */}
