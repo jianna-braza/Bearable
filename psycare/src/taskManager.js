@@ -33,23 +33,37 @@ export default function TaskManager(props) {
   let testDate = '' + MONTHS[testMonth] + ', ' + WEEKDAYS[testWeek] + ' ' + testDay;
 
 
-  //not working? data=undefined
-  //getting quote to test if can connect to firebase
+  // //THIS WORKS
+  // useEffect(() => {
+  //   const fetchQuote = async () => {
+  //     try {
+  //       const docRef = doc(db, 'quotes', 'loadScreenQuotes');
+  //       const docSnap = await getDoc(docRef);
+  //       const data = docSnap.data();
+  //       if (docSnap.exists()) {
+  //         setTasks(data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching quote:", error);
+  //     }
+  //   };
+  //   fetchQuote();
+  // }, []);
+
   useEffect(() => {
-    const fetchQuote = async () => {
+    const fetchTask = async () => {
       try {
-        const docRef = doc(db, 'quotes', 'loadScreenQuotes');
+        const docRef = doc(db, 'testTasks', 'April, Fri 19');
         const docSnap = await getDoc(docRef);
         const data = docSnap.data();
-        if (docSnap.exists() && data.hasOwnProperty(1)) {
-          setTasks(data[1]);
+        if (docSnap.exists()) {
+          setTasks(data);
         }
       } catch (error) {
         console.error("Error fetching quote:", error);
       }
     };
-    fetchQuote();
-    console.log(tasks)
+    fetchTask();
   }, []);
 
 
@@ -78,6 +92,8 @@ export default function TaskManager(props) {
   // }
 
   const addTask = async event => {
+
+    console.log(tasks);
 
     //increment();
 
