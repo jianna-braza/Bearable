@@ -154,7 +154,6 @@ export default function HomePage(props) {
     });
   }
 
-  
 
   return (
     <div>
@@ -182,6 +181,7 @@ export default function HomePage(props) {
           {/* spotify section */}
 
           {/* <div className="spotify-content"> */}
+          
 
           <div className="above-spotify-extra-space"></div>
           <div className="spotify-container">
