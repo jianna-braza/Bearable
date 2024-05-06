@@ -2,13 +2,115 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar.js';
 import db from "./firebase.js";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import firebase from "firebase/compat/app";
 // Required for side-effects
 import "firebase/firestore";
 
 export default function TaskManager(props) {
+
+  // achievement tracking code
+
+  // retrieve userId
+  const [UserID, setUserID] = useState(() => {
+    return localStorage.getItem('userId') || null;
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const currentUser = getAuth().currentUser;
+        if (currentUser !== null) {
+          console.log("User ID:", currentUser.uid);
+          setUserID(currentUser.uid);
+          localStorage.setItem('userId', currentUser.uid);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  // retrieve user quest 2
+  const [quest2, setQuest2] = useState(0);
+
+  useEffect(() => {
+    if (UserID) {
+      const fetchQuest2 = async () => {
+        try {
+          const docRef = doc(db, 'userData', UserID);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest2')) {
+            setQuest2(data.Quest2);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 2:", error);
+        }
+      };
+      fetchQuest2();
+    }
+  }, [UserID]);
+
+  // retrieve quest 2 stop
+  const [quest2Stop, setQuest2Stop] = useState(0);
+
+  useEffect(() => {
+    if (UserID) {
+      const fetchQuest2Stop = async () => {
+        try {
+          const docRef = doc(db, 'userData', UserID);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('Quest2Stop')) {
+            setQuest2Stop(data.Quest2Stop);
+          }
+        } catch (error) {
+          console.error("Error fetching quest 2 stop:", error);
+        }
+      };
+      fetchQuest2Stop();
+    }
+  }, [UserID]);
+
+  // increment lifetime quests
+  const LifetimeQuests = async (UserID, questNumStop) => {
+    const docRef = doc(db, 'userData', UserID);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+
+    if (questNumStop === 0) {
+      let currentQuests = 0;
+      if (data && data.hasOwnProperty('LifetimeQuests')) {
+        currentQuests = data.LifetimeQuests;
+      }
+      await setDoc(docRef, { LifetimeQuests: currentQuests + 1 }, { merge: true });
+    }
+  }
+
+  // complete "complete add task to to-do list" quest
+  const AddTaskQuest = async (UserID, quest2, quest2Stop) => {
+    console.log(quest2);
+
+    if (quest2 === "Add a task to your to-do list") {
+      const docRef = doc(db, 'userData', UserID);
+      await updateDoc(docRef, {
+        Quest2Done: 1
+      });
+      LifetimeQuests(UserID, quest2Stop);
+      await updateDoc(docRef, {
+        Quest2Stop: 1
+      });
+    }
+  }
+
+
+
+
+
+
   let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
     { day: "Fri, 19", tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }] },
     { day: "Sat, 20", tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
@@ -157,7 +259,8 @@ export default function TaskManager(props) {
           </div>
         )
       }
-    })
+    })   
+
 
     return (
       <div className='column' key={date.day}>
@@ -194,7 +297,7 @@ export default function TaskManager(props) {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={addTask}>Save changes</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => {addTask(); AddTaskQuest(UserID, quest2, quest2Stop);}}>Save changes</button>
               </div>
             </div>
           </div>

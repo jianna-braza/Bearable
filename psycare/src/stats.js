@@ -53,23 +53,23 @@ import Navbar from './Navbar.js';
 //   }  
 // }
 
-// increment lifetime pomodoros
-const LifetimePomodoros = async (userId) => {
-  const docRef = doc(db, 'userData', userId);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
+// // increment lifetime pomodoros
+// const LifetimePomodoros = async (userId) => {
+//   const docRef = doc(db, 'userData', userId);
+//   const docSnap = await getDoc(docRef);
+//   const data = docSnap.data();
   
-  if (docSnap.exists()) {
-    let currentPomodoros = 0;
-    if (data && data.hasOwnProperty('LifetimePomodoros')) {
-      currentPomodoros = data.LifetimePomodoros;
-    }
-    await setDoc(docRef, { LifetimePomodoros: currentPomodoros + 1 }, { merge: true });
-  } 
-  else {
-    await setDoc(docRef, { LifetimePomodoros: 1 });
-  }
-}
+//   if (docSnap.exists()) {
+//     let currentPomodoros = 0;
+//     if (data && data.hasOwnProperty('LifetimePomodoros')) {
+//       currentPomodoros = data.LifetimePomodoros;
+//     }
+//     await setDoc(docRef, { LifetimePomodoros: currentPomodoros + 1 }, { merge: true });
+//   } 
+//   else {
+//     await setDoc(docRef, { LifetimePomodoros: 1 });
+//   }
+// }
 
 // increment lifetime quests
 const LifetimeQuests = async (userId, questNumStop) => {
@@ -145,22 +145,21 @@ const LifetimeQuests = async (userId, questNumStop) => {
 
 // complete quest buttons
 
-// complete "set a task timer" quest
-const TaskTimerQuest = async (userId, quest1, quest1Stop) => {
-  console.log(quest1);
+// // complete "set a task timer" quest
+// const TaskTimerQuest = async (userId, quest1, quest1Stop) => {
+//   console.log(quest1);
 
-  if (quest1 === "Set a task timer") {
-    const docRef = doc(db, 'userData', userId);
-    await updateDoc(docRef, {
-      Quest1Done: 1
-    });
-    LifetimeQuests(userId, quest1Stop);
-    await updateDoc(docRef, {
-      Quest1Stop: 1
-    });
-  }
-  
-}
+//   if (quest1 === "Set a task timer") {
+//     const docRef = doc(db, 'userData', userId);
+//     await updateDoc(docRef, {
+//       Quest1Done: 1
+//     });
+//     LifetimeQuests(userId, quest1Stop);
+//     await updateDoc(docRef, {
+//       Quest1Stop: 1
+//     });
+//   }
+// }
 
 // // complete "complete 1 task" quest
 // const OneTaskQuest = async (userId, quest1, quest1Stop) => {
@@ -178,39 +177,37 @@ const TaskTimerQuest = async (userId, quest1, quest1Stop) => {
 //   }
 // }
 
-// complete "complete add task to to-do list" quest
-const AddTaskQuest = async (userId, quest2, quest2Stop) => {
-  console.log(quest2);
+// // complete "complete add task to to-do list" quest
+// const AddTaskQuest = async (userId, quest2, quest2Stop) => {
+//   console.log(quest2);
 
-  if (quest2 === "Add a task to your to-do list") {
-    const docRef = doc(db, 'userData', userId);
-    await updateDoc(docRef, {
-      Quest2Done: 1
-    });
-    LifetimeQuests(userId, quest2Stop);
-    await updateDoc(docRef, {
-      Quest2Stop: 1
-    });
-  }
-  
-}
+//   if (quest2 === "Add a task to your to-do list") {
+//     const docRef = doc(db, 'userData', userId);
+//     await updateDoc(docRef, {
+//       Quest2Done: 1
+//     });
+//     LifetimeQuests(userId, quest2Stop);
+//     await updateDoc(docRef, {
+//       Quest2Stop: 1
+//     });
+//   }
+// }
 
-// complete "complete short timer" quest
-const ShortTimerQuest = async (userId, quest2, quest2Stop) => {
-  console.log(quest2);
+// // complete "complete short timer" quest
+// const ShortTimerQuest = async (userId, quest2, quest2Stop) => {
+//   console.log(quest2);
 
-  if (quest2 === "Set a short break timer") {
-    const docRef = doc(db, 'userData', userId);
-    await updateDoc(docRef, {
-      Quest2Done: 1
-    });
-    LifetimeQuests(userId, quest2Stop);
-    await updateDoc(docRef, {
-      Quest2Stop: 1
-    });
-  }
-  
-}
+//   if (quest2 === "Set a short break timer") {
+//     const docRef = doc(db, 'userData', userId);
+//     await updateDoc(docRef, {
+//       Quest2Done: 1
+//     });
+//     LifetimeQuests(userId, quest2Stop);
+//     await updateDoc(docRef, {
+//       Quest2Stop: 1
+//     });
+//   }
+// }
 
 // complete "complete journal entry" quest
 const JournalEntryQuest = async (userId, quest3, quest3Stop) => {
@@ -229,21 +226,21 @@ const JournalEntryQuest = async (userId, quest3, quest3Stop) => {
   
 }
 
-// complete "complete long timer" quest
-const LongTimerQuest = async (userId, quest3, quest3Stop) => {
-  console.log(quest3);
+// // complete "complete long timer" quest
+// const LongTimerQuest = async (userId, quest3, quest3Stop) => {
+//   console.log(quest3);
 
-  if (quest3 === "Set a long break timer") {
-    const docRef = doc(db, 'userData', userId);
-    await updateDoc(docRef, {
-      Quest3Done: 1
-    });
-    LifetimeQuests(userId, quest3Stop);
-    await updateDoc(docRef, {
-      Quest3Stop: 1
-    });
-  }
-}
+//   if (quest3 === "Set a long break timer") {
+//     const docRef = doc(db, 'userData', userId);
+//     await updateDoc(docRef, {
+//       Quest3Done: 1
+//     });
+//     LifetimeQuests(userId, quest3Stop);
+//     await updateDoc(docRef, {
+//       Quest3Stop: 1
+//     });
+//   }
+// }
 
 
 // // add user to firestore database with uid as key
@@ -767,7 +764,7 @@ export default function StatsPage(props) {
         {/* <button onClick={() => LifetimeTasks(userId)}>Increment task</button> */}
 
         {/* attach to "start" */}
-        <button onClick={() => LifetimePomodoros(userId)}>Increment pomodoro</button>
+        {/* <button onClick={() => LifetimePomodoros(userId)}>Increment pomodoro</button> */}
 
         {/* called from each complete specific task button */}
         {/* <button onClick={() => LifetimeQuests(userId)}>Increment quest</button> */}
@@ -786,22 +783,22 @@ export default function StatsPage(props) {
         <br></br>
 
         {/* attach to "task timer" */}
-        <button onClick={() => TaskTimerQuest(userId, quest1, quest1Stop)}>Complete task timer quest</button>
+        {/* <button onClick={() => TaskTimerQuest(userId, quest1, quest1Stop)}>Complete task timer quest</button> */}
 
         {/* attach to "mark as done" */}
         {/* <button onClick={() => OneTaskQuest(userId, quest1, quest1Stop)}>Complete 1 task quest</button> */}
 
         {/* attach to "add task" */}
-        <button onClick={() => AddTaskQuest(userId, quest2, quest2Stop)}>Complete add task quest</button>
+        {/* <button onClick={() => AddTaskQuest(userId, quest2, quest2Stop)}>Complete add task quest</button> */}
 
         {/* attach to "short break" */}
-        <button onClick={() => ShortTimerQuest(userId, quest2, quest2Stop)}>Complete short timer quest</button>
+        {/* <button onClick={() => ShortTimerQuest(userId, quest2, quest2Stop)}>Complete short timer quest</button> */}
 
         {/* attach to "journal" */}
         <button onClick={() => JournalEntryQuest(userId, quest3, quest3Stop)}>Complete journal entry quest</button>
 
         {/* attach to "long break" */}
-        <button onClick={() => LongTimerQuest(userId, quest3, quest3Stop)}>Complete long timer quest</button>
+        {/* <button onClick={() => LongTimerQuest(userId, quest3, quest3Stop)}>Complete long timer quest</button> */}
 
 
           {/* Stats header */}
