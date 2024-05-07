@@ -111,35 +111,43 @@ export default function TaskManager(props) {
 
 
 
-  let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
-    { day: "Fri, 19", tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }] },
-    { day: "Sat, 20", tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
-    { day: "Sun, 21", tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
-  ])
+  const date = new Date();
+
+  let [month, setMonth] = useState(date.getMonth());
+  let [weekday, setWeekday] = useState(date.getDay());
+  let [dateNum, setDateNum] = useState(date.getDate());
+  const MONTHMAX = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   const WEEKDAYS = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function addDate(num) {
+    let tempMonth = month;
+    let tempWeekday = weekday + num;
+    let tempDateNum = dateNum + num;
+    if (dateNum > MONTHMAX[month]) {
+      tempMonth++;
+      tempDateNum = dateNum % MONTHMAX[month];
+    }
+    if (num >= 7) {
+      tempWeekday = weekday % 7;
+    }
+    return ('' + MONTHS[tempMonth] + ', ' + WEEKDAYS[tempWeekday] + ' ' + tempDateNum);
+  }
+
+  let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
+    { day: addDate(0), tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }] },
+    { day: addDate(1), tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
+    { day: addDate(2), tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
+  ])
   const [dropTag, setDropTag] = useState("What kind of task is this?");
   let [tasks, setTasks] = useState();
-  const [userId, setUserId] = useState(() => {
-    return localStorage.getItem('userId') || null;
-  });
-
-  //will use to set task manager to current date
-  const date = new Date();
-  let month = date.getMonth();
-  const day = date.getDay();
-  const dateNum = date.getDate()
-  let currentDateString = '' + MONTHS[month] + ', ' + WEEKDAYS[day] + ' ' + dateNum;
-
-  let [testMonth, testDay, testWeek] = [3, 19, 5];
-  let testDate = '' + MONTHS[testMonth] + ', ' + WEEKDAYS[testWeek] + ' ' + testDay;
 
 
-  // //THIS WORKS
+
   // useEffect(() => {
-  //   const fetchQuote = async () => {
+  //   const fetchTask = async () => {
   //     try {
-  //       const docRef = doc(db, 'quotes', 'loadScreenQuotes');
+  //       const docRef = doc(db, 'testTasks', 'April, Fri 19');
   //       const docSnap = await getDoc(docRef);
   //       const data = docSnap.data();
   //       if (docSnap.exists()) {
@@ -149,28 +157,13 @@ export default function TaskManager(props) {
   //       console.error("Error fetching quote:", error);
   //     }
   //   };
-  //   fetchQuote();
+  //   fetchTask();
+  //   console.log(tasks);
   // }, []);
 
-  useEffect(() => {
-    const fetchTask = async () => {
-      try {
-        const docRef = doc(db, 'testTasks', 'April, Fri 19');
-        const docSnap = await getDoc(docRef);
-        const data = docSnap.data();
-        if (docSnap.exists()) {
-          setTasks(data);
-        }
-      } catch (error) {
-        console.error("Error fetching quote:", error);
-      }
-    };
-    fetchTask();
-  }, []);
 
 
-
-
+// updates drop down tag in add task modal
   const handleChange = event => {
     let tag = event.target.textContent;
     setDropTag(tag);
@@ -194,23 +187,21 @@ export default function TaskManager(props) {
   // }
 
   const addTask = async event => {
-
-    console.log(tasks);
-
     //increment();
-
     let newName = document.getElementById('task_input').value;
     let tempTasks = testTasks;
+    let taskDate = document.getElementById('date_input').value.split('-');
+
     for (let i = 0; i < testTasks.length; i++) {
-      if (testTasks[i].day === 'Sat, 20') {
+      //right now only set to add tasks on the second day
+      if (testTasks[i].day .includes(Number(taskDate[2]))) {
         tempTasks[i].tasks.push({ name: newName, tag: dropTag })
       }
     }
+
     setTestTasks(tempTasks);
     setDropTag("What kind of task is this?");
   }
-
-
 
   const cards = testTasks.map(date => {
     let dayTasks = date['tasks'].map(task => {
@@ -259,15 +250,12 @@ export default function TaskManager(props) {
           </div>
         )
       }
-    })   
-
+    })
 
     return (
       <div className='column' key={date.day}>
         <button type="button" className="btn btn-dark">{date.day}</button>
-
-
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-backdrop="false" data-target="#exampleModal">
+        <button type="button" className="btn btn-primary" data-toggle="modal" data-backdrop="false" data-target="#exampleModal" >
           Add task
         </button>
 
@@ -293,25 +281,20 @@ export default function TaskManager(props) {
                     <li key='daily'><button className="dropdown-item" onClick={handleChange} >Work</button></li>
                   </ul>
                 </div>
-
+                <label htmlFor="date_input">Select end date for this task:</label>
+                <input type='date' id="date_input" />
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => {addTask(); AddTaskQuest(UserID, quest2, quest2Stop);}}>Save changes</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { addTask(); AddTaskQuest(UserID, quest2, quest2Stop); }}>Save changes</button>
               </div>
             </div>
           </div>
         </div>
-
-
-
         {dayTasks}
       </div>
     )
   })
-
-
-
 
   return (
     <div>
