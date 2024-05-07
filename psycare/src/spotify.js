@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./spotify.css";
 import axios from "axios";
-import musicNote from "./assets/musicNote.png";
+import spotifyLogo from "./assets/spotifyLogo.png";
 
 export default function SpotifyPage(props) {
 
@@ -174,7 +174,7 @@ export default function SpotifyPage(props) {
             
             {/* Spotify player button */}
             <button className="spotify-button spotify-toggle" onClick={handleToggleAdditionalElements}>
-              <span><img src={musicNote} alt="music note icon" /></span>
+              <span><img src={spotifyLogo} alt="spotify logo" /></span>
               <span>Spotify Player</span>
             </button>
           </div>

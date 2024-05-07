@@ -14,8 +14,8 @@
 }
 
 .spotify-button {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
     border: 1px solid black;
     border-radius: 12px;
     height: 3rem;
@@ -49,4 +49,6 @@
 
 .spotify-button.spotify-toggle span img {
     margin-right: 10px;
+    width: 20px;
+    margin-bottom: 2px;
 }
