@@ -13,10 +13,10 @@ export default function Navbar(props) {
 
       <nav>
         <div className="nav-links">
-          <a id="first-link" href="/homepage">Home</a>
-          <a href="/taskmanager">Task Manager</a>
-          <a href="/stats">Achievements</a>
-          <a href="/homepage" className="nav-last-link">Resources</a>
+          <Link to="/homepage">Home</Link>
+          <Link to="/taskmanager">Task Manager</Link>
+          <Link to="/stats">Achievements</Link>
+          <Link to="/homepage" className="nav-last-link">Resources</Link>
         </div>
       </nav>
       

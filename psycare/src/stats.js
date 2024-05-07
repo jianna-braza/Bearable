@@ -753,54 +753,6 @@ export default function StatsPage(props) {
 
         <div className="stats">
 
-          <p>{quote}</p>
-
-          <p>{userId}</p>
-
-        {/* attach to "sign in with google" */}
-        {/* <button onClick={() => AddUser(userId)}>Add user</button> */}
-
-        {/* attach to "mark as done" */}
-        {/* <button onClick={() => LifetimeTasks(userId)}>Increment task</button> */}
-
-        {/* attach to "start" */}
-        {/* <button onClick={() => LifetimePomodoros(userId)}>Increment pomodoro</button> */}
-
-        {/* called from each complete specific task button */}
-        {/* <button onClick={() => LifetimeQuests(userId)}>Increment quest</button> */}
-
-        {/* attach to "mark as done" */}
-        {/* <button onClick={() => DailyStreaks(userId)}>Add to daily streak</button> */}
-
-        {/* attach to "sign in with google" */}
-        {/* <button onClick={() => SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3)}>Update Quests</button> */}
-        {/* <button onClick={async () => {
-        await SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);
-        window.location.reload();
-      }}>Set Quests</button> */}
-
-
-        <br></br>
-
-        {/* attach to "task timer" */}
-        {/* <button onClick={() => TaskTimerQuest(userId, quest1, quest1Stop)}>Complete task timer quest</button> */}
-
-        {/* attach to "mark as done" */}
-        {/* <button onClick={() => OneTaskQuest(userId, quest1, quest1Stop)}>Complete 1 task quest</button> */}
-
-        {/* attach to "add task" */}
-        {/* <button onClick={() => AddTaskQuest(userId, quest2, quest2Stop)}>Complete add task quest</button> */}
-
-        {/* attach to "short break" */}
-        {/* <button onClick={() => ShortTimerQuest(userId, quest2, quest2Stop)}>Complete short timer quest</button> */}
-
-        {/* attach to "journal" */}
-        <button onClick={() => JournalEntryQuest(userId, quest3, quest3Stop)}>Complete journal entry quest</button>
-
-        {/* attach to "long break" */}
-        {/* <button onClick={() => LongTimerQuest(userId, quest3, quest3Stop)}>Complete long timer quest</button> */}
-
-
           {/* Stats header */}
           <div className="stats-header">
             <img className="frog" src={frog} alt="orange frog with magnifying glass"/>
