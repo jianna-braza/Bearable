@@ -25,7 +25,7 @@ body {
 }
 
 .bear {
-  position:fixed;
+  position: fixed;
   bottom:0px;
   left:0%;
   height:35%;
@@ -183,5 +183,74 @@ a {
 }
 
 .spotify-extra-space {
-  width: 55%;
+  width: 50%;
+}
+
+.homepage-button {
+  background-color: black;
+  color: white;
+  font-weight: 300;
+  border: 0px;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+.google-button {
+  width: 200px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.mark-as-done-button {
+  width: 160px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.start-button {
+  width: 90px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.restart-button {
+  width: 110px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-left: 40px;
+}
+
+.timer-button {
+  font-weight: 300;
+  font-size: 20px;
+  background-color: #F5F5F5;
+  border: 0;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  text-decoration: underline;
+}
+
+.clock {
+  font-size: 60px;
+  font-weight: 600;
+}
+
+.curr-task-box {
+  background-color: white;
+  border-right: 1px solid #D5D5D5;
+  border-top: 0;
+}
+
+.timer {
+  border: 0;
+}
+
+.num-tasks {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.curr-task-name {
+  font-size: 30px;
+  font-weight: 400;
 }

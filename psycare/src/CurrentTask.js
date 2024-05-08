@@ -167,6 +167,27 @@ export default function CurrentTask(props) {
     }
   }
 
+  // retrieve daily task total
+  const [taskTotal, setTaskTotal] = useState(0);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchTaskTotal = async () => {
+        try {
+          const docRef = doc(db, 'userData', userId);
+          const docSnap = await getDoc(docRef);
+          const data = docSnap.data();
+          if (docSnap.exists() && data.hasOwnProperty('DailyTaskTotal')) {
+            setTaskTotal(data.DailyTaskTotal);
+          }
+        } catch (error) {
+          console.error("Error fetching daily task total:", error);
+        }
+      };
+      fetchTaskTotal();
+    }
+  }, [userId]);
+
 
 
 
@@ -201,20 +222,22 @@ export default function CurrentTask(props) {
   }
 
   return (
-    <section className="col-3">
-      <div className="d-flex row">
-        <p className="mb-2">{"task " + taskNum + " out of 2"}</p>
-        <h2>Current Task:</h2>
-        <h3 className="mb-2">{taskName}</h3>
-        <button
-          type="button"
-          className="myButton"
-          data-toggle="modal"
-          data-backdrop="false"
-          data-target="#exampleModal"
-          onClick={() => {update(); LifetimeTasksDailyStreak(userId); OneTaskQuest(userId, quest1, quest1Stop)}}>
-          Mark as done
-        </button>
+    <section className="col-3 curr-task-box">
+      <div className="d-flex flex-column align-items-center">
+          <p className="mb-4 mt-5 num-tasks">{taskNum} out of {taskTotal} tasks</p>
+          {/* <h2>Current Task:</h2> */}
+          <h3 className="mb-5 curr-task-name">{taskName}</h3>
+          <button
+            type="button"
+            className="homepage-button mark-as-done-button"
+            data-toggle="modal"
+            data-backdrop="false"
+            data-target="#exampleModal"
+            onClick={() => {update(); LifetimeTasksDailyStreak(userId); OneTaskQuest(userId, quest1, quest1Stop)}}>
+            Mark as done
+          </button>
+        
+        
 
         <div
           className="modal fade"

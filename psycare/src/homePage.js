@@ -163,7 +163,7 @@ export default function HomePage(props) {
       <main>
           {/*Authentication*/}
             <div>
-              <button className="myButton" onClick={() => {signInWithGoogle(); AddUser(userId); SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);}}>
+              <button className="homepage-button google-button" onClick={() => {signInWithGoogle(); AddUser(userId); SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);}}>
                 Sign In With Google
               </button>
             </div>
@@ -174,15 +174,9 @@ export default function HomePage(props) {
 
             <Timers />
 
-
-
           </div>
 
           {/* spotify section */}
-
-          {/* <div className="spotify-content"> */}
-          
-
           <div className="above-spotify-extra-space"></div>
           <div className="spotify-container">
             <div className="spotify-extra-space"></div>
@@ -191,7 +185,6 @@ export default function HomePage(props) {
             </div>
           </div>
 
-          {/* </div> */}
             
 
           <img

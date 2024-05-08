@@ -309,23 +309,23 @@ export default function Timers(props) {
 
 
   return (
-    <section className="col-9">
-      <h2>Press a button to start your timer!</h2>
-      <div className="d-flex column justify-content-around mb-5 mt-3">
-        <button type="button" className="myButton" onClick={(event) => readyTimer(event, userId, quest1, quest1Stop)}>
+    <section className="col-9 timer">
+      {/* <h2>Press a button to start your timer!</h2> */}
+      <div className="d-flex column justify-content-around mb-5 mt-5">
+        <button type="button" className="timer-button" onClick={(event) => readyTimer(event, userId, quest1, quest1Stop)}>
           Task Timer (25 mins)
         </button>
-        <button type="button" className="myButton" onClick={(event) => readyTimer(event, userId, quest2, quest2Stop)}>
+        <button type="button" className="timer-button" onClick={(event) => readyTimer(event, userId, quest2, quest2Stop)}>
           Short break (5 mins)
         </button>
-        <button type="button" className="myButton" onClick={(event) => readyTimer(event, userId, quest3, quest3Stop)}>
+        <button type="button" className="timer-button" onClick={(event) => readyTimer(event, userId, quest3, quest3Stop)}>
           Long break (15 mins)
         </button>
       </div>
       <div className="d-flex justify-content-around align-items-center">
         <div>
           <div className="justify-content-start">
-            <h2 className="timer mb-5">
+            <h2 className="timer mb-5 clock">
               {"" +
                 Math.trunc(timer / 60) +
                 ":" +
@@ -333,10 +333,10 @@ export default function Timers(props) {
             </h2>
           </div>
 
-          <button type="button" className="myButton" onClick={() => {pauseTimer(); LifetimePomodoros(userId);}}>
+          <button type="button" className="homepage-button start-button" onClick={() => {pauseTimer(); LifetimePomodoros(userId);}}>
             {pauseText}
           </button>
-          <button type="button" className="myButton" onClick={resetTimer}>
+          <button type="button" className="homepage-button restart-button" onClick={resetTimer}>
             Restart
           </button>
           <div>
