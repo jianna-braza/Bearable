@@ -174,6 +174,8 @@ a {
   visibility: hidden;
 }
 
+/* spotify homepage css */
+
 .above-spotify-extra-space {
   margin-top: 135px;
 }
@@ -185,6 +187,8 @@ a {
 .spotify-extra-space {
   width: 50%;
 }
+
+/* homepage css */
 
 .homepage-button {
   background-color: black;
@@ -253,4 +257,92 @@ a {
 .curr-task-name {
   font-size: 30px;
   font-weight: 400;
+}
+
+/* task manager css */
+.view-section {
+  background-color: white;
+  border-right: 1px solid #D5D5D5;
+  border-top: 0;
+}
+
+.view-button {
+  border: 0;
+  background-color: transparent;
+  color: black;
+  font-weight: 300;
+  font-size: 20px;
+  /* text-decoration: underline; */
+}
+
+.view-button a {
+  color: black;
+  text-decoration: none;
+}
+
+.task-section {
+  border: 0;
+}
+
+.date-button {
+  background-color: transparent;
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+  border: 0;
+}
+
+.add-task-button {
+  background-color: transparent;
+  color: grey;
+  font-weight: 400;
+  font-size: 20px;
+  border: 0;
+}
+
+.card-name {
+  background-color: white;
+  border-bottom: none;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.school-button {
+  background-color: #8BB52E;
+  color: white;
+  border: 0;
+}
+
+.personal-button {
+  background-color: #FF7100;
+  color: white;
+  border: 0;
+}
+
+.work-button {
+  background-color: #3BA9A0;
+  color: white;
+  border: 0;
+}
+
+.other-button {
+  background-color: #34398A;
+  color: white;
+  border: 0;
+}
+
+.cancel-button {
+  background-color: transparent;
+  color: black;
+  font-weight: 200;
+  border: 1px solid black;
+  padding: 10px 20px;
+}
+
+.create-task-button {
+  background-color: black;
+  color: white;
+  font-weight: 200;
+  border: 1px solid black;
+  padding: 10px 20px;
 }

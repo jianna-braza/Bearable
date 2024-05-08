@@ -207,45 +207,45 @@ export default function TaskManager(props) {
     let dayTasks = date['tasks'].map(task => {
       if (task.tag === 'School') {
         return (
-          <div className="card" key={task.name}>
-            <div className="card-header">
+          <div className="card mb-2" key={task.name}>
+            <div className="card-header card-name">
               {task.name}
             </div>
             <div className="card-body">
-              <a href="#" className="btn btn-success">{task.tag}</a>
+              <a href="#" className="btn btn-success school-button">{task.tag}</a>
             </div>
           </div>
         )
       } else if (task.tag === 'Personal') {
         return (
-          <div className="card" key={task.name}>
-            <div className="card-header">
+          <div className="card mb-2" key={task.name}>
+            <div className="card-header card-name">
               {task.name}
             </div>
             <div className="card-body">
-              <a href="#" className="btn btn-warning">{task.tag}</a>
+              <a href="#" className="btn btn-warning personal-button">{task.tag}</a>
             </div>
           </div>
         )
       } else if (task.tag === 'Work') {
         return (
-          <div className="card" key={task.name}>
-            <div className="card-header">
+          <div className="card mb-2" key={task.name}>
+            <div className="card-header card-name">
               {task.name}
             </div>
             <div className="card-body">
-              <a href="#" className="btn btn-info">{task.tag}</a>
+              <a href="#" className="btn btn-info work-button">{task.tag}</a>
             </div>
           </div>
         )
       } else {
         return (
-          <div className="card" key={task.name}>
-            <div className="card-header">
+          <div className="card mb-2" key={task.name}>
+            <div className="card-header card-name">
               {task.name}
             </div>
             <div className="card-body">
-              <a href="#" className="btn btn-primary">{task.tag}</a>
+              <a href="#" className="btn btn-primary other-button">{task.tag}</a>
             </div>
           </div>
         )
@@ -254,10 +254,13 @@ export default function TaskManager(props) {
 
     return (
       <div className='column' key={date.day}>
-        <button type="button" className="btn btn-dark">{date.day}</button>
-        <button type="button" className="btn btn-primary" data-toggle="modal" data-backdrop="false" data-target="#exampleModal" >
-          Add task
-        </button>
+        <div className="d-flex row">
+          <button type="button" className="btn btn-dark date-button">{date.day}</button>
+          <button type="button" className="btn btn-primary add-task-button" data-toggle="modal" data-backdrop="false" data-target="#exampleModal" >
+            Add task +
+          </button>
+        </div>
+        
 
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -285,8 +288,8 @@ export default function TaskManager(props) {
                 <input type='date' id="date_input" />
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => { addTask(); AddTaskQuest(UserID, quest2, quest2Stop); }}>Save changes</button>
+                <button type="button" className="btn btn-secondary cancel-button" data-dismiss="modal">Cancel</button>
+                <button type="button" className="btn btn-primary create-task-button" data-dismiss="modal" onClick={() => { addTask(); AddTaskQuest(UserID, quest2, quest2Stop); }}>Add Task</button>
               </div>
             </div>
           </div>
@@ -303,15 +306,15 @@ export default function TaskManager(props) {
       </header>
       <main>
         <div className='d-flex row'>
-          <section className='col-3'>
+          <section className='col-2 pt-5 view-section'>
             <div className='row'>
-              <button type="button" className="myButton">Board View</button>
-              <button type="button" className="myButton"><Link to='/calendar'>Calendar view</Link></button>
+              <button type="button" className="myButton view-button mb-2">Board View</button>
+              <button type="button" className="myButton view-button"><Link to='/calendar'>Calendar view</Link></button>
             </div>
           </section>
-          <section className='col-9'>
+          <section className='col-10 pt-4 task-section'>
 
-            <div className="d-flex justify-content-around">
+            <div className="d-flex justify-content-around mb-3">
               <h2>{MONTHS[month]} 2024 &lt; &gt;</h2>
             </div>
             <div className="d-flex justify-content-around">

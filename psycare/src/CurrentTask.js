@@ -270,7 +270,7 @@ export default function CurrentTask(props) {
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-secondary"
+                  className="btn btn-secondary cancel-button"
                   data-dismiss="modal"
                   onClick={changeQuote}
                 >
