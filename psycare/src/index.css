@@ -287,6 +287,15 @@ a {
   text-decoration: none;
 }
 
+.view-button:hover {
+  color: white;
+  background-color: black;
+}
+
+.view-button a:hover {
+  color: white;
+}
+
 .task-section {
   border: 0;
 }

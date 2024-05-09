@@ -170,24 +170,23 @@ export default function TaskManager(props) {
   }
 
 
-  //not working? error: cannot read properties of null (reading 'indexOf')
-  // async function increment() {
-  //   const docRef = doc(db, 'userData', userId);
-  //   const docSnap = await getDoc(docRef);
-  //   const data = docSnap.data();
+  async function increment(UserID) {
+    const docRef = doc(db, 'userData', UserID);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
 
-  //   // increment daily task total
-  //   if (docSnap.exists()) {
-  //     let currTaskTotal = 0;
-  //     if (data && data.hasOwnProperty('DailyTaskTotal')) {
-  //       currTaskTotal = data.DailyTaskTotal;
-  //     }
-  //     await setDoc(docRef, { DailyTaskTotal: currTaskTotal + 1 }, { merge: true });
-  //   }
-  // }
+    // increment daily task total
+    if (docSnap.exists()) {
+      let currTaskTotal = 0;
+      if (data && data.hasOwnProperty('DailyTaskTotal')) {
+        currTaskTotal = data.DailyTaskTotal;
+      }
+      await setDoc(docRef, { DailyTaskTotal: currTaskTotal + 1 }, { merge: true });
+    }
+  }
 
   const addTask = async event => {
-    //increment();
+    increment(UserID);
     let newName = document.getElementById('task_input').value;
     let tempTasks = testTasks;
     let taskDate = document.getElementById('date_input').value.split('-');
@@ -289,7 +288,7 @@ export default function TaskManager(props) {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary cancel-button" data-dismiss="modal">Cancel</button>
-                <button type="button" className="btn btn-primary create-task-button" data-dismiss="modal" onClick={() => { addTask(); AddTaskQuest(UserID, quest2, quest2Stop); }}>Add Task</button>
+                <button type="button" className="btn btn-primary create-task-button" data-dismiss="modal" onClick={() => { addTask(UserID); AddTaskQuest(UserID, quest2, quest2Stop); }}>Add Task</button>
               </div>
             </div>
           </div>
@@ -308,8 +307,8 @@ export default function TaskManager(props) {
         <div className='d-flex row'>
           <section className='col-2 pt-5 view-section'>
             <div className='row'>
-              <button type="button" className="myButton view-button mb-2">Board View</button>
-              <button type="button" className="myButton view-button"><Link to='/calendar'>Calendar view</Link></button>
+              <button type="button" className="view-button mb-2">Board View</button>
+              <button type="button" className="view-button"><Link to='/calendar'>Calendar view</Link></button>
             </div>
           </section>
           <section className='col-10 pt-4 task-section'>
