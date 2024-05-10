@@ -32,11 +32,12 @@ export default function ResourcesPage(props) {
 
         // add this question and its answers to the output
         output.push(
-          `<div class="question"> ${currentQuestion.question} </div>
+          `<div class="question"><strong>${currentQuestion.question}</strong></div>
           <div class="answers"> ${answers.join('')} </div>`
         );
       }
     );
+
 
 
     let quizContainer = document.getElementById('quiz');
@@ -48,8 +49,6 @@ export default function ResourcesPage(props) {
 
   function showResults() {
 
-    console.log('hi');
-
     let resultsContainer = document.getElementById('results');
     let quizContainer = document.getElementById('quiz');
     // gather answer containers from our quiz
@@ -57,6 +56,7 @@ export default function ResourcesPage(props) {
 
     // keep track of user's answers
     let numCorrect = 0;
+    let userAnswers = [];
 
     // for each question...
     myQuestions.forEach((currentQuestion, questionNumber) => {
@@ -66,53 +66,52 @@ export default function ResourcesPage(props) {
       const selector = `input[name=question${questionNumber}]:checked`;
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
-      // if answer is correct
-      if (userAnswer === currentQuestion.correctAnswer) {
-        // add to the number of correct answers
-        numCorrect++;
-
-        // color the answers green
-        answerContainers[questionNumber].style.color = 'lightgreen';
-      }
-      // if answer is wrong or blank
-      else {
-        // color the answers red
-        answerContainers[questionNumber].style.color = 'red';
-      }
+      userAnswers.push(userAnswer);
     });
 
     // show number of correct answers out of total
-    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+    //resultsContainer.innerHTML = `${userAnswers}`;
+
+    resultsContainer.innerHTML = `
+    <p>Based on your answers, the most helpful tool for you will be... </p>
+    <h3>Pomodoro Timers!</h3>
+    <p>The Pomodoro Technique is a time management method that involves breaking work into intervals,
+    traditionally 25 minutes in length, separated by short breaks. After completing four Pomodoro sessions,
+    you take a longer break.</p>
+    <p>This technique helps improve focus, productivity, and time management by encouraging regular breaks and reducing burnout.</p>
+    `;
   }
 
-  const myQuestions = [
+  var myQuestions = [
     {
-      question: "Who invented JavaScript?",
+      question: "Which skill are you most interested in improving right now?",
       answers: {
-        a: "Douglas Crockford",
-        b: "Sheryl Sandberg",
-        c: "Brendan Eich"
+        a: 'Time management and focus',
+        b: 'Organization and planning',
+        c: 'Reflection and self-awareness',
+        d: 'Task completion and productivity'
       },
-      correctAnswer: "c"
+      correctAnswer: 'b'
     },
     {
-      question: "Which one of these is a JavaScript package manager?",
+      question: "How would you like to organize your day?",
       answers: {
-        a: "Node.js",
-        b: "TypeScript",
-        c: "npm"
+        a: 'By breaking it into manageable chunks of time',
+        b: 'By allocating specific time slots for different activities',
+        c: 'By journaling about my experiences and thoughts throughout the day',
+        d: 'By creating a detailed to-do list'
       },
-      correctAnswer: "c"
+      correctAnswer: 'c'
     },
     {
-      question: "Which tool can you use to ensure code quality?",
+      question: "What motivates you to stay productive?",
       answers: {
-        a: "Angular",
-        b: "jQuery",
-        c: "RequireJS",
-        d: "ESLint"
+        a: 'The sense of accomplishment after completing short bursts of work',
+        b: 'Sticking to a predetermined schedule and timeline',
+        c: 'Reflecting on my progress and areas for improvement',
+        d: 'Checking off tasks from my to-do list as I complete them'
       },
-      correctAnswer: "d"
+      correctAnswer: 'c'
     }
   ];
 
@@ -124,9 +123,11 @@ export default function ResourcesPage(props) {
         <Navbar />
       </header>
       <body>
-        <button id="start" onClick={buildQuiz} >Start</button>
+        <h2>Not sure where to start?</h2>
+        <p>Learn more about the right tools for you! Take this quiz to learn more about your learning style to unlock your Bearable's full potential!</p>
+        <button type="button" className="btn btn-dark w-25" id="start" onClick={buildQuiz} >Start</button>
         <div id="quiz"></div>
-        <button id="submit" onClick={showResults} >Submit Quiz</button>
+        <button type="button" className="btn btn-dark w-25" id="submit" onClick={showResults} >Submit Quiz</button>
         <div id="results"></div>
       </body>
     </div>
