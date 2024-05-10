@@ -8,6 +8,7 @@ import StatsPage from './stats.js';
 import TaskManager from './taskManager.js';
 import CalendarPage from './CalendarPage.js';
 import withSplashScreen from './withSplashScreen.js';
+import ResourcesPage from './ResourcesPage.js';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
             <Route path="stats" element={<StatsPage />} />
             <Route path="taskmanager" element={<TaskManager />} />
             <Route path="calendar" element={<CalendarPage />} />
+            <Route path="resources" element={<ResourcesPage />} />
             <Route path='*' element={<Navigate to='/homepage' />} />
           </Routes>
       </Router>

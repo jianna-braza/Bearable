@@ -167,8 +167,8 @@ export default function Navbar(props) {
           <Link to="/homepage">Home</Link>
           <Link to="/taskmanager">Task Manager</Link>
           <Link to="/stats">Achievements</Link>
-          <Link to="/homepage" className="nav-last-link">Resources</Link>
-          
+          <Link to="/resources" className="nav-last-link">Resources</Link>
+
         </div>
       </nav>
 
@@ -208,7 +208,7 @@ export default function Navbar(props) {
 
 
     </div>
-    
+
 
 
   )
