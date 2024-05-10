@@ -94,7 +94,7 @@ export default function CurrentTask(props) {
     let docRef = doc(db, 'userData', userId);
     let docSnap = await getDoc(docRef);
     let data = docSnap.data();
-    
+
     // incrememnt lifetime tasks
     if (docSnap.exists()) {
       let currentTasks = 0;
@@ -102,7 +102,7 @@ export default function CurrentTask(props) {
         currentTasks = data.LifetimeTasks;
       }
       await setDoc(docRef, { LifetimeTasks: currentTasks + 1 }, { merge: true });
-    } 
+    }
     else {
       await setDoc(docRef, { LifetimeTasks: 1 });
     }
@@ -114,7 +114,7 @@ export default function CurrentTask(props) {
         currTasks = data.DailyTaskDone;
       }
       await setDoc(docRef, { DailyTaskDone: currTasks + 1 }, { merge: true });
-    }  
+    }
 
     // daily streak code
     docRef = doc(db, 'userData', userId);
@@ -142,7 +142,7 @@ export default function CurrentTask(props) {
     }
 
     await setDoc(docRef, data);
-    
+
     if (data.CurrStreak > (data.LongestStreak || 0)) {
       // Update LongestStreak if CurrStreak is greater
       data.LongestStreak = data.CurrStreak;
@@ -221,10 +221,11 @@ export default function CurrentTask(props) {
     setTaskName("Reading Response 7");
   }
 
+  //on line 228 I hardcoded 2 instead of {taskTotal} just for demo vid purposes
   return (
     <section className="col-3 curr-task-box">
       <div className="d-flex flex-column align-items-center">
-          <p className="mb-4 mt-5 num-tasks">{taskNum} out of {taskTotal} tasks</p>
+          <p className="mb-4 mt-5 num-tasks">{taskNum} out of 2 tasks</p>
           {/* <h2>Current Task:</h2> */}
           <h3 className="mb-5 curr-task-name">{taskName}</h3>
           <button
@@ -236,8 +237,8 @@ export default function CurrentTask(props) {
             onClick={() => {update(); LifetimeTasksDailyStreak(userId); OneTaskQuest(userId, quest1, quest1Stop)}}>
             Mark as done
           </button>
-        
-        
+
+
 
         <div
           className="modal fade"

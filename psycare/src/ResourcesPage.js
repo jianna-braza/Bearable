@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from './Navbar.js';
+import timer from "./assets/timer.png";
 
 export default function ResourcesPage(props) {
 
@@ -74,6 +75,7 @@ export default function ResourcesPage(props) {
 
     resultsContainer.innerHTML = `
     <p>Based on your answers, the most helpful tool for you will be... </p>
+    <img src=${timer} alt="timer" />
     <h3>Pomodoro Timers!</h3>
     <p>The Pomodoro Technique is a time management method that involves breaking work into intervals,
     traditionally 25 minutes in length, separated by short breaks. After completing four Pomodoro sessions,

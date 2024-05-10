@@ -128,16 +128,17 @@ export default function TaskManager(props) {
       tempMonth++;
       tempDateNum = dateNum % MONTHMAX[month];
     }
-    if (num >= 7) {
+    if (tempWeekday >= 7) {
       tempWeekday = weekday % 7;
     }
     return ('' + MONTHS[tempMonth] + ', ' + WEEKDAYS[tempWeekday] + ' ' + tempDateNum);
   }
 
+  //hard coding one day for demo purposes
   let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
     { day: addDate(0), tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }] },
     { day: addDate(1), tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
-    { day: addDate(2), tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
+    { day: "May, Sun 12", tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
   ])
   const [dropTag, setDropTag] = useState("What kind of task is this?");
   let [tasks, setTasks] = useState();
@@ -259,7 +260,7 @@ export default function TaskManager(props) {
             Add task +
           </button>
         </div>
-        
+
 
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
