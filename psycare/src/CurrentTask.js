@@ -223,7 +223,7 @@ export default function CurrentTask(props) {
 
   //on line 228 I hardcoded 2 instead of {taskTotal} just for demo vid purposes
   return (
-    <section className="col-3 curr-task-box">
+    <div className="col-3 curr-task-box">
       <div className="d-flex flex-column align-items-center">
           <p className="mb-4 mt-5 num-tasks">{taskNum} out of 2 tasks</p>
           {/* <h2>Current Task:</h2> */}
@@ -285,7 +285,6 @@ export default function CurrentTask(props) {
       <div className="d-flex align-items-baseline mt-auto">
 
       </div>
-
-    </section>
+    </div>
   );
 }

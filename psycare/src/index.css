@@ -182,7 +182,8 @@ a {
 }
 
 .spotify-extra-space {
-  width: 50%;
+  /* width: 50%; */
+  width: 30%;
 }
 
 /* homepage css */
@@ -247,6 +248,8 @@ a {
   background-color: white;
   border-right: 1px solid #D5D5D5;
   border-top: 0;
+  height: 600px;
+  
 }
 
 .timer {

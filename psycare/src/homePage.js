@@ -22,13 +22,13 @@ export default function HomePage(props) {
           </div>
 
           {/* spotify section */}
-          <div className="above-spotify-extra-space"></div>
+          {/* <div className="above-spotify-extra-space"></div>
           <div className="spotify-container">
             <div className="spotify-extra-space"></div>
             <div>
               <SpotifyPage />
             </div>
-          </div>
+          </div> */}
 
           <img
             src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/bear.png?raw=true"

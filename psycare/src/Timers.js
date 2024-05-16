@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getAuth } from 'firebase/auth';
 import db from "./firebase.js";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import SpotifyPage from "./spotify.js";
 
 export default function Timers(props) {
   let [pauseBool, setPauseBool] = useState(true);
@@ -309,7 +310,7 @@ export default function Timers(props) {
 
 
   return (
-    <section className="col-9 timer">
+    <div className="col-9 timer">
       {/* <h2>Press a button to start your timer!</h2> */}
       <div className="d-flex column justify-content-around mb-5 mt-5">
         <button type="button" className="timer-button" onClick={(event) => readyTimer(event, userId, quest1, quest1Stop)}>
@@ -348,6 +349,15 @@ export default function Timers(props) {
 
         </div>
       </div>
-    </section>
+
+      <div className="above-spotify-extra-space"></div>
+      <div className="spotify-container">
+        <div className="spotify-extra-space"></div>
+        <div>
+          <SpotifyPage />
+        </div>
+      </div>
+
+    </div>
   );
 }
