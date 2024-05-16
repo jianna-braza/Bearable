@@ -4,23 +4,16 @@ import timer from "./assets/timer.png";
 
 export default function ResourcesPage(props) {
 
-
-  // Functions
   function buildQuiz() {
-
     // variable to store the HTML output
     const output = [];
-
     // for each question...
     myQuestions.forEach(
       (currentQuestion, questionNumber) => {
-
         // variable to store the list of possible answers
         const answers = [];
-
         // and for each available answer...
         for (let letter in currentQuestion.answers) {
-
           // ...add an HTML radio button
           answers.push(
             `<label>
@@ -30,7 +23,6 @@ export default function ResourcesPage(props) {
             </label>`
           );
         }
-
         // add this question and its answers to the output
         output.push(
           `<div class="question"><strong>${currentQuestion.question}</strong></div>
@@ -38,51 +30,73 @@ export default function ResourcesPage(props) {
         );
       }
     );
-
-
-
     let quizContainer = document.getElementById('quiz');
     // finally combine our output list into one string of HTML and put it on the page
     quizContainer.innerHTML = output.join('');
+  }
 
+  function quizResults(userAnswers) {
+    let maxVal = 0;
+    let maxIndex = 0;
+    let reps = [0, 0, 0, 0];
+    for (let i = 0; i < userAnswers.length; i++) {
+      if (userAnswers[i] === 'a') {
+        reps[0]++;
+        if (reps[0] > maxVal) {
+          maxVal = reps[0];
+          maxIndex = 0
+        }
+      } else if (userAnswers[i] === 'b') {
+        reps[1]++;
+        if (reps[1] > maxVal) {
+          maxVal = reps[1];
+          maxIndex = 1
+        }
+      } else if (userAnswers[i] === 'c') {
+        reps[2]++;
+        if (reps[2] > maxVal) {
+          maxVal = reps[2];
+          maxIndex = 2
+        }
+      } else {
+        reps[3]++;
+        if (reps[3] > maxVal) {
+          maxVal = reps[3];
+          maxIndex = 3
+        }
+      }
+    }
+
+    return maxIndex;
 
   }
 
   function showResults() {
-
     let resultsContainer = document.getElementById('results');
     let quizContainer = document.getElementById('quiz');
     // gather answer containers from our quiz
     const answerContainers = quizContainer.querySelectorAll('.answers');
-
     // keep track of user's answers
-    let numCorrect = 0;
     let userAnswers = [];
-
     // for each question...
     myQuestions.forEach((currentQuestion, questionNumber) => {
-
       // find selected answer
       const answerContainer = answerContainers[questionNumber];
       const selector = `input[name=question${questionNumber}]:checked`;
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-
       userAnswers.push(userAnswer);
     });
 
-    // show number of correct answers out of total
+let quizRes = quizResults(userAnswers);
     //resultsContainer.innerHTML = `${userAnswers}`;
-
     resultsContainer.innerHTML = `
     <p>Based on your answers, the most helpful tool for you will be... </p>
-    <img src=${timer} alt="timer" />
-    <h3>Pomodoro Timers!</h3>
-    <p>The Pomodoro Technique is a time management method that involves breaking work into intervals,
-    traditionally 25 minutes in length, separated by short breaks. After completing four Pomodoro sessions,
-    you take a longer break.</p>
-    <p>This technique helps improve focus, productivity, and time management by encouraging regular breaks and reducing burnout.</p>
+    <img src=${myResults[quizRes].img} alt="timer" />
+    <h3>${myResults[quizRes].tool}</h3>
+    <p>${myResults[quizRes].des}</p>
     `;
   }
+
 
   var myQuestions = [
     {
@@ -117,6 +131,30 @@ export default function ResourcesPage(props) {
     }
   ];
 
+  let myResults = [
+    {
+      tool: 'Pomodoro Timers',
+      img: timer,
+      des: "The Pomodoro Technique is a time management method that involves breaking "
+      + "work into intervals, traditionally 25 minutes in length, separated by short breaks. "
+      + "After completing four Pomodoro sessions, you take a longer break."
+    },
+    {
+      tool: 'Task Lists',
+      img: timer,
+      des: 'idk'
+    },
+    {
+      tool: 'Calendars',
+      img: timer,
+      des: 'idk'
+    },
+    {
+      tool: 'Reflections',
+      img: timer,
+      des: 'idk'
+    }
+  ];
 
 
   return (
