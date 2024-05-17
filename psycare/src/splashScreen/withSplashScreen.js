@@ -19,6 +19,7 @@ let QUOTES = [
     }
 ]
 
+//tutorial: https://edtech.drhafizhanif.net/react-native-tutorial-custom-javascript-splash-screen-5a62d2392d8a
 function SplashMessage() {
     let quoteNum = Math.floor(Math.random() * 3);
     let quote = QUOTES[quoteNum];

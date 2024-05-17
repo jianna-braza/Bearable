@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Navbar from "../Navbar.js";
 import timer from "../assets/timer.png";
 import calendar from "../assets/calendar.png";
 import reflections from "../assets/reflections.png";
 import tasklist from "../assets/task_list.png";
-import { reload } from "firebase/auth";
 
 export default function ResourcesPage(props) {
+
+  //tutorial: https://www.sitepoint.com/simple-javascript-quiz/
   function buildQuiz() {
     document.getElementById("submit").style.visibility = "visible";
-
     // variable to store the HTML output
     const output = [];
     // for each question...
@@ -70,7 +70,6 @@ export default function ResourcesPage(props) {
         }
       }
     }
-
     return maxIndex;
   }
 
@@ -89,9 +88,7 @@ export default function ResourcesPage(props) {
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
       userAnswers.push(userAnswer);
     });
-
     let quizRes = quizResults(userAnswers);
-    //resultsContainer.innerHTML = `${userAnswers}`;
     resultsContainer.innerHTML = `
     <p>Based on your answers, the most helpful tool for you will be... </p>
     <img src=${myResults[quizRes].img} alt="timer" />
@@ -132,7 +129,6 @@ export default function ResourcesPage(props) {
       correctAnswer: "c",
     },
   ];
-
   let myResults = [
     {
       tool: "Pomodoro Timers",
@@ -167,6 +163,7 @@ export default function ResourcesPage(props) {
         " and motivations and as a result help you manage your symptoms through this understanding and self awareness.",
     },
   ];
+
 
   return (
     <div>

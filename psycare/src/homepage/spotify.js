@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import "./spotify.css";
 import axios from "axios";
 import spotifyLogo from "../assets/spotifyLogo.png";
@@ -20,7 +19,6 @@ export default function SpotifyPage(props) {
         "user-read-playback-state",
         "playlist-read-private",
       ];
-
     const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
     /*
@@ -58,7 +56,6 @@ export default function SpotifyPage(props) {
 
     /*Spotify Get Playlist*/
     const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
-
     const [token, setToken] = useState("");
     const [data, setData] = useState({});
     const [searchKey, setSearchKey] = useState("");
@@ -71,7 +68,6 @@ export default function SpotifyPage(props) {
     }, []);
 
     const [showIframe, setShowIframe] = useState(false);
-
     const handleGetPlaylists = () => {
         // console.log(searchKey);
         axios
@@ -97,7 +93,6 @@ export default function SpotifyPage(props) {
             console.log(error);
           });
     };
-
 
     // draggable element code from W3Schools: https://www.w3schools.com/howto/howto_js_draggable.asp
     useEffect(() => {
@@ -143,11 +138,6 @@ export default function SpotifyPage(props) {
           document.onmousemove = null;
       }
     }
-
-
-
-
-
 
     // State to manage visibility
     const [showAdditionalElements, setShowAdditionalElements] = useState(false);

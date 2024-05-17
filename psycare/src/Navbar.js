@@ -8,8 +8,8 @@ import db from "./firebase.js";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function Navbar(props) {
-  // achievement tracking code
 
+  // achievement tracking code
   // retrieve userId
   const [userId, setUserId] = useState(() => {
     return localStorage.getItem('userId') || null;
@@ -36,7 +36,6 @@ export default function Navbar(props) {
     try {
       const docRef = doc(db, "userData", userId);
       const docSnap = await getDoc(docRef);
-
       if (!docSnap.exists()) {
         await setDoc(docRef, {
           LifetimeTasks: 0,
@@ -67,10 +66,8 @@ export default function Navbar(props) {
   }
 
   // set quests code
-
   // retrieve daily quest 1
   const [dailyQuest1, setDailyQuest1] = useState(0);
-
   const quest1Num = Math.floor(Math.random() * 2) + 1;
   const quest1NumText = "Quest" + quest1Num;
 
@@ -92,7 +89,6 @@ export default function Navbar(props) {
 
   // retrieve daily quest 2
   const [dailyQuest2, setDailyQuest2] = useState(0);
-
   const quest2Num = Math.floor(Math.random() * 2) + 1;
   const quest2NumText = "Quest" + quest2Num;
 
@@ -114,7 +110,6 @@ export default function Navbar(props) {
 
   // retrieve daily quest 3
   const [dailyQuest3, setDailyQuest3] = useState(0);
-
   const quest3Num = Math.floor(Math.random() * 2) + 1;
   const quest3NumText = "Quest" + quest3Num;
 
@@ -137,7 +132,6 @@ export default function Navbar(props) {
   // update new daily quests, reset daily task count done/total
   const SetQuests = async (userId, dailyQuest1, dailyQuest2, dailyQuest3) => {
     const docRef = doc(db, 'userData', userId);
-
     await updateDoc(docRef, {
       Quest1: dailyQuest1,
       Quest2: dailyQuest2,
@@ -156,60 +150,24 @@ export default function Navbar(props) {
 
   return (
     <div id="navbar">
-
       <div className="nav-title">
         <h1>Bearable</h1>
       </div>
-
-
       <nav>
         <div className="nav-links">
           <Link to="/homepage">Home</Link>
           <Link to="/taskmanager">Task Manager</Link>
           <Link to="/stats">Achievements</Link>
           <Link to="/resources" className="nav-last-link">Resources</Link>
-
         </div>
       </nav>
-
       {/*Authentication*/}
       <div>
-        <button className="homepage-button google-button" onClick={() => {signInWithGoogle(); AddUser(userId); SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);}}>
-          <img src={googleLogo} alt="google logo"/>
-          Sign In
+        <button className="homepage-button google-button"
+        onClick={() => {signInWithGoogle(); AddUser(userId); SetQuests(userId, dailyQuest1, dailyQuest2, dailyQuest3);}}>
+          <img src={googleLogo} alt="google logo"/>Sign In
         </button>
       </div>
-
-
-
-
-
-
-
-      {/* <div className='d-flex'>
-        <h1><strong>Psycare</strong></h1>
-          <nav>
-            <ul className="menu mb-4 d-flex justify-content-end">
-              <li>
-                <Link to="/homepage">Home</Link>
-              </li>
-              <li>
-                <Link to="/taskmanager">Task Manager</Link>
-              </li>
-              <li>
-                <Link to="/stats">Achievements</Link>
-              </li>
-              <li>
-                <Link to="/homepage">Resources</Link>
-              </li>
-            </ul>
-          </nav>
-      </div> */}
-
-
     </div>
-
-
-
   )
 }

@@ -38,7 +38,6 @@ export default function Timers(props) {
         LifetimePomodoros(userId);
       }
     }
-    // Clear the interval to stop the timer from updating
   };
 
   // Function to reset the timer
@@ -48,6 +47,7 @@ export default function Timers(props) {
     clearInterval(timeInterval);
   };
 
+  //when user selects timer duration
   const readyTimer = (event, userId, quest, questStop) => {
     if (event.target.textContent === "Short break (5 mins)") {
       clearInterval(timeInterval);
@@ -62,7 +62,6 @@ export default function Timers(props) {
       setInitialTime(1500);
       setTimer(1500);
     }
-
     if (event.target.textContent === "Task Timer (25 mins)") {
       TaskTimerQuest(userId, quest, questStop);
     }
@@ -78,12 +77,10 @@ export default function Timers(props) {
 
 
   // achievement tracking code
-
   // retrieve userId
   const [userId, setUserId] = useState(() => {
     return localStorage.getItem('userId') || null;
   });
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -102,7 +99,6 @@ export default function Timers(props) {
 
   // retrieve user quest 1
   const [quest1, setQuest1] = useState(0);
-
   useEffect(() => {
     if (userId) {
       const fetchQuest1 = async () => {
@@ -123,7 +119,6 @@ export default function Timers(props) {
 
   // retrieve user quest 2
   const [quest2, setQuest2] = useState(0);
-
   useEffect(() => {
     if (userId) {
       const fetchQuest2 = async () => {
@@ -144,7 +139,6 @@ export default function Timers(props) {
 
   // retrieve user quest 3
   const [quest3, setQuest3] = useState(0);
-
   useEffect(() => {
     if (userId) {
       const fetchQuest3 = async () => {
@@ -165,7 +159,6 @@ export default function Timers(props) {
 
   // retrieve quest 1 stop
   const [quest1Stop, setQuest1Stop] = useState(0);
-
   useEffect(() => {
     if (userId) {
       const fetchQuest1Stop = async () => {
@@ -186,7 +179,6 @@ export default function Timers(props) {
 
   // retrieve quest 2 stop
   const [quest2Stop, setQuest2Stop] = useState(0);
-
   useEffect(() => {
     if (userId) {
       const fetchQuest2Stop = async () => {
@@ -207,7 +199,6 @@ export default function Timers(props) {
 
   // retrieve quest 3 stop
   const [quest3Stop, setQuest3Stop] = useState(0);
-
   useEffect(() => {
     if (userId) {
       const fetchQuest3Stop = async () => {
@@ -232,7 +223,6 @@ export default function Timers(props) {
     const docRef = doc(db, 'userData', userId);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
-
     if (questNumStop === 0) {
       let currentQuests = 0;
       if (data && data.hasOwnProperty('LifetimeQuests')) {
@@ -245,7 +235,6 @@ export default function Timers(props) {
   // complete "set a task timer" quest
   const TaskTimerQuest = async (userId, quest1, quest1Stop) => {
     console.log(quest1);
-
     if (quest1 === "Set a task timer") {
       const docRef = doc(db, 'userData', userId);
       await updateDoc(docRef, {
@@ -261,7 +250,6 @@ export default function Timers(props) {
   // complete "complete short timer" quest
   const ShortTimerQuest = async (userId, quest2, quest2Stop) => {
     console.log(quest2);
-
     if (quest2 === "Set a short break timer") {
       const docRef = doc(db, 'userData', userId);
       await updateDoc(docRef, {
@@ -277,7 +265,6 @@ export default function Timers(props) {
   // complete "complete long timer" quest
   const LongTimerQuest = async (userId, quest3, quest3Stop) => {
     console.log(quest3);
-
     if (quest3 === "Set a long break timer") {
       const docRef = doc(db, 'userData', userId);
       await updateDoc(docRef, {
@@ -295,7 +282,6 @@ export default function Timers(props) {
     const docRef = doc(db, 'userData', userId);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
-
     if (docSnap.exists()) {
       let currentPomodoros = 0;
       if (data && data.hasOwnProperty('LifetimePomodoros')) {
@@ -311,45 +297,28 @@ export default function Timers(props) {
 
   return (
     <div className="col-9 timer">
-      {/* <h2>Press a button to start your timer!</h2> */}
       <div className="d-flex column justify-content-around mb-5 mt-5">
-        <button type="button" className="timer-button" onClick={(event) => readyTimer(event, userId, quest1, quest1Stop)}>
-          Task Timer (25 mins)
-        </button>
-        <button type="button" className="timer-button" onClick={(event) => readyTimer(event, userId, quest2, quest2Stop)}>
-          Short break (5 mins)
-        </button>
-        <button type="button" className="timer-button" onClick={(event) => readyTimer(event, userId, quest3, quest3Stop)}>
-          Long break (15 mins)
-        </button>
+        <button type="button" className="timer-button"
+        onClick={(event) => readyTimer(event, userId, quest1, quest1Stop)}>Task Timer (25 mins)</button>
+        <button type="button" className="timer-button"
+        onClick={(event) => readyTimer(event, userId, quest2, quest2Stop)}>Short break (5 mins)</button>
+        <button type="button" className="timer-button"
+        onClick={(event) => readyTimer(event, userId, quest3, quest3Stop)}>Long break (15 mins)</button>
       </div>
       <div className="d-flex justify-content-around align-items-center">
-        <div>
-          <div className="justify-content-start">
-            <h2 className="timer mb-5 clock">
-              {"" +
-                Math.trunc(timer / 60) +
-                ":" +
-                (timer % 60 <= 9 ? "0" + (timer % 60) : timer % 60)}
-            </h2>
-          </div>
-
-          <button type="button" className="homepage-button start-button" onClick={() => {pauseTimer(); LifetimePomodoros(userId);}}>
-            {pauseText}
-          </button>
-          <button type="button" className="homepage-button restart-button" onClick={resetTimer}>
-            Restart
-          </button>
-          <div>
-            {/* <img
-              src="https://github.com/jianna-braza/Psycare/blob/main/psycare/img/woolly-barrel%201.png?raw=true"
-              alt="barrel"
-            /> */}
-          </div>
-
+        <div className="justify-content-start">
+          <h2 className="timer mb-5 clock">
+            {"" +
+              Math.trunc(timer / 60) +
+              ":" +
+              (timer % 60 <= 9 ? "0" + (timer % 60) : timer % 60)}
+          </h2>
         </div>
+        <button type="button" className="homepage-button start-button"
+          onClick={() => { pauseTimer(); LifetimePomodoros(userId); }}>{pauseText}</button>
+        <button type="button" className="homepage-button restart-button" onClick={resetTimer}>
+          Restart</button>
       </div>
-
       <div className="above-spotify-extra-space"></div>
       <div className="spotify-container">
         <div className="spotify-extra-space"></div>
@@ -357,7 +326,6 @@ export default function Timers(props) {
           <SpotifyPage />
         </div>
       </div>
-
     </div>
   );
 }

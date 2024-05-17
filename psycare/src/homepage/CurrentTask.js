@@ -5,9 +5,6 @@ import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function CurrentTask(props) {
   // achievement tracking code
-
-  // retrieve data
-
   // retrieve userId
   const [userId, setUserId] = useState(() => {
     return localStorage.getItem('userId') || null;
@@ -72,7 +69,6 @@ export default function CurrentTask(props) {
   }, [userId]);
 
   // functions
-
   // increment lifetime quests
   const LifetimeQuests = async (userId, questNumStop) => {
     const docRef = doc(db, 'userData', userId);
@@ -140,9 +136,7 @@ export default function CurrentTask(props) {
       console.log("CurrStreak set to 1.");
       data.LastCheckIn = todayISO;
     }
-
     await setDoc(docRef, data);
-
     if (data.CurrStreak > (data.LongestStreak || 0)) {
       // Update LongestStreak if CurrStreak is greater
       data.LongestStreak = data.CurrStreak;
@@ -189,77 +183,48 @@ export default function CurrentTask(props) {
   }, [userId]);
 
 
-
-
-
-
-
-
-
-
-
   const QUOTES = [
     "Task complete! You're making progress one step at a time. Keep up the momentum!",
     "Way to go! Your tasks didn't stand a chance against your determination. Keep up the amazing work ethic!",
     "You did it! Your task is done, and you're ready to conquer the day. Keep that positive momentum going!"
   ]
-
   let [taskNum, setTaskNum] = useState(1);
   let [taskName, setTaskName] = useState("Pay Good to Go bill");
-  let [quoteNum, setQuoteNum] = useState(getRandomNum());
+  let [quoteNum, setQuoteNum] = useState(Math.floor(Math.random() * 3));
 
-  function getRandomNum() {
-    return Math.floor(Math.random() * 3);
-  }
-
+  //randomly generate which quote to display when completing task
   function changeQuote() {
-    setQuoteNum(getRandomNum());
+    setQuoteNum(Math.floor(Math.random() * 3));
   }
 
+  //update displayed task to be the next one after user presses the done button
   function update() {
     setTaskNum(2);
     setTaskName("Reading Response 7");
   }
 
-  //on line 228 I hardcoded 2 instead of {taskTotal} just for demo vid purposes
   return (
     <div className="col-3 curr-task-box">
       <div className="d-flex flex-column align-items-center">
-          <p className="mb-4 mt-5 num-tasks">{taskNum} out of 2 tasks</p>
-          {/* <h2>Current Task:</h2> */}
-          <h3 className="mb-5 curr-task-name">{taskName}</h3>
-          <button
-            type="button"
-            className="homepage-button mark-as-done-button"
-            data-toggle="modal"
-            data-backdrop="false"
-            data-target="#exampleModal"
-            onClick={() => {update(); LifetimeTasksDailyStreak(userId); OneTaskQuest(userId, quest1, quest1Stop)}}>
-            Mark as done
-          </button>
+        <p className="mb-4 mt-5 num-tasks">{taskNum} out of 2 tasks</p>
+        <h3 className="mb-5 curr-task-name">{taskName}</h3>
+        <button
+          type="button"
+          className="homepage-button mark-as-done-button"
+          data-toggle="modal"
+          data-backdrop="false"
+          data-target="#exampleModal"
+          onClick={() => { update(); LifetimeTasksDailyStreak(userId); OneTaskQuest(userId, quest1, quest1Stop) }}>
+          Mark as done
+        </button>
 
-
-
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  Great job completing your task!
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
+                <h5 className="modal-title" id="exampleModalLabel">Great job completing your task!</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -269,21 +234,12 @@ export default function CurrentTask(props) {
                 </p>
               </div>
               <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary cancel-button"
-                  data-dismiss="modal"
-                  onClick={changeQuote}
-                >
-                  Close
-                </button>
+                <button type="button" className="btn btn-secondary cancel-button" data-dismiss="modal"
+                  onClick={changeQuote}>Close</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="d-flex align-items-baseline mt-auto">
-
       </div>
     </div>
   );

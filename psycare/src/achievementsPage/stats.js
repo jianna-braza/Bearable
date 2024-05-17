@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import "./stats.css";
 import frog from "../assets/frog.png";
 import streak from "../assets/streak.png";
 import checkmark from "../assets/checkmark.png";
 import timer from "../assets/timer.png";
 import chest from "../assets/chest.png";
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import app from "../firebase.js";
+import { getAuth } from 'firebase/auth';
 import db from "../firebase.js";
-import { addDoc, doc, setDoc, getDoc, collection, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import Navbar from '../Navbar.js';
 
 
