@@ -1,4 +1,9 @@
 
+.submit {
+  visibility:hidden;
+}
+
+
 .whole {
   background-color: #F5F5F5;
 }
@@ -249,7 +254,7 @@ a {
   border-right: 1px solid #D5D5D5;
   border-top: 0;
   height: 600px;
-  
+
 }
 
 .timer {

@@ -6,10 +6,10 @@ import reflections from "../assets/reflections.png";
 import tasklist from "../assets/task_list.png";
 import { reload } from "firebase/auth";
 
-
-
 export default function ResourcesPage(props) {
   function buildQuiz() {
+    document.getElementById("submit").style.visibility = "visible";
+
     // variable to store the HTML output
     const output = [];
     // for each question...
@@ -29,8 +29,7 @@ export default function ResourcesPage(props) {
       }
       // add this question and its answers to the output
       output.push(
-        `<div class="question m-2 d-flex flex-column"><strong>${
-          currentQuestion.question
+        `<div class="question m-2 d-flex flex-column"><strong>${currentQuestion.question
         }</strong></div>
           <div class="answers m-2 d-flex flex-column"> ${answers.join("")} </div>`
       );
@@ -174,31 +173,17 @@ export default function ResourcesPage(props) {
       <header>
         <Navbar />
       </header>
-      <body>
+      <main>
         <h2>Not sure where to start?</h2>
         <p>
           Learn more about the right tools for you! Take this quiz to learn more
           about your learning style to unlock your Bearable's full potential!
         </p>
-        <button
-          type="button"
-          className="btn btn-dark w-25 m-3"
-          id="start"
-          onClick={buildQuiz}
-        >
-          Start
-        </button>
+        <button type="button" className="btn btn-dark w-25 m-3" id="start" onClick={buildQuiz}>Start</button>
         <div id="quiz"></div>
-        <button
-          type="button"
-          className="btn btn-dark w-25 m-3"
-          id="submit"
-          onClick={showResults}
-        >
-          Submit Quiz
-        </button>
+        <button type="button" className="btn btn-dark w-25 m-3 submit" id="submit" onClick={showResults}>Submit Quiz</button>
         <div id="results"></div>
-      </body>
+      </main>
     </div>
   );
 }
