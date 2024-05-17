@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar.js";
-import timer from "./assets/timer.png";
-import calendar from "./assets/calendar.png";
-import reflections from "./assets/reflections.png";
-import tasklist from "./assets/task_list.png";
+import Navbar from "../Navbar.js";
+import timer from "../assets/timer.png";
+import calendar from "../assets/calendar.png";
+import reflections from "../assets/reflections.png";
+import tasklist from "../assets/task_list.png";
 import { reload } from "firebase/auth";
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAuth } from 'firebase/auth';
-import db from "./firebase.js";
+import db from "../firebase.js";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 export default function CurrentTask(props) {

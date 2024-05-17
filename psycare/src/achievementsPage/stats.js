@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./stats.css";
-import frog from "./assets/frog.png";
-import streak from "./assets/streak.png";
-import checkmark from "./assets/checkmark.png";
-import timer from "./assets/timer.png";
-import chest from "./assets/chest.png";
+import frog from "../assets/frog.png";
+import streak from "../assets/streak.png";
+import checkmark from "../assets/checkmark.png";
+import timer from "../assets/timer.png";
+import chest from "../assets/chest.png";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import app from "./firebase.js";
-import db from "./firebase.js";
+import app from "../firebase.js";
+import db from "../firebase.js";
 import { addDoc, doc, setDoc, getDoc, collection, updateDoc } from "firebase/firestore";
-import Navbar from './Navbar.js';
+import Navbar from '../Navbar.js';
 
 
-export default function StatsPage(props) { 
-  
+export default function StatsPage(props) {
+
   // retrieve userId
   const [userId, setUserId] = useState(() => {
     return localStorage.getItem('userId') || null;
@@ -36,7 +36,7 @@ export default function StatsPage(props) {
     fetchUserData();
   }, []);
 
-  
+
 
 
   // retrieve lifetime stats
@@ -61,7 +61,7 @@ export default function StatsPage(props) {
       fetchCurrLifetimeTasks();
     }
   }, [userId]);
-    
+
 
   // retrieve current lifetime pomodoros
   const [currLifetimePomodoros, setCurrLifetimePomodoros] = useState(0);
@@ -335,7 +335,7 @@ export default function StatsPage(props) {
       fetchQuest3Stop();
     }
   }, [userId]);
-  
+
 
 
   // display quotes
@@ -578,7 +578,7 @@ export default function StatsPage(props) {
           </div>
 
         </div>
-        
+
 
       </main>
     </div>

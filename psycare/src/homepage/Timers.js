@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAuth } from 'firebase/auth';
-import db from "./firebase.js";
+import db from "../firebase.js";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import SpotifyPage from "./spotify.js";
 
@@ -295,14 +295,14 @@ export default function Timers(props) {
     const docRef = doc(db, 'userData', userId);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
-    
+
     if (docSnap.exists()) {
       let currentPomodoros = 0;
       if (data && data.hasOwnProperty('LifetimePomodoros')) {
         currentPomodoros = data.LifetimePomodoros;
       }
       await setDoc(docRef, { LifetimePomodoros: currentPomodoros + 1 }, { merge: true });
-    } 
+    }
     else {
       await setDoc(docRef, { LifetimePomodoros: 1 });
     }

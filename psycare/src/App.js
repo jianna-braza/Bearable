@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import {Routes, Route, Navigate, BrowserRouter as Router, Link, useParams, NavLink} from 'react-router-dom'
-import HomePage from './homePage.js';
-import AchievementsPage from './achievementsPage.js';
-import TaskPage from './taskPage.js';
-import SpotifyPage from './spotify.js';
-import StatsPage from './stats.js';
-import TaskManager from './taskManager.js';
-import CalendarPage from './CalendarPage.js';
-import withSplashScreen from './withSplashScreen.js';
-import ResourcesPage from './ResourcesPage.js';
+import HomePage from './homepage/homePage.js';
+import SpotifyPage from './homepage/spotify.js';
+import StatsPage from './achievementsPage/stats.js';
+import TaskManager from './taskManager/taskManager.js';
+import CalendarPage from './taskManager/CalendarPage.js';
+import withSplashScreen from './splashScreen/withSplashScreen.js';
+import ResourcesPage from './resourcesPage/ResourcesPage.js';
 
 class App extends Component {
   render() {
@@ -16,8 +14,6 @@ class App extends Component {
       <Router>
           <Routes>
             <Route path="homepage" element={<HomePage />} />
-            <Route path="achievements" element={<AchievementsPage />} />
-            <Route path="taskpage" element={<TaskPage />} />
             <Route path="spotify" element={<SpotifyPage />} />
             <Route path="stats" element={<StatsPage />} />
             <Route path="taskmanager" element={<TaskManager />} />

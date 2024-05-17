@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from './Navbar.js';
-import db from "./firebase.js";
+import Navbar from '../Navbar.js';
+import db from "../firebase.js";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import firebase from "firebase/compat/app";
@@ -129,40 +129,17 @@ export default function TaskManager(props) {
       tempDateNum = dateNum % MONTHMAX[month];
     }
     if (tempWeekday >= 7) {
-      tempWeekday = weekday % 7;
+      tempWeekday = tempWeekday % 7;
     }
     return ('' + MONTHS[tempMonth] + ', ' + WEEKDAYS[tempWeekday] + ' ' + tempDateNum);
   }
 
-  //hard coding one day for demo purposes
   let [testTasks, setTestTasks] = useState([ //list of objects with the date and an array of task objects
     { day: addDate(0), tasks: [{ name: 'Reading Response 7', tag: 'School' }, { name: 'Pay Good to Go Bill', tag: 'Personal' }] },
     { day: addDate(1), tasks: [{ name: 'Summary 7', tag: 'School' }, { name: 'Strategy Document', tag: 'School' }] },
-    { day: "May, Sun 12", tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
+    { day: addDate(2), tasks: [{ name: 'Studio 6', tag: 'School' }, { name: 'Submit Timesheet', tag: 'Work' }, { name: 'Dance Practice', tag: 'Dance' }] }
   ])
   const [dropTag, setDropTag] = useState("What kind of task is this?");
-  let [tasks, setTasks] = useState();
-
-
-
-  // useEffect(() => {
-  //   const fetchTask = async () => {
-  //     try {
-  //       const docRef = doc(db, 'testTasks', 'April, Fri 19');
-  //       const docSnap = await getDoc(docRef);
-  //       const data = docSnap.data();
-  //       if (docSnap.exists()) {
-  //         setTasks(data);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching quote:", error);
-  //     }
-  //   };
-  //   fetchTask();
-  //   console.log(tasks);
-  // }, []);
-
-
 
 // updates drop down tag in add task modal
   const handleChange = event => {

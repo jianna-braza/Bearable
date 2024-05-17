@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./spotify.css";
 import axios from "axios";
-import spotifyLogo from "./assets/spotifyLogo.png";
+import spotifyLogo from "../assets/spotifyLogo.png";
 
 export default function SpotifyPage(props) {
 
@@ -20,7 +20,7 @@ export default function SpotifyPage(props) {
         "user-read-playback-state",
         "playlist-read-private",
       ];
-    
+
     const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
     /*
@@ -35,7 +35,7 @@ export default function SpotifyPage(props) {
           accumulater[key] = value;
           return accumulater;
         }, {});
-      
+
         return paramsSplitUp;
     };
 
@@ -43,9 +43,9 @@ export default function SpotifyPage(props) {
         if (window.location.hash) {
           const { access_token, expires_in, token_type } =
             getReturnedParamsFromSpotifyAuth(window.location.hash);
-    
+
           localStorage.clear();
-    
+
           localStorage.setItem("accessToken", access_token);
           localStorage.setItem("tokenType", token_type);
           localStorage.setItem("expiresIn", expires_in);
@@ -144,7 +144,7 @@ export default function SpotifyPage(props) {
       }
     }
 
-    
+
 
 
 
@@ -171,7 +171,7 @@ export default function SpotifyPage(props) {
                 </form>
               </>
             )}
-            
+
             {/* Spotify player button */}
             <button className="spotify-button spotify-toggle" onClick={handleToggleAdditionalElements}>
               <span><img src={spotifyLogo} alt="spotify logo" /></span>

@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
 
+let QUOTES = [
+    {
+        line1: "Stand out from the crowd,",
+        line2: "be bold and proud,",
+        line3: "be yourself, say it loud!"
+
+    },
+    {
+        line1: "Hello!",
+        line2: "Today is another day",
+        line3: "full of new possibilities!"
+    },
+    {
+        line1: "Every small step counts!",
+        line2: "Let's begin by knocking out",
+        line3: "those first few tasks"
+    }
+]
 
 function SplashMessage() {
+    let quoteNum = Math.floor(Math.random() * 3);
+    let quote = QUOTES[quoteNum];
+
     return (
         <div className="splash-background">
-            <h2 className="welcome-to">Stand out from the crowd</h2>
-            <h2 className="the-header">be bold and proud</h2>
-            <h1 className="aquapod-header">be yourself, say it loud!</h1>
+            <h2 className="welcome-to">{quote.line1}</h2>
+            <h2 className="the-header">{quote.line2}</h2>
+            <h1 className="aquapod-header">{quote.line3}</h1>
         </div>
     );
 }
@@ -22,7 +43,6 @@ export default function withSplashScreen(WrappedComponent) {
 
         async componentDidMount() {
             try {
-                // Put here your await requests/ API requests
                 setTimeout(() => {
                     this.setState({
                         loading: false,

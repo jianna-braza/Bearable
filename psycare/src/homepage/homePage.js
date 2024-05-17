@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import SpotifyPage from "./spotify.js";
-import Navbar from './Navbar.js';
+import Navbar from '../Navbar.js';
 import CurrentTask from './CurrentTask.js';
 import Timers from './Timers.js';
 
 export default function HomePage(props) {
-  
+
   return (
     <div>
       <header>
@@ -35,7 +35,7 @@ export default function HomePage(props) {
             alt="bear"
             className="bear flex"
           />
-        
+
       </main>
     </div>
   );
