@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar.js";
 import timer from "./assets/timer.png";
+import calendar from "./assets/calendar.png";
+import reflections from "./assets/reflections.png";
+import tasklist from "./assets/task_list.png";
+import { reload } from "firebase/auth";
+
+
 
 export default function ResourcesPage(props) {
   function buildQuiz() {
@@ -139,7 +145,7 @@ export default function ResourcesPage(props) {
     },
     {
       tool: "Task Lists",
-      img: timer,
+      img: tasklist,
       des:
         "Task Lists are useful for short term and long term planning. " +
         "They give you a place to write things down, so you don't have to stress about remembering them. " +
@@ -147,7 +153,7 @@ export default function ResourcesPage(props) {
     },
     {
       tool: "Calendars",
-      img: timer,
+      img: calendar,
       des:
         "Calendars are useful tools that allow you to plan out and organize " +
         "your events, tasks, and projects. " +
@@ -155,7 +161,7 @@ export default function ResourcesPage(props) {
     },
     {
       tool: "Reflections",
-      img: timer,
+      img: reflections,
       des:
         "Relfections or self reflection is a technique where you take the time to think deeply about your behaviors, motivations, thoughts, and more." +
         " This way of introspectively thinking can help you better understand yourself from your strengths, weaknesses," +

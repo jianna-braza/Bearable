@@ -123,7 +123,7 @@ export const CalendarPage = () => {
                 )}
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="homepage-button"
                   onClick={saveEvent}
                 >
                   Save
