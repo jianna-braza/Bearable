@@ -7,7 +7,6 @@ import TaskManager from './taskManager/taskManager.js';
 import CalendarPage from './taskManager/CalendarPage.js';
 import withSplashScreen from './splashScreen/withSplashScreen.js';
 import ResourcesPage from './resourcesPage/ResourcesPage.js';
-import QuizResults from './resourcesPage/QuizResults.js';
 
 class App extends Component {
   render() {
@@ -20,7 +19,6 @@ class App extends Component {
             <Route path="taskmanager" element={<TaskManager />} />
             <Route path="calendar" element={<CalendarPage />} />
             <Route path="resources" element={<ResourcesPage />} />
-            <Route path="quizresults" element={<QuizResults />} />
             <Route path='*' element={<Navigate to='/homepage' />} />
           </Routes>
       </Router>

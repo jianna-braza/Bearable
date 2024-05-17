@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../Navbar.js';
 import db from "../firebase.js";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
@@ -7,6 +6,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import firebase from "firebase/compat/app";
 // Required for side-effects
 import "firebase/firestore";
+import SideMenu from './SideMenu.js';
 
 export default function TaskManager(props) {
 
@@ -283,12 +283,9 @@ export default function TaskManager(props) {
       </header>
       <main>
         <div className='d-flex row'>
-          <section className='col-2 pt-5 view-section'>
-            <div className='row'>
-              <button type="button" className="view-button mb-2">Board View</button>
-              <button type="button" className="view-button"><Link to='/calendar'>Calendar view</Link></button>
-            </div>
-          </section>
+
+          <SideMenu />
+
           <section className='col-10 pt-4 task-section'>
 
             <div className="d-flex justify-content-around mb-3">

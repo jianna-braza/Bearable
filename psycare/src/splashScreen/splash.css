@@ -49,7 +49,6 @@
 }
 
 .splash-background {
-  background-color: #F2EBE0;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -58,12 +57,11 @@
   opacity: 1;
 }
 
-.welcome-to, .the-header, .aquapod-header {
+.line1, .line2, .line3 {
   color: #024343;
 }
 
-/* Welcome to */
-.welcome-to {
+.line1 {
   left: 565px;
   top: 300px;
   font-weight: 400;
@@ -72,8 +70,7 @@
   text-align: center;
 }
 
-/* the */
-.the-header {
+.line2 {
   left: 667px;
   top: 363px;
   font-weight: 400;
@@ -82,8 +79,7 @@
   text-align: center;
 }
 
-/* AquaPod */
-.aquapod-header {
+.line3 {
   left: 535px;
   top: 406px;
   font-weight: 400;

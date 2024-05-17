@@ -162,7 +162,7 @@ export default function ResourcesPage(props) {
       tool: "Reflections",
       img: reflections,
       des:
-        "Relfections or self reflection is a technique where you take the time to think deeply about your behaviors, motivations, thoughts, and more." +
+        "Reflections or self reflection is a technique where you take the time to think deeply about your behaviors, motivations, thoughts, and more." +
         " This way of introspectively thinking can help you better understand yourself from your strengths, weaknesses," +
         " and motivations and as a result help you manage your symptoms through this understanding and self awareness.",
     },
@@ -173,7 +173,7 @@ export default function ResourcesPage(props) {
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className="quiz">
         <h2>Not sure where to start?</h2>
         <p>
           Learn more about the right tools for you! Take this quiz to learn more

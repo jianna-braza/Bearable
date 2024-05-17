@@ -25,9 +25,9 @@ function SplashMessage() {
 
     return (
         <div className="splash-background">
-            <h2 className="welcome-to">{quote.line1}</h2>
-            <h2 className="the-header">{quote.line2}</h2>
-            <h1 className="aquapod-header">{quote.line3}</h1>
+            <h2 className="line1">{quote.line1}</h2>
+            <h2 className="line2">{quote.line2}</h2>
+            <h1 className="line3">{quote.line3}</h1>
         </div>
     );
 }

@@ -3,6 +3,11 @@
   visibility:hidden;
 }
 
+.quiz {
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
 
 .whole {
   background-color: #F5F5F5;

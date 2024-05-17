@@ -3,6 +3,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Navbar from "../Navbar";
+import SideMenu from "./SideMenu";
 
 const localizer = momentLocalizer(moment);
 
@@ -59,80 +60,93 @@ export const CalendarPage = () => {
   return (
     <div style={{ height: "500px" }}>
       <Navbar />
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ margin: "50px" }}
-        selectable={true}
-        onSelectSlot={handleSelectSlot}
-        onSelectEvent={handleSelectedEvent}
-      />
 
-      {showModal && (
-        <div
-          className="modal"
-          style={{
-            display: "block",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            position: "fixed",
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-          }}
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">
-                  {selectEvent ? "Edit Event" : "Add Event"}
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => {
-                    setShowModal(false);
-                    setEventTitle("");
-                    setSelectEvent(null);
-                  }}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <label htmlFor="eventTitle" className="form-label">
-                  Event Title:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="eventTitle"
-                  value={eventTitle}
-                  onChange={(e) => setEventTitle(e.target.value)}
-                />
-              </div>
-              <div className="modal-footer">
-                {selectEvent && (
-                  <button
-                    type="button"
-                    className="btn btn-danger me-2"
-                    onClick={deleteEvents}
-                  >
-                    Delete Events
-                  </button>
-                )}
-                <button
-                  type="button"
-                  className="homepage-button"
-                  onClick={saveEvent}
-                >
-                  Save
-                </button>
+      <div className="d-flex row" >
+        <SideMenu />
+        <section className='col-10'>
+
+
+
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ margin: "50px" }}
+            selectable={true}
+            onSelectSlot={handleSelectSlot}
+            onSelectEvent={handleSelectedEvent}
+          />
+
+          {showModal && (
+            <div
+              className="modal"
+              style={{
+                display: "block",
+                backgroundColor: "rgba(0,0,0,0.5)",
+                position: "fixed",
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+              }}
+            >
+              <div className="modal-dialog">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">
+                      {selectEvent ? "Edit Event" : "Add Event"}
+                    </h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={() => {
+                        setShowModal(false);
+                        setEventTitle("");
+                        setSelectEvent(null);
+                      }}
+                    ></button>
+                  </div>
+                  <div className="modal-body">
+                    <label htmlFor="eventTitle" className="form-label">
+                      Event Title:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="eventTitle"
+                      value={eventTitle}
+                      onChange={(e) => setEventTitle(e.target.value)}
+                    />
+                  </div>
+                  <div className="modal-footer">
+                    {selectEvent && (
+                      <button
+                        type="button"
+                        className="btn btn-danger me-2"
+                        onClick={deleteEvents}
+                      >
+                        Delete Events
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      className="homepage-button"
+                      onClick={saveEvent}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          )}
+
+
+
+        </section>
+
+      </div>
     </div>
   );
 };
